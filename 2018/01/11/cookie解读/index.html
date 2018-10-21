@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>cookie解读 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="cookie与过期日期和域名相关联，从而确保正确的服务器能够读取正确的cookie，我觉得cookie就是一个便捷的小工具。">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cookie解读">
+<meta property="og:url" content="http://yoursite.com/2018/01/11/cookie解读/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="cookie与过期日期和域名相关联，从而确保正确的服务器能够读取正确的cookie，我觉得cookie就是一个便捷的小工具。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-03-13T15:16:02.124Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cookie解读">
+<meta name="twitter:description" content="cookie与过期日期和域名相关联，从而确保正确的服务器能够读取正确的cookie，我觉得cookie就是一个便捷的小工具。">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-cookie解读" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/11/cookie解读/" class="article-date">
+  <time datetime="2018-01-11T12:33:18.000Z" itemprop="datePublished">2018-01-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cookie解读
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>cookie与过期日期和域名相关联，从而确保正确的服务器能够读取正确的cookie，我觉得cookie就是一个便捷的小工具。<br><a id="more"></a></p>
+<p>这是一个完整的代码，先为cookie设置一个值，每次载入页面时都将访问它并递增该值。当该值大于5时，就将这个cookie删除，然后在下一代页面载入时重新创建这个cookie。</p>
+<p>1.启用cookie</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(navigator.cookieEnabled) &#123;</span><br><span class="line">		<span class="keyword">var</span> sum = readCookie(<span class="string">"sum"</span>);</span><br><span class="line">		<span class="keyword">if</span>(sum) &#123;</span><br><span class="line">			<span class="keyword">var</span> iSum = <span class="built_in">parseInt</span>(sum)+<span class="number">1</span>;</span><br><span class="line">			alert(<span class="string">"cookie count is"</span>+iSum);</span><br><span class="line">			<span class="keyword">if</span>(iSum &gt; <span class="number">5</span>) &#123;</span><br><span class="line">				eraseCookie(<span class="string">"sum"</span>);</span><br><span class="line">			&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">				setCookie(<span class="string">"sum"</span>,iSum);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			alert(<span class="string">"no cookie,setting now"</span>);</span><br><span class="line">			setCookie(<span class="string">"sum"</span>,<span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.将cookie的有效日期设置为2017年</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setCookie</span>(<span class="params">key,value</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> cookieDate = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2018</span>,<span class="number">01</span>,<span class="number">11</span>,<span class="number">19</span>,<span class="number">30</span>,<span class="number">30</span>);</span><br><span class="line">	<span class="built_in">document</span>.cookie=key + <span class="string">"="</span> +enCodeURI(value) + <span class="string">"; expires="</span> + cookieDate.toGMTString()+<span class="string">"; path=/"</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3.在每个cookie之前用分号隔开，最后获取cookie</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">readCookie</span>(<span class="params">key</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> cookie = <span class="built_in">document</span>.cookie;</span><br><span class="line">	<span class="keyword">var</span> first = cookie.indexOf(key+<span class="string">"="</span>);</span><br><span class="line">	<span class="comment">//存在cookie</span></span><br><span class="line">	<span class="keyword">if</span>(first &gt;=<span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">var</span> str = cookie.substring(first,cookie.length);</span><br><span class="line">		<span class="keyword">var</span> last = str.indexOf(<span class="string">";"</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果是最后一个cookie</span></span><br><span class="line">        <span class="keyword">if</span> (last&lt;<span class="number">0</span>)</span><br><span class="line">        	last=str.length;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取cookie的值</span></span><br><span class="line">        str=str.substring(<span class="number">0</span>,last).split(<span class="string">"="</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">decodeURI</span>(str[<span class="number">1</span>]);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.将cookie的有效日期设置成过去，从而删除cookie</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">eraseCookie</span> (<span class="params">key</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> cookieDate = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2017</span>,<span class="number">01</span>,<span class="number">11</span>,<span class="number">19</span>,<span class="number">30</span>,<span class="number">30</span>);</span><br><span class="line">	<span class="built_in">document</span>.cookie = key+<span class="string">"=; expires="</span>+cookieDate.toGMTString()+<span class="string">";path=/"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/11/cookie解读/" data-id="cjniwldud00015wv1dlnfk03i" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/12/nodej基本原理解析/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          node基本原理解析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/11/21/DOM基础知识学习/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">DOM基础知识学习</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ajax/">Ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/computer-science/">computer science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript-DOM/">javascript DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-os/">linux os</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/os/">os</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/computer-science/" style="font-size: 10px;">computer science</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/javascript-DOM/" style="font-size: 10px;">javascript DOM</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux-os/" style="font-size: 10px;">linux os</a> <a href="/tags/node-js/" style="font-size: 20px;">node js</a> <a href="/tags/os/" style="font-size: 10px;">os</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/16/qiaogg/">qiaogg</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/11/进程同步机制/">进程同步机制</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/11/linux进程管理及状态解析/">linux进程管理及状态解析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/04/荒废的两个月/">荒废的两个月</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/12/探索express框架及其中间件/">探索express框架及其中间件</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

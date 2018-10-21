@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>DOM基础知识学习 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="刚刚学习了DOM的相关操作，可能是太笨了吧，感觉还是很有难度很抽象的，所以就想查找一些资料总结记录一下这些知识点。DOM是针对xml经过扩展用于html的应用程序编程接口，我们又叫API。DOM给我们提供了用程序来动态控制html的接口，因此，DOM处在javascript赋予html具备动态交互和效果的能力的核心地位上。">
+<meta name="keywords" content="javascript DOM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DOM基础知识学习">
+<meta property="og:url" content="http://yoursite.com/2017/11/21/DOM基础知识学习/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="刚刚学习了DOM的相关操作，可能是太笨了吧，感觉还是很有难度很抽象的，所以就想查找一些资料总结记录一下这些知识点。DOM是针对xml经过扩展用于html的应用程序编程接口，我们又叫API。DOM给我们提供了用程序来动态控制html的接口，因此，DOM处在javascript赋予html具备动态交互和效果的能力的核心地位上。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-03-13T15:17:51.154Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DOM基础知识学习">
+<meta name="twitter:description" content="刚刚学习了DOM的相关操作，可能是太笨了吧，感觉还是很有难度很抽象的，所以就想查找一些资料总结记录一下这些知识点。DOM是针对xml经过扩展用于html的应用程序编程接口，我们又叫API。DOM给我们提供了用程序来动态控制html的接口，因此，DOM处在javascript赋予html具备动态交互和效果的能力的核心地位上。">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-DOM基础知识学习" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/21/DOM基础知识学习/" class="article-date">
+  <time datetime="2017-11-21T15:40:47.000Z" itemprop="datePublished">2017-11-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      DOM基础知识学习
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>刚刚学习了DOM的相关操作，可能是太笨了吧，感觉还是很有难度很抽象的，所以就想查找一些资料总结记录一下这些知识点。DOM是针对xml经过扩展用于html的应用程序编程接口，我们又叫API。DOM给我们提供了用程序来动态控制html的接口，因此，DOM处在javascript赋予html具备动态交互和效果的能力的核心地位上。</p>
+<a id="more"></a>
+<p>DOM结点：<br>DOM使用对象的表示方式来表示对应文档的结构和属性<br>DOM结点分为元素节点，文本节点，注释节点等</p>
+<p>获取DOM节点的几种方法：</p>
+<pre><code>方式一 ：通过getElementById获取节点，得到的是唯一的一个标签对象，因为文档中的ID是唯一的
+方式二 ：通过getElementsByTagName获取节点。获取指定标签名的元素或元素集合或相同类的集合。
+         通过getElementsName获取元素。获取的是元素名称或者名字相同的一个集合。
+         document.getElementByTagName(&quot;p&quot;)可以得到文档中所有的p标签
+         document.getElementByTagName(&quot;p&quot;)[i]可以逐一访问获取到的P标签
+方式三： 通过getElementByClassName获取节点，获取文档中指定class名的标签
+方式四： 通过querySelector/querySelectorAll获取节点，获取到的是符合传入css选择器的第一个元素或者全部元素
+</code></pre><p>DOM节点遍历：</p>
+<pre><code>如果要获取一个唯一的节点，可以通过节点间的直接关系，来遍历DOM树。
+var tree = document.getElementById(&apos;tree&apos;);
+tree.parentNode; //获取父节点
+tree.firstChild/tree.lastChild;  //获取第一个或者最后一个子节点
+tree.child Nodes/tree.children; //获取所有的子节点、所有的子(元素节点)
+tree.previousSibling/tree.nextSibling; //获取前一个/后一个兄弟节点
+tree.previousElement Sibling/tree.nextElementSibling; //获取前一个/后一个兄弟元素节点
+</code></pre><p>创建DOM节点：</p>
+<pre><code>tree = document.createElement(tagname);  //创建指定标签名称的节点
+</code></pre><p>修改DOM节点：</p>
+<pre><code>textContent获取节点及其后代节点的文本内容
+tree.textContent;  //一锅
+tree.textContent=&quot;大锅&quot;;  //将一锅修改为大锅
+innerText获取节点及其后代节点的文本内容，使用方法与textContent一样，但是兼容的浏览器不一致
+</code></pre><p>插入DOM节点:</p>
+<pre><code>appendChild方法在指定元素后追加一个元素节点
+var h1 = document.createElement(h1);
+h1.innerText=&quot;一锅&quot;;
+tree.appendChild(h1); //在ID为tree的标签中插入一个h1标签
+insertBefore方法在指定的节点前面插入一个节点。
+tree.insertBefore(ul,h1); //在id为tree的标签中，h1前面插入一个ul标签
+</code></pre><p>删除DOM节点:</p>
+<pre><code>removeChild方法删除节点;
+tree.removeChild(h1); //删除h1节点，等价于h1.parentNode.removeChild(h1);
+</code></pre><p>innerHTMl: innerHTMl表示节点的HTML内容，可以批量创建节点，插入节点，删除节点</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/11/21/DOM基础知识学习/" data-id="cjniwldu800005wv1chuwgzlu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript-DOM/">javascript DOM</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/01/11/cookie解读/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          cookie解读
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/11/17/css之border理解-圣诞树/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">css之border理解-圣诞树</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ajax/">Ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/computer-science/">computer science</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript-DOM/">javascript DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux-os/">linux os</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/os/">os</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Ajax/" style="font-size: 10px;">Ajax</a> <a href="/tags/computer-science/" style="font-size: 10px;">computer science</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/javascript-DOM/" style="font-size: 10px;">javascript DOM</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/linux-os/" style="font-size: 10px;">linux os</a> <a href="/tags/node-js/" style="font-size: 20px;">node js</a> <a href="/tags/os/" style="font-size: 10px;">os</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/16/qiaogg/">qiaogg</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/11/进程同步机制/">进程同步机制</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/11/linux进程管理及状态解析/">linux进程管理及状态解析</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/04/荒废的两个月/">荒废的两个月</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/12/探索express框架及其中间件/">探索express框架及其中间件</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
