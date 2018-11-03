@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Linux 是开源操作系统，用户可以根据自身系统需要裁剪、修改内核，定制出功能更加合适、运行效率更高的系统，因此，编译 linux 内核是进行内核开发的必要基本功。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-03T08:59:22.558Z">
+<meta property="og:updated_time" content="2018-11-03T09:03:52.955Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux内核编译及添加系统调用">
 <meta name="twitter:description" content="Linux 是开源操作系统，用户可以根据自身系统需要裁剪、修改内核，定制出功能更加合适、运行效率更高的系统，因此，编译 linux 内核是进行内核开发的必要基本功。">
@@ -320,8 +320,8 @@
         <p>Linux 是开源操作系统，用户可以根据自身系统需要裁剪、修改内核，定制出功能更加合适、运行效率更高的系统，因此，编译 linux 内核是进行内核开发的必要基本功。</p>
 <a id="more"></a>
 <p>内容：添加一个系统调用，实现对指定进程的 nice 值的修改或读取功能， 并返回进程最新的 nice 值及优先级 prio。建议调用原型为：</p>
-<pre><code>int mysetnice(pid_t pid, int flag, int nicevalue, void __user * prio, void __user * nice);
-</code></pre><p>参数含义:<br>pid：进程 ID。<br>flag：若值为 0，表示读取 nice 值；若值为 1，表示修改 nice 值。<br>prio、nice：进程当前优先级及 nice 值。<br>返回值： 系统调用成功时返回 0，失败时返回错误码 EFAULT。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int mysetnice(pid_t pid, int flag, int nicevalue, <span class="keyword">void</span> __user * prio, <span class="keyword">void</span> __user * nice);</span><br></pre></td></tr></table></figure>
+<p>参数含义:<br>pid：进程 ID。<br>flag：若值为 0，表示读取 nice 值；若值为 1，表示修改 nice 值。<br>prio、nice：进程当前优先级及 nice 值。<br>返回值： 系统调用成功时返回 0，失败时返回错误码 EFAULT。</p>
 <p>#添加系统调用</p>
 <ol>
 <li>分配系统调用号，修改系统调用表<br> 查看系统调用表(./arch/x86/entry/syscalls/syscall_64.tbl)<br> 添加一条记录  335        64        mysetnice         sys_mysetnice</li>
@@ -393,7 +393,7 @@
         <p><span>本文标题:</span><a href="/2018/11/03/linux内核编译及添加系统调用/">linux内核编译及添加系统调用</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 杨文旭 的个人博客">杨文旭</a></p>
         <p><span>发布时间:</span>2018年11月03日 - 16时06分</p>
-        <p><span>最后更新:</span>2018年11月03日 - 16时59分</p>
+        <p><span>最后更新:</span>2018年11月03日 - 17时03分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/11/03/linux内核编译及添加系统调用/" title="linux内核编译及添加系统调用">http://yangwenxu.cn/2018/11/03/linux内核编译及添加系统调用/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yangwenxu.cn/2018/11/03/linux内核编译及添加系统调用/　　作者: 杨文旭" title=""></span>
