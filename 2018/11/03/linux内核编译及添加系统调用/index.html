@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Linux 是开源操作系统，用户可以根据自身系统需要裁剪、修改内核，定制出功能更加合适、运行效率更高的系统，因此，编译 linux 内核是进行内核开发的必要基本功。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-03T09:09:33.417Z">
+<meta property="og:updated_time" content="2018-11-03T09:15:07.706Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux内核编译及添加系统调用">
 <meta name="twitter:description" content="Linux 是开源操作系统，用户可以根据自身系统需要裁剪、修改内核，定制出功能更加合适、运行效率更高的系统，因此，编译 linux 内核是进行内核开发的必要基本功。">
@@ -319,10 +319,10 @@
           
         <p>Linux 是开源操作系统，用户可以根据自身系统需要裁剪、修改内核，定制出功能更加合适、运行效率更高的系统，因此，编译 linux 内核是进行内核开发的必要基本功。</p>
 <a id="more"></a>
-<p>内容：添加一个系统调用，实现对指定进程的 nice 值的修改或读取功能， 并返回进程最新的 nice 值及优先级 prio。建议调用原型为：</p>
+<h2 id="课程设计内容"><a href="#课程设计内容" class="headerlink" title="课程设计内容"></a>课程设计内容</h2><p>内容：添加一个系统调用，实现对指定进程的 nice 值的修改或读取功能， 并返回进程最新的 nice 值及优先级 prio。建议调用原型为：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int mysetnice(pid_t pid, int flag, int nicevalue, <span class="keyword">void</span> __user * prio, <span class="keyword">void</span> __user * nice);</span><br></pre></td></tr></table></figure>
 <p>参数含义:<br>pid：进程 ID。<br>flag：若值为 0，表示读取 nice 值；若值为 1，表示修改 nice 值。<br>prio、nice：进程当前优先级及 nice 值。<br>返回值： 系统调用成功时返回 0，失败时返回错误码 EFAULT。</p>
-<h1 id="添加系统调用"><a href="#添加系统调用" class="headerlink" title="添加系统调用"></a>添加系统调用</h1><ol>
+<h2 id="添加系统调用"><a href="#添加系统调用" class="headerlink" title="添加系统调用"></a>添加系统调用</h2><ol>
 <li>分配系统调用号，修改系统调用表<br> 查看系统调用表(./arch/x86/entry/syscalls/syscall_64.tbl)<br> 添加一条记录  335        64        mysetnice         sys_mysetnice</li>
 <li><p>申明系统调用服务例程原型<br>  文件 (./include/linux/syscalls.h) 中，在末尾endif上面添加一句：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">asmlinkage long sys_mysetnice(pid_t pid,int flag,int nicevalue,<span class="keyword">void</span> __user * prio,<span class="keyword">void</span> __user * nice);</span><br></pre></td></tr></table></figure>
@@ -331,7 +331,7 @@
 <li>下面为新调用的 mysetnice 编写服务例程 sys_mysetnice， 通常添加在(./kernel/sys.c )文件中</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">SYSCALL_DEFINE5(mysetnice, pid_t, pid, int, flag, int, nicevalue, <span class="keyword">void</span> __user *, prio, <span class="keyword">void</span> __user *, nice)</span><br><span class="line">&#123;</span><br><span class="line">	struct pid * kpid;</span><br><span class="line">	struct task_struct * task;</span><br><span class="line">	int nicebef; </span><br><span class="line">	int priobef;</span><br><span class="line">	kpid = find_get_pid(pid);   <span class="comment">// 根据 进程号返回 pid 类型的一个结构体</span></span><br><span class="line">	task = pid_task(kpid, PIDTYPE_PID);  <span class="comment">// 返回 task_struct类型的一个结构体</span></span><br><span class="line">	nicebef = task_nice(task);   <span class="comment">// 修改前的nice值</span></span><br><span class="line">	priobef = task_prio(task);	 <span class="comment">// 修改前的priority值</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(flag == <span class="number">1</span>)&#123;</span><br><span class="line">		set_user_nice(task, nicevalue);</span><br><span class="line">		printk(<span class="string">"修改前的nice值：%d\t修改后的nice值：%d\n"</span>, nicebef, nicevalue);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(flag == <span class="number">0</span>)&#123;</span><br><span class="line">		copy_to_user(nice, (<span class="keyword">const</span> <span class="keyword">void</span>*)&amp;nicebef, sizeof(nicebef));  <span class="comment">// 内核态 到 用户态</span></span><br><span class="line">		copy_to_user(prio, (<span class="keyword">const</span> <span class="keyword">void</span>*)&amp;priobef, sizeof(priobef));</span><br><span class="line">		printk(<span class="string">"该进程的nice值是：%d\n"</span>, nicebef);</span><br><span class="line">		printk(<span class="string">"该进程的prio值是：%d\n"</span>, priobef);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	printk(<span class="string">"你输入的 flag 有误，请重新输入!\n"</span>);</span><br><span class="line">	<span class="keyword">return</span> EFAULT;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>#编译内核</p>
+<p>##编译内核</p>
 <ol>
 <li>安装环境并下载源码后, 所有的命令都必须是root下，清除残留的.config和.o文件<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make mrproper</span><br></pre></td></tr></table></figure>
 </li>
@@ -387,7 +387,7 @@
         <p><span>本文标题:</span><a href="/2018/11/03/linux内核编译及添加系统调用/">linux内核编译及添加系统调用</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 杨文旭 的个人博客">杨文旭</a></p>
         <p><span>发布时间:</span>2018年11月03日 - 16时06分</p>
-        <p><span>最后更新:</span>2018年11月03日 - 17时09分</p>
+        <p><span>最后更新:</span>2018年11月03日 - 17时15分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/11/03/linux内核编译及添加系统调用/" title="linux内核编译及添加系统调用">http://yangwenxu.cn/2018/11/03/linux内核编译及添加系统调用/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yangwenxu.cn/2018/11/03/linux内核编译及添加系统调用/　　作者: 杨文旭" title=""></span>
@@ -415,7 +415,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#添加系统调用"><span class="toc-number">1.</span> <span class="toc-text">添加系统调用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#set-user-nice"><span class="toc-number">1.1.</span> <span class="toc-text">set_user_nice()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#copy-to-user"><span class="toc-number">1.2.</span> <span class="toc-text">copy_to_user()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pid-task"><span class="toc-number">1.3.</span> <span class="toc-text">pid_task()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#find-get-pid"><span class="toc-number">1.4.</span> <span class="toc-text">find_get_pid()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#task-struct"><span class="toc-number">1.5.</span> <span class="toc-text">task_struct</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#课程设计内容"><span class="toc-number">1.</span> <span class="toc-text">课程设计内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加系统调用"><span class="toc-number">2.</span> <span class="toc-text">添加系统调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#set-user-nice"><span class="toc-number">3.</span> <span class="toc-text">set_user_nice()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#copy-to-user"><span class="toc-number">4.</span> <span class="toc-text">copy_to_user()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pid-task"><span class="toc-number">5.</span> <span class="toc-text">pid_task()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#find-get-pid"><span class="toc-number">6.</span> <span class="toc-text">find_get_pid()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#task-struct"><span class="toc-number">7.</span> <span class="toc-text">task_struct</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
