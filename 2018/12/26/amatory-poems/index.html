@@ -7,20 +7,20 @@
   
   
   
-  <title>探索express框架及其中间件 | Hexo</title>
+  <title>amatory poems | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="express保留了原生的功能，添加了一些方法(send)，增强原有的功能，但仍然可以使用wirte，和end。nodejs应该一直在增强，可以会出来更牛逼的方法。">
-<meta name="keywords" content="node js">
+  <meta name="description" content="工程师不仅会写代码，还会写情诗哦，但这情诗不是我写的，不要来笑我">
+<meta name="keywords" content="life">
 <meta property="og:type" content="article">
-<meta property="og:title" content="探索express框架及其中间件">
-<meta property="og:url" content="http://yangwenxu.cn/2018/03/12/探索express框架及其中间件/index.html">
+<meta property="og:title" content="amatory poems">
+<meta property="og:url" content="http://yangwenxu.cn/2018/12/26/amatory-poems/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="express保留了原生的功能，添加了一些方法(send)，增强原有的功能，但仍然可以使用wirte，和end。nodejs应该一直在增强，可以会出来更牛逼的方法。">
+<meta property="og:description" content="工程师不仅会写代码，还会写情诗哦，但这情诗不是我写的，不要来笑我">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-03-13T15:06:52.975Z">
+<meta property="og:updated_time" content="2018-12-26T16:16:49.351Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="探索express框架及其中间件">
-<meta name="twitter:description" content="express保留了原生的功能，添加了一些方法(send)，增强原有的功能，但仍然可以使用wirte，和end。nodejs应该一直在增强，可以会出来更牛逼的方法。">
+<meta name="twitter:title" content="amatory poems">
+<meta name="twitter:description" content="工程师不仅会写代码，还会写情诗哦，但这情诗不是我写的，不要来笑我">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -277,11 +277,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-探索express框架及其中间件" class="article article-type-post" itemscope="" itemprop="blogPost">
+      <div class="body-wrap"><article id="“”-amatory-poems" class="article article-type-“”" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/03/12/探索express框架及其中间件/" class="article-date">
-      <time datetime="2018-03-12T14:44:36.000Z" itemprop="datePublished">2018-03-12</time>
+      <a href="/2018/12/26/amatory-poems/" class="article-date">
+      <time datetime="2018-12-26T15:57:55.000Z" itemprop="datePublished">2018-12-26</time>
 </a>
 
     </div>
@@ -295,7 +295,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      探索express框架及其中间件
+      amatory poems
     </h1>
   
 
@@ -307,7 +307,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node js</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/life/">life</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -317,38 +317,61 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>express保留了原生的功能，添加了一些方法(send)，增强原有的功能，但仍然可以使用wirte，和end。nodejs应该一直在增强，可以会出来更牛逼的方法。</p>
+        <p>工程师不仅会写代码，还会写情诗哦，但这情诗不是我写的，不要来笑我</p>
 <a id="more"></a>
-<ol>
-<li><p>初始express框架</p>
-<p>(1). 引入express框架，const express = require(“express”);</p>
-<pre><code>a. 创建服务
-    var server=express();
-b. 监听
-    server.listen(8080);
-c. 处理请求
-    server.use(&apos;地址&apos;, function (req, res){});
-d. req和res是一种非破坏式的方法。
-</code></pre><p>(2). 3种接收用户请求的方法：</p>
-<pre><code>.get(&apos;/&apos;, function (req, res){});
-.post(&apos;/&apos;, function (req, res){});
-.use(&apos;/&apos;, function (req, res){}); 这种use方法get和post通吃。
-</code></pre><p>  (3). express框架依赖中间件，如express-static的用法：</p>
-<pre><code>const expressStatic=require(&apos;express-static&apos;);
-  server.use(static(&apos;./www&apos;));
-</code></pre></li>
-<li><p>Express中的GET和POST</p>
-<p> (1). GET无需中间件支持,直接使用req.query就可以。<br>   (2). POST需要”body-parser”这个中间件。</p>
-<pre><code>先解析body-parser: server.use(bodyParser.urlencoded({}));
-  然后 server.use(function (){req.body}); 这里用的是req.body.
-</code></pre></li>
-<li><p>链式操作</p>
-<p>   get,post,use都有链式操作，都有next，next就是指下一个步骤，next();<br>   server.use(function (req, res, next){});<br>   server.get(‘/‘, function (req, res, next){});<br>   server.post(function (req, res, next){});</p>
-</li>
-<li><p>中间件(body-parser)，水平高的大佬们就可以自己写中间件。<br>中间件内部也有next();</p>
-</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server.use(<span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> str=<span class="string">''</span>;</span><br><span class="line">  req.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>)</span>&#123;</span><br><span class="line">    str+=data;</span><br><span class="line">  &#125;);</span><br><span class="line">  req.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">    req.body=querystring.parse(str);</span><br><span class="line">    next();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="阳光下的热爱"><a href="#阳光下的热爱" class="headerlink" title="阳光下的热爱"></a>阳光下的热爱</h2><pre><code>若代码丢了
+这世界一切都完了
+他们可以拿走一切
+摘下星星
+卷起天空
+放上货车
+也不能熄灭我的阳光
+因为我爱在底下哼着歌，敲代码
+</code></pre><h2 id="他是个单纯的小孩"><a href="#他是个单纯的小孩" class="headerlink" title="他是个单纯的小孩"></a>他是个单纯的小孩</h2><pre><code>只是想沉浸在代码的海洋
+毕竟
+电脑是一个单纯的小孩
+只要顺着他的小脾气就好
+比起带着面具的大人要好很多
+</code></pre><h2 id="守望"><a href="#守望" class="headerlink" title="守望"></a>守望</h2><pre><code>世界上最遥远的距离
+不是生与死的距离
+是你在if我在else
+虽然时常一起出现
+但永远不会结伴而行
+感谢try-catch
+让我有机会成为你的finally
+守在这必经的渡口
+</code></pre><h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><pre><code>像一颗茂盛的树
+叶片交错，不遮挡彼此的阳光
+枝干延伸，生长出无数的可能
+这是我钟情的代码
+也是向往的另一半
+</code></pre><h2 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h2><pre><code>0和1的世界里
+我拥抱柔软的你
+破晓时分
+才发现爱你不过是虚拟
+我可以抽象出整个世界
+可我抽象不出一个你
+你就是那么具体
+</code></pre><h2 id="我们的岁月"><a href="#我们的岁月" class="headerlink" title="我们的岁月"></a>我们的岁月</h2><pre><code>彼此的架构，交互的雪
+驱动万千的对象，多态之队列
+送来新的map，带来新的set
+画着从未有的symbol，唱歌永恒的const
+此时的她就像一个generator
+映射(reflect)着天空，解构着大地
+定义着新的模板，串起没一个iterator
+走过似箭(=&gt;)的寒风
+静默(static)间，同步异步的雪
+她坚守着曾经的承诺(promise)
+紧握万千扩展
+完成这如诗如画的洁白
+而不变的是你我奋战的岁月
+</code></pre><h2 id="暗恋"><a href="#暗恋" class="headerlink" title="暗恋"></a>暗恋</h2><pre><code>阳光明媚的早晨
+与你邂逅
+我的心就像
+那不收敛的Loss
+满怀期待
+又小鹿乱撞
+</code></pre><p>愿所有善良的程序猿都能找到温暖的另一半<br>愿所有为梦想而奋斗的人都能平安顺遂</p>
 
       
     </div>
@@ -357,13 +380,13 @@ d. req和res是一种非破坏式的方法。
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/03/12/探索express框架及其中间件/">探索express框架及其中间件</a></p>
+        <p><span>本文标题:</span><a href="/2018/12/26/amatory-poems/">amatory poems</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 杨文旭 的个人博客">杨文旭</a></p>
-        <p><span>发布时间:</span>2018年03月12日 - 22时44分</p>
-        <p><span>最后更新:</span>2018年03月13日 - 23时06分</p>
+        <p><span>发布时间:</span>2018年12月26日 - 23时57分</p>
+        <p><span>最后更新:</span>2018年12月27日 - 00时16分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/03/12/探索express框架及其中间件/" title="探索express框架及其中间件">http://yangwenxu.cn/2018/03/12/探索express框架及其中间件/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yangwenxu.cn/2018/03/12/探索express框架及其中间件/　　作者: 杨文旭" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/12/26/amatory-poems/" title="amatory poems">http://yangwenxu.cn/2018/12/26/amatory-poems/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yangwenxu.cn/2018/12/26/amatory-poems/　　作者: 杨文旭" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target="_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -374,18 +397,9 @@ d. req和res是一种非破坏式的方法。
 
 <nav id="article-nav">
   
-    <a href="/2018/06/04/荒废的两个月/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          荒废的两个月
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/03/12/nodej基本原理解析/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">node基本原理解析</div>
+    <a href="/2018/12/24/C语言多进程/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C语言多进程</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -397,7 +411,7 @@ d. req和res是一种非破坏式的方法。
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#阳光下的热爱"><span class="toc-number">1.</span> <span class="toc-text">阳光下的热爱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#他是个单纯的小孩"><span class="toc-number">2.</span> <span class="toc-text">他是个单纯的小孩</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#守望"><span class="toc-number">3.</span> <span class="toc-text">守望</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#树"><span class="toc-number">4.</span> <span class="toc-text">树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#抽象"><span class="toc-number">5.</span> <span class="toc-text">抽象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#我们的岁月"><span class="toc-number">6.</span> <span class="toc-text">我们的岁月</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#暗恋"><span class="toc-number">7.</span> <span class="toc-text">暗恋</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -470,13 +484,11 @@ d. req和res是一种非破坏式的方法。
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/06/04/荒废的两个月/" title="上一篇: 荒废的两个月">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2018/03/12/nodej基本原理解析/" title="下一篇: node基本原理解析">
+            <a href="/2018/12/24/C语言多进程/" title="下一篇: C语言多进程">
                 <i class="fa fa-angle-right"></i>
             </a>
         
