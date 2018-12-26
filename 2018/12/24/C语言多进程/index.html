@@ -9,18 +9,18 @@
   
   <title>C语言多进程 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="多进程核的个数与可同时运行的进程数相同。相反，若进程数超过核数，进程将分时使用CPU资源。但因为CPU运行速度极快，我们会感到所有进程同时运行。当然多核越多，这种感觉也明显。">
+  <meta name="description" content="核的个数与可同时运行的进程数相同。相反，若进程数超过核数，进程将分时使用CPU资源。但因为CPU运行速度极快，我们会感到所有进程同时运行。当然多核越多，这种感觉也明显。">
 <meta name="keywords" content="linux c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C语言多进程">
 <meta property="og:url" content="http://yangwenxu.cn/2018/12/24/C语言多进程/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="多进程核的个数与可同时运行的进程数相同。相反，若进程数超过核数，进程将分时使用CPU资源。但因为CPU运行速度极快，我们会感到所有进程同时运行。当然多核越多，这种感觉也明显。">
+<meta property="og:description" content="核的个数与可同时运行的进程数相同。相反，若进程数超过核数，进程将分时使用CPU资源。但因为CPU运行速度极快，我们会感到所有进程同时运行。当然多核越多，这种感觉也明显。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-26T16:26:08.955Z">
+<meta property="og:updated_time" content="2018-12-26T16:28:12.929Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C语言多进程">
-<meta name="twitter:description" content="多进程核的个数与可同时运行的进程数相同。相反，若进程数超过核数，进程将分时使用CPU资源。但因为CPU运行速度极快，我们会感到所有进程同时运行。当然多核越多，这种感觉也明显。">
+<meta name="twitter:description" content="核的个数与可同时运行的进程数相同。相反，若进程数超过核数，进程将分时使用CPU资源。但因为CPU运行速度极快，我们会感到所有进程同时运行。当然多核越多，这种感觉也明显。">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -317,7 +317,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h1><p>核的个数与可同时运行的进程数相同。相反，若进程数超过核数，进程将分时使用CPU资源。但因为CPU运行速度极快，我们会感到所有进程同时运行。当然多核越多，这种感觉也明显。</p>
+        <p>核的个数与可同时运行的进程数相同。相反，若进程数超过核数，进程将分时使用CPU资源。但因为CPU运行速度极快，我们会感到所有进程同时运行。当然多核越多，这种感觉也明显。</p>
 <a id="more"></a>
 <h2 id="fork函数创建多进程"><a href="#fork函数创建多进程" class="headerlink" title="fork函数创建多进程"></a>fork函数创建多进程</h2><p>#include &lt;unistd.h&gt;</p>
 <p>pid_t fork(void);<br>fork函数将创建调用的进程副本。两个进程都将执行fork调用后的语句，子进程将复制父进程相同的内存空间，之后的程序流要根据fork函数的返回值加以区分。</p>
@@ -365,7 +365,7 @@
         <p><span>本文标题:</span><a href="/2018/12/24/C语言多进程/">C语言多进程</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 杨文旭 的个人博客">杨文旭</a></p>
         <p><span>发布时间:</span>2018年12月24日 - 15时21分</p>
-        <p><span>最后更新:</span>2018年12月27日 - 00时26分</p>
+        <p><span>最后更新:</span>2018年12月27日 - 00时28分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/12/24/C语言多进程/" title="C语言多进程">http://yangwenxu.cn/2018/12/24/C语言多进程/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yangwenxu.cn/2018/12/24/C语言多进程/　　作者: 杨文旭" title=""></span>
@@ -402,7 +402,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#多进程"><span class="toc-number">1.</span> <span class="toc-text">多进程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#fork函数创建多进程"><span class="toc-number">1.1.</span> <span class="toc-text">fork函数创建多进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进程与僵尸进程"><span class="toc-number">1.2.</span> <span class="toc-text">进程与僵尸进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#子进程的终止方式："><span class="toc-number">1.3.</span> <span class="toc-text">子进程的终止方式：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用wait函数"><span class="toc-number">1.4.</span> <span class="toc-text">使用wait函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用waitpid函数"><span class="toc-number">1.5.</span> <span class="toc-text">使用waitpid函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#信号处理"><span class="toc-number">1.6.</span> <span class="toc-text">信号处理</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#fork函数创建多进程"><span class="toc-number">1.</span> <span class="toc-text">fork函数创建多进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进程与僵尸进程"><span class="toc-number">2.</span> <span class="toc-text">进程与僵尸进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#子进程的终止方式："><span class="toc-number">3.</span> <span class="toc-text">子进程的终止方式：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用wait函数"><span class="toc-number">4.</span> <span class="toc-text">使用wait函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用waitpid函数"><span class="toc-number">5.</span> <span class="toc-text">使用waitpid函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#信号处理"><span class="toc-number">6.</span> <span class="toc-text">信号处理</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
