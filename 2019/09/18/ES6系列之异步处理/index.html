@@ -9,18 +9,18 @@
   
   <title>ES6系列之异步处理 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="API介绍为了实现异步，会简单用到几个NOdejs的API， fs.readdirreaddir方法用于读取目录，返回一个包含文件和目录的数组。 fs.statstat方法的参数是一个文件或目录，它产生一个对象，该对象包含了该文件或目录的具体信息。此外，该对象还有一个IsFile()方法可以判断正在处理的到底是一个文件，还是一个目录 思路分析我们基本的实现思路就是: 用fs.readdir获取指定">
+  <meta name="description" content="API介绍为了实现异步，会简单用到几个NOdejs的API， fs.readdirreaddir方法用于读取目录，返回一个包含文件和目录的数组。 fs.statstat方法的参数是一个文件或目录，它产生一个对象，该对象包含了该文件或目录的具体信息。此外，该对象还有一个IsFile()方法可以判断正在处理的到底是一个文件，还是一个目录 思路分析我们基本的实现思路就是: 用fs.readdir获取指">
 <meta name="keywords" content="js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6系列之异步处理">
 <meta property="og:url" content="http://yangwenxu.cn/2019/09/18/ES6系列之异步处理/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="API介绍为了实现异步，会简单用到几个NOdejs的API， fs.readdirreaddir方法用于读取目录，返回一个包含文件和目录的数组。 fs.statstat方法的参数是一个文件或目录，它产生一个对象，该对象包含了该文件或目录的具体信息。此外，该对象还有一个IsFile()方法可以判断正在处理的到底是一个文件，还是一个目录 思路分析我们基本的实现思路就是: 用fs.readdir获取指定">
+<meta property="og:description" content="API介绍为了实现异步，会简单用到几个NOdejs的API， fs.readdirreaddir方法用于读取目录，返回一个包含文件和目录的数组。 fs.statstat方法的参数是一个文件或目录，它产生一个对象，该对象包含了该文件或目录的具体信息。此外，该对象还有一个IsFile()方法可以判断正在处理的到底是一个文件，还是一个目录 思路分析我们基本的实现思路就是: 用fs.readdir获取指">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-17T17:21:20.049Z">
+<meta property="og:updated_time" content="2019-09-18T03:45:56.061Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6系列之异步处理">
-<meta name="twitter:description" content="API介绍为了实现异步，会简单用到几个NOdejs的API， fs.readdirreaddir方法用于读取目录，返回一个包含文件和目录的数组。 fs.statstat方法的参数是一个文件或目录，它产生一个对象，该对象包含了该文件或目录的具体信息。此外，该对象还有一个IsFile()方法可以判断正在处理的到底是一个文件，还是一个目录 思路分析我们基本的实现思路就是: 用fs.readdir获取指定">
+<meta name="twitter:description" content="API介绍为了实现异步，会简单用到几个NOdejs的API， fs.readdirreaddir方法用于读取目录，返回一个包含文件和目录的数组。 fs.statstat方法的参数是一个文件或目录，它产生一个对象，该对象包含了该文件或目录的具体信息。此外，该对象还有一个IsFile()方法可以判断正在处理的到底是一个文件，还是一个目录 思路分析我们基本的实现思路就是: 用fs.readdir获取指">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -317,7 +317,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="API介绍"><a href="#API介绍" class="headerlink" title="API介绍"></a>API介绍</h2><p>为了实现异步，会简单用到几个NOdejs的API，</p>
+        <a id="more"></a>
+<h2 id="API介绍"><a href="#API介绍" class="headerlink" title="API介绍"></a>API介绍</h2><p>为了实现异步，会简单用到几个NOdejs的API，</p>
 <h3 id="fs-readdir"><a href="#fs-readdir" class="headerlink" title="fs.readdir"></a>fs.readdir</h3><p>readdir方法用于读取目录，返回一个包含文件和目录的数组。</p>
 <h3 id="fs-stat"><a href="#fs-stat" class="headerlink" title="fs.stat"></a>fs.stat</h3><p>stat方法的参数是一个文件或目录，它产生一个对象，该对象包含了该文件或目录的具体信息。此外，该对象还有一个IsFile()方法可以判断正在处理的到底是一个文件，还是一个目录</p>
 <h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>我们基本的实现思路就是:</p>
@@ -341,7 +342,7 @@
         <p><span>本文标题:</span><a href="/2019/09/18/ES6系列之异步处理/">ES6系列之异步处理</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 杨文旭 的个人博客">杨文旭</a></p>
         <p><span>发布时间:</span>2019年09月18日 - 00时55分</p>
-        <p><span>最后更新:</span>2019年09月18日 - 01时21分</p>
+        <p><span>最后更新:</span>2019年09月18日 - 11时45分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/09/18/ES6系列之异步处理/" title="ES6系列之异步处理">http://yangwenxu.cn/2019/09/18/ES6系列之异步处理/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yangwenxu.cn/2019/09/18/ES6系列之异步处理/　　作者: 杨文旭" title=""></span>
