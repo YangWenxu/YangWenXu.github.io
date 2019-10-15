@@ -7,20 +7,22 @@
   
   
   
-  <title>C语言多进程 | Hexo</title>
+  <title>vue源码解析 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="核的个数与可同时运行的进程数相同。相反，若进程数超过核数，进程将分时使用CPU资源。但因为CPU运行速度极快，我们会感到所有进程同时运行。当然多核越多，这种感觉也明显。">
-<meta name="keywords" content="linux c">
+  <meta name="description" content="深入理解vue底层原理,手写vue核心部分实现,vue工作机制,Vue响应式的原理,依赖收集与追踪,编译compile">
+<meta name="keywords" content="vuejs">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C语言多进程">
-<meta property="og:url" content="http://yangwenxu.cn/2018/12/24/C语言多进程/index.html">
+<meta property="og:title" content="vue源码解析">
+<meta property="og:url" content="http://yangwenxu.cn/2019/10/15/vue源码解析/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="核的个数与可同时运行的进程数相同。相反，若进程数超过核数，进程将分时使用CPU资源。但因为CPU运行速度极快，我们会感到所有进程同时运行。当然多核越多，这种感觉也明显。">
+<meta property="og:description" content="深入理解vue底层原理,手写vue核心部分实现,vue工作机制,Vue响应式的原理,依赖收集与追踪,编译compile">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-26T16:28:12.929Z">
+<meta property="og:image" content="http://yangwenxu.cn/2019/10/15/vue源码解析/pictures/vue1.png">
+<meta property="og:updated_time" content="2019-10-15T16:36:20.150Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C语言多进程">
-<meta name="twitter:description" content="核的个数与可同时运行的进程数相同。相反，若进程数超过核数，进程将分时使用CPU资源。但因为CPU运行速度极快，我们会感到所有进程同时运行。当然多核越多，这种感觉也明显。">
+<meta name="twitter:title" content="vue源码解析">
+<meta name="twitter:description" content="深入理解vue底层原理,手写vue核心部分实现,vue工作机制,Vue响应式的原理,依赖收集与追踪,编译compile">
+<meta name="twitter:image" content="http://yangwenxu.cn/2019/10/15/vue源码解析/pictures/vue1.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -277,11 +279,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-C语言多进程" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-vue源码解析" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2018/12/24/C语言多进程/" class="article-date">
-      <time datetime="2018-12-24T07:21:58.000Z" itemprop="datePublished">2018-12-24</time>
+      <a  href="/2019/10/15/vue源码解析/" class="article-date">
+      <time datetime="2019-10-15T14:37:08.000Z" itemprop="datePublished">2019-10-15</time>
 </a>
 
     </div>
@@ -295,7 +297,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      C语言多进程
+      vue源码解析
     </h1>
   
 
@@ -307,7 +309,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux-c/">linux c</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vuejs/">vuejs</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -317,43 +319,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>核的个数与可同时运行的进程数相同。相反，若进程数超过核数，进程将分时使用CPU资源。但因为CPU运行速度极快，我们会感到所有进程同时运行。当然多核越多，这种感觉也明显。</p>
+        <p>深入理解vue底层原理,手写vue核心部分实现,vue工作机制,Vue响应式的原理,依赖收集与追踪,编译compile</p>
 <a id="more"></a>
-<h2 id="fork函数创建多进程"><a href="#fork函数创建多进程" class="headerlink" title="fork函数创建多进程"></a>fork函数创建多进程</h2><p>#include &lt;unistd.h&gt;</p>
-<p>pid_t fork(void);<br>fork函数将创建调用的进程副本。两个进程都将执行fork调用后的语句，子进程将复制父进程相同的内存空间，之后的程序流要根据fork函数的返回值加以区分。</p>
-<p>父进程：fork函数返回子进程ID<br>子进程：fork函数返回0</p>
-<p>eg.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> gval = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">pid_t</span> pid;</span><br><span class="line">	<span class="keyword">int</span> lval = <span class="number">20</span>;</span><br><span class="line">	gval++, lval += <span class="number">5</span>;</span><br><span class="line">	</span><br><span class="line">	pid = fork();</span><br><span class="line">	<span class="keyword">if</span> (pid == <span class="number">0</span>) &#123;<span class="comment">//child pro</span></span><br><span class="line">		gval += <span class="number">2</span>, lval += <span class="number">2</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;<span class="comment">//parent pro</span></span><br><span class="line">		gval -= <span class="number">2</span>, lval -= <span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> (pid == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Child Proc: [%d, %d] \n"</span>, gval, lval);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Parent Proc: [%d, %d] \n"</span>, gval, lval);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>运行结果：</p>
-<h2 id="进程与僵尸进程"><a href="#进程与僵尸进程" class="headerlink" title="进程与僵尸进程"></a>进程与僵尸进程</h2><p>僵尸进程的产生<br>文件操作中，关闭文件和打开文件同等重要。同样进程的创建和进程的销毁同等重要。如果未认真对待进程销毁，它们将变成僵尸进程困扰各位。</p>
-<p>进程完成工作后（执行完main函数中的程序后）应当销毁，但有时这些进程将变成僵尸进程，占用系统中的重要资源。</p>
-<h2 id="子进程的终止方式："><a href="#子进程的终止方式：" class="headerlink" title="子进程的终止方式："></a>子进程的终止方式：</h2><p>传递参数并调用exit函数<br>main函数中执行return语句并返回值<br>向exit函数传递的参数值和main函数的return语句返回的值都会传递给操作系统。而操作系统并不会销毁子进程，直到把这些值传递给产生该子进程的父进程。</p>
-<p>eg.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">pid_t</span> pid = fork();</span><br><span class="line">	<span class="keyword">if</span> (pid == <span class="number">0</span>) &#123; Child Pro</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Hi, I am a child process \n"</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Child Process ID: %d \n"</span>, pid);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> (pid) &#123;</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"End child process \n"</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"End parent process \n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>销毁僵尸进程<br>为了销毁子进程，父进程应主动请求获取子进程的返回值。</p>
-<h2 id="使用wait函数"><a href="#使用wait函数" class="headerlink" title="使用wait函数"></a>使用wait函数</h2><p>#include &lt;sys/wait.h&gt;</p>
-<p>pid wait(int * statloc);<br>//成功时返回终止的子进程的ID，失败时返回-1<br>调用此函数时如果已有子进程终止，那么子进程终止时传递的返回值（exit函数的参数值、main函数的return返回值）将保存到该函数的参数所指内存空间。</p>
-<p>WIFEXITED子进程正常终止时返回”真“ true<br>WEXITSTATUS返回子进程的返回值<br>eg.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> status;</span><br><span class="line">	<span class="keyword">pid_t</span> pid = fork();</span><br><span class="line">	<span class="keyword">if</span> (pid == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Child PID:%d \n"</span>, pid);</span><br><span class="line">		pid = fork();</span><br><span class="line">		<span class="keyword">if</span> (pid == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="built_in">exit</span>(<span class="number">7</span>);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			wait(&amp;status);</span><br><span class="line">			<span class="keyword">if</span> (WIFEXITED(status)) &#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"Child send one: %d \n"</span>, WEXITSTATUS(status));</span><br><span class="line">			&#125;</span><br><span class="line">			wait(&amp;status)</span><br><span class="line">			<span class="keyword">if</span> (WIFEXITED(status)) &#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"Child send tow: %d \n"</span>, WEXITSTATUS(status));</span><br><span class="line">			&#125;</span><br><span class="line">			sleep(<span class="number">30</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>运行结果：</p>
-<p>调用wait函数时，如果没有已终止的子进程，那么程序将阻塞（Blocking）直到有子进程终止。</p>
-<h2 id="使用waitpid函数"><a href="#使用waitpid函数" class="headerlink" title="使用waitpid函数"></a>使用waitpid函数</h2><p>wait函数会引起程序阻塞，而waitpid即使没有终止的子进程也不会进入阻塞状态，而是返回0并退出。</p>
-<p>#include &lt;sys/wait.h&gt;</p>
-<p>pid_t waitpid(pid_t pid, int * statloc, int options);</p>
-<p>//成功时返回终止的子进程ID(或0)，失败时返回-1</p>
-<p>//1. pid 等待终止的目标子进程的ID， 若传递-1，则与wait函数相同，可以等待任意子进程终止<br>//2. …<br>//3. 传递头文件sys/wait.h中声明的常量WNOHANG，即使没有终止的子进程也不会进入阻塞状态，而是返回0并退出<br>调用waitpid时程序不会阻塞。</p>
-<p>eg.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> status;</span><br><span class="line">	<span class="keyword">pid_t</span> pid = fork();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> (pid == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">24</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">while</span> (!waitpid(<span class="number">-1</span>, &amp;status, WNOHANG)) &#123;</span><br><span class="line">			sleep(<span class="number">3</span>);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"sleep 3sec \n"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (WIFEXITED(status)) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"Child send %d \n"</span>, WEXITSTATUS(status));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>运行结果：</p>
-<h2 id="信号处理"><a href="#信号处理" class="headerlink" title="信号处理"></a>信号处理</h2><p>signal函数<br>信号注册函数</p>
-<p>#include &lt;signal.h&gt;</p>
-<p>void (<em>signal(int signo, void (</em>func)(int)))(int);</p>
-<p>//函数名: signal<br>//参数：int signo, void (*func)(int)<br>//返回类型：参数为int类型，返回void型函数指针<br>发生第一个参数代表的情况时，调用第二个参数所指向的函数。</p>
-<p>signal函数中注册的部分特殊情况和对应的常数。</p>
-<p>SIGALRM: 已通过调用alarm函数注册的时间<br>SIGINT: 输入CTRL+C<br>SIGCHLD: 子进程终止<br>注册好信号后，发生注册信号时（注册的情况发生时），操作系统将调用该信号对应的函数。</p>
-<p>#include &lt;unistd.h&gt;<br>unsigned int alarm(unsigned int seconds);<br>如果调用该函数的同时向它传递一个正整型参数，相应时间后（以秒为单位）将产生SIGALRM信号。若向该函数传递0，则之前对SIGALRM信号的预约将取消。</p>
-<p>eg.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timeout</span><span class="params">(<span class="keyword">int</span> sig)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (sig == SIGALRM) &#123;</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"Time out!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	alarm(<span class="number">2</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">keycontrol</span><span class="params">(<span class="keyword">int</span> sig)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (sig == SIGINT) &#123;</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"CTRL+C"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	signal(SIGALRM, timeout);</span><br><span class="line">	signal(SIGINT, keycontrol);</span><br><span class="line">	alarm(<span class="number">2</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"waiting ..."</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>运行结果：</p>
-<p>发生信号时将唤醒由于调用sleep函数而进入阻塞状态的进程</p>
-<p>sigaction函数进行信号处理</p>
-<p>#include &lt;signal.h&gt;</p>
-<p>int sigaction (int signo, const struct sigaction <em>act, struct sigaction </em>oldact);</p>
+<h2 id="vue工作机制"><a href="#vue工作机制" class="headerlink" title="vue工作机制"></a>vue工作机制</h2><p><img src="pictures/vue1.png" alt="刘思涵"></p>
+<h2 id="Vue响应式的原理defineProperty"><a href="#Vue响应式的原理defineProperty" class="headerlink" title="Vue响应式的原理defineProperty"></a>Vue响应式的原理defineProperty</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">KVue</span> </span>&#123;</span><br><span class="line">	constructor(options) &#123;</span><br><span class="line">		<span class="keyword">this</span>._data = options.data;</span><br><span class="line">		<span class="keyword">this</span>.observer(<span class="keyword">this</span>._data);</span><br><span class="line">	&#125;</span><br><span class="line">	observer(value) &#123;</span><br><span class="line">		<span class="keyword">if</span> (!value || typeof value !== <span class="string">"object"</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		Object.keys(value).forEach(key =&gt; &#123;</span><br><span class="line">			<span class="keyword">this</span>.defineReactive(value, key, value[key]);</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	defineReactive(obj, key, val) &#123;</span><br><span class="line">		Object.defineProperty(obj, key, &#123;</span><br><span class="line">			enumerable: <span class="keyword">true</span> <span class="comment">/* 属性可枚举 */</span>,</span><br><span class="line">			configurable: <span class="keyword">true</span> <span class="comment">/* 属性可被修改或删除 */</span>,</span><br><span class="line">			get() &#123;</span><br><span class="line">				<span class="keyword">return</span> val;</span><br><span class="line">			&#125;,</span><br><span class="line">			set(newVal) &#123;</span><br><span class="line">				<span class="keyword">if</span> (newVal === val) <span class="keyword">return</span>;</span><br><span class="line">				<span class="keyword">this</span>.cb(newVal);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	cb(val) &#123;</span><br><span class="line">		console.log(<span class="string">"更新数据了"</span>, val);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">let o = <span class="keyword">new</span> KVue(&#123;</span><br><span class="line">	data: &#123;</span><br><span class="line">		test: <span class="string">"I am test."</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line">o._data.test = <span class="string">"hello,kaikeba"</span>;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -362,13 +331,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/2018/12/24/C语言多进程/">C语言多进程</a></p>
+        <p><span>本文标题:</span><a  href="/2019/10/15/vue源码解析/">vue源码解析</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 杨文旭 的个人博客">杨文旭</a></p>
-        <p><span>发布时间:</span>2018年12月24日 - 15时21分</p>
-        <p><span>最后更新:</span>2018年12月27日 - 00时28分</p>
+        <p><span>发布时间:</span>2019年10月15日 - 22时37分</p>
+        <p><span>最后更新:</span>2019年10月16日 - 00时36分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/12/24/C语言多进程/" title="C语言多进程">http://yangwenxu.cn/2018/12/24/C语言多进程/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yangwenxu.cn/2018/12/24/C语言多进程/　　作者: 杨文旭" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/10/15/vue源码解析/" title="vue源码解析">http://yangwenxu.cn/2019/10/15/vue源码解析/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yangwenxu.cn/2019/10/15/vue源码解析/　　作者: 杨文旭" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -379,18 +348,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/2018/12/26/amatory-poems/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          amatory poems
-        
-      </div>
-    </a>
   
-  
-    <a  href="/2018/12/23/用python创建chptcha测试图像/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">用python创建chptcha测试图像</div>
+    <a  href="/2019/09/30/ES6特性总结学习/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ES6特性总结学习</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -402,7 +362,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#fork函数创建多进程"><span class="toc-number">1.</span> <span class="toc-text">fork函数创建多进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进程与僵尸进程"><span class="toc-number">2.</span> <span class="toc-text">进程与僵尸进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#子进程的终止方式："><span class="toc-number">3.</span> <span class="toc-text">子进程的终止方式：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用wait函数"><span class="toc-number">4.</span> <span class="toc-text">使用wait函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用waitpid函数"><span class="toc-number">5.</span> <span class="toc-text">使用waitpid函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#信号处理"><span class="toc-number">6.</span> <span class="toc-text">信号处理</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#vue工作机制"><span class="toc-number">1.</span> <span class="toc-text">vue工作机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue响应式的原理defineProperty"><span class="toc-number">2.</span> <span class="toc-text">Vue响应式的原理defineProperty</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -475,13 +435,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/2018/12/26/amatory-poems/" title="上一篇: amatory poems">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/2018/12/23/用python创建chptcha测试图像/" title="下一篇: 用python创建chptcha测试图像">
+            <a  href="/2019/09/30/ES6特性总结学习/" title="下一篇: ES6特性总结学习">
                 <i class="fa fa-angle-right"></i>
             </a>
         
