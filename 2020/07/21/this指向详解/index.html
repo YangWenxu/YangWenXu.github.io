@@ -7,20 +7,20 @@
   
   
   
-  <title>css之border理解-圣诞树 | Hexo</title>
+  <title>this指向详解 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="css边框属性指定一个元素边框的样式和颜色，盒子border的三要素：宽，形状，颜色。比如简单的 border: 5px solid(实线) red;">
-<meta name="keywords" content="css">
+  <meta name="description" content="变化莫测的this指向">
+<meta name="keywords" content="js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="css之border理解-圣诞树">
-<meta property="og:url" content="http://yangwenxu.cn/2017/11/17/css之border理解-圣诞树/index.html">
+<meta property="og:title" content="this指向详解">
+<meta property="og:url" content="http://yangwenxu.cn/2020/07/21/this指向详解/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="css边框属性指定一个元素边框的样式和颜色，盒子border的三要素：宽，形状，颜色。比如简单的 border: 5px solid(实线) red;">
+<meta property="og:description" content="变化莫测的this指向">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-15T15:49:19.791Z">
+<meta property="og:updated_time" content="2020-07-21T14:26:48.999Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="css之border理解-圣诞树">
-<meta name="twitter:description" content="css边框属性指定一个元素边框的样式和颜色，盒子border的三要素：宽，形状，颜色。比如简单的 border: 5px solid(实线) red;">
+<meta name="twitter:title" content="this指向详解">
+<meta name="twitter:description" content="变化莫测的this指向">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -277,11 +277,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-css之border理解-圣诞树" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-this指向详解" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2017/11/17/css之border理解-圣诞树/" class="article-date">
-      <time datetime="2017-11-17T14:05:33.000Z" itemprop="datePublished">2017-11-17</time>
+      <a  href="/2020/07/21/this指向详解/" class="article-date">
+      <time datetime="2020-07-21T14:01:40.000Z" itemprop="datePublished">2020-07-21</time>
 </a>
 
     </div>
@@ -295,7 +295,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      css之border理解-圣诞树
+      this指向详解
     </h1>
   
 
@@ -307,7 +307,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -317,11 +317,20 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>css边框属性指定一个元素边框的样式和颜色，盒子border的三要素：宽，形状，颜色。比如简单的 border: 5px solid(实线) red;<br><a id="more"></a><br>border-style用于定义边框的样式，其属性值有none,dotted,dashed,solid,inset,outset等等。<br>border可以单独设置各边，指定不同的侧面不同的边框。<br>那么来个简单的问题，如何用border属性画一个三角形呢，其实很简单的</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.triangle &#123;</span><br><span class="line">    width: <span class="number">0</span>px;</span><br><span class="line">    height: <span class="number">0</span>px;</span><br><span class="line">    border-top: <span class="number">50</span>px solid white;</span><br><span class="line">    border-right: <span class="number">50</span>px solid white;</span><br><span class="line">    border-bottom: <span class="number">50</span>px solid blue;</span><br><span class="line">    border-left: <span class="number">50</span>px solid white;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>就比如这样子，让三个方向的盒子颜色都为白色，然后其他一个方向的边框有颜色，就可以画出一个简单的三角形了，只不过个人感觉这个三角形有点丑。那么大问题就来了，如何用css边框样式实现一个圣诞树呢，其实有border属性就够啦。那就贴一下我的简单代码吧：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    * &#123;</span><br><span class="line">        padding: <span class="number">0</span>;</span><br><span class="line">        margin: <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .tree &#123;</span><br><span class="line">        position: relative;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .tree div &#123;</span><br><span class="line">        position: absolute;</span><br><span class="line">        width: <span class="number">0</span>;</span><br><span class="line">        height: <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .tree .wood &#123;</span><br><span class="line">        width: <span class="number">20</span>px;</span><br><span class="line">        height: <span class="number">50</span>px;</span><br><span class="line">        background-color: grey;</span><br><span class="line">        left: <span class="number">50</span>%;</span><br><span class="line">        margin-left: <span class="number">-10</span>px;</span><br><span class="line">        top: <span class="number">170</span>px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .liu<span class="number">-1</span> &#123;</span><br><span class="line">        border-right: <span class="number">40</span>px solid green;</span><br><span class="line">        border-top: 40px solid #fff;</span><br><span class="line">        left: <span class="number">50</span>%;</span><br><span class="line">        margin-left: <span class="number">-40</span>px;</span><br><span class="line">        top: <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .liu<span class="number">-2</span> &#123;</span><br><span class="line">        border-left: <span class="number">40</span>px solid green;</span><br><span class="line">        border-top: 40px solid #fff;</span><br><span class="line">        left: <span class="number">50</span>%;</span><br><span class="line">        top: <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .si<span class="number">-1</span> &#123;</span><br><span class="line">        border-right: <span class="number">70</span>px solid green;</span><br><span class="line">        border-top: 70px solid #fff;</span><br><span class="line">        left: <span class="number">50</span>%;</span><br><span class="line">        margin-left: <span class="number">-70</span>px;</span><br><span class="line">        top: <span class="number">20</span>px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .si<span class="number">-2</span> &#123;</span><br><span class="line">        border-left: <span class="number">70</span>px solid green;</span><br><span class="line">        border-top: 70px solid #fff;</span><br><span class="line">        left: <span class="number">50</span>%;</span><br><span class="line">        top: <span class="number">20</span>px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .han<span class="number">-1</span> &#123;</span><br><span class="line">        border-right: <span class="number">100</span>px solid green;</span><br><span class="line">        border-top: 100px solid #fff;</span><br><span class="line">        left: <span class="number">50</span>%;</span><br><span class="line">        margin-left: <span class="number">-100</span>px;</span><br><span class="line">        top: <span class="number">70</span>px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .han<span class="number">-2</span> &#123;</span><br><span class="line">        border-left: <span class="number">100</span>px solid green;</span><br><span class="line">        border-top: 100px solid #fff;</span><br><span class="line">        left: <span class="number">50</span>%;</span><br><span class="line">        top: <span class="number">70</span>px;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"tree"</span>&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"wood"</span>&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"han-1"</span>&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"han-2"</span>&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"si-1"</span>&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"si-2"</span>&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"liu-1"</span>&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"liu-2"</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br></pre></td></tr></table></figure>
-
+        <p>变化莫测的this指向</p>
+<a id="more"></a>
+<h2 id="function中的this在不同环境下的指向"><a href="#function中的this在不同环境下的指向" class="headerlink" title="function中的this在不同环境下的指向"></a>function中的this在不同环境下的指向</h2><h3 id="事件调用环境中，谁触发事件，函数里面的this指向的就是谁"><a href="#事件调用环境中，谁触发事件，函数里面的this指向的就是谁" class="headerlink" title="事件调用环境中，谁触发事件，函数里面的this指向的就是谁"></a>事件调用环境中，谁触发事件，函数里面的this指向的就是谁</h3><h3 id="全局环境下，浏览器环境指的的window，node环境中是module-exports"><a href="#全局环境下，浏览器环境指的的window，node环境中是module-exports" class="headerlink" title="全局环境下，浏览器环境指的的window，node环境中是module.exports"></a>全局环境下，浏览器环境指的的window，node环境中是module.exports</h3><h3 id="函数内部"><a href="#函数内部" class="headerlink" title="函数内部"></a>函数内部</h3><pre><code>1 this最终指向的是调用它的对象。
+    普通函数直接调用与window调用
+    对象中的函数直接调用与window调用
+2 函数被多层对象所包含，如果函数被最外层对象调用，this指向的也只是它上一级的对象。
+    多层对象中的函数的this指向。
+    对象中的函数被赋值给另一个变量
+3 构造函数中的this指向的是实例对象。
+    构造函数中的this指向。
+    new运算符的作用
+4 如果构造函数中有return，如果return的值是对象，this指向返回的对象，如果不是对象，则this指向保持原来的规则，在这里，null比较特殊。
+</code></pre><h2 id="箭头函数中的this指向的特殊性"><a href="#箭头函数中的this指向的特殊性" class="headerlink" title="箭头函数中的this指向的特殊性"></a>箭头函数中的this指向的特殊性</h2><p>   箭头函数本身是没有this和arguments的，在箭头函数中引用this实际上调用的是定义的上一层作用域的this。这里需要注意的是上一层作用域，因对对象是不能形成独立的作用域的。总之来说箭头函数修复了this指向，指向上下文。</p>
+<h2 id="如何改变this指向"><a href="#如何改变this指向" class="headerlink" title="如何改变this指向"></a>如何改变this指向</h2>
       
     </div>
     
@@ -329,13 +338,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/2017/11/17/css之border理解-圣诞树/">css之border理解-圣诞树</a></p>
+        <p><span>本文标题:</span><a  href="/2020/07/21/this指向详解/">this指向详解</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 杨文旭 的个人博客">杨文旭</a></p>
-        <p><span>发布时间:</span>2017年11月17日 - 22时05分</p>
-        <p><span>最后更新:</span>2019年10月15日 - 23时49分</p>
+        <p><span>发布时间:</span>2020年07月21日 - 22时01分</p>
+        <p><span>最后更新:</span>2020年07月21日 - 22时26分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/11/17/css之border理解-圣诞树/" title="css之border理解-圣诞树">http://yangwenxu.cn/2017/11/17/css之border理解-圣诞树/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yangwenxu.cn/2017/11/17/css之border理解-圣诞树/　　作者: 杨文旭" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/07/21/this指向详解/" title="this指向详解">http://yangwenxu.cn/2020/07/21/this指向详解/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yangwenxu.cn/2020/07/21/this指向详解/　　作者: 杨文旭" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -346,18 +355,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/2017/11/21/DOM基础知识学习/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          DOM基础知识学习
-        
-      </div>
-    </a>
   
-  
-    <a  href="/2017/11/17/学习总结Ajax他大爷/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">学习总结Ajax他大爷</div>
+    <a  href="/2019/10/15/vue源码解析/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">vue源码解析</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -369,7 +369,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#function中的this在不同环境下的指向"><span class="toc-number">1.</span> <span class="toc-text">function中的this在不同环境下的指向</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#事件调用环境中，谁触发事件，函数里面的this指向的就是谁"><span class="toc-number">1.1.</span> <span class="toc-text">事件调用环境中，谁触发事件，函数里面的this指向的就是谁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局环境下，浏览器环境指的的window，node环境中是module-exports"><span class="toc-number">1.2.</span> <span class="toc-text">全局环境下，浏览器环境指的的window，node环境中是module.exports</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数内部"><span class="toc-number">1.3.</span> <span class="toc-text">函数内部</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#箭头函数中的this指向的特殊性"><span class="toc-number">2.</span> <span class="toc-text">箭头函数中的this指向的特殊性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何改变this指向"><span class="toc-number">3.</span> <span class="toc-text">如何改变this指向</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -442,13 +442,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/2017/11/21/DOM基础知识学习/" title="上一篇: DOM基础知识学习">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/2017/11/17/学习总结Ajax他大爷/" title="下一篇: 学习总结Ajax他大爷">
+            <a  href="/2019/10/15/vue源码解析/" title="下一篇: vue源码解析">
                 <i class="fa fa-angle-right"></i>
             </a>
         
