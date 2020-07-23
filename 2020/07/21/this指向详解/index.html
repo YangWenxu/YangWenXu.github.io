@@ -13,11 +13,11 @@
 <meta name="keywords" content="js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="this指向详解">
-<meta property="og:url" content="http://yangwenxu.cn/2020/07/21/this指向详解/index.html">
+<meta property="og:url" content="yangwexu.github.io/2020/07/21/this指向详解/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="变化莫测的this指向">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-23T14:59:51.748Z">
+<meta property="og:updated_time" content="2020-07-23T15:01:16.236Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="this指向详解">
 <meta name="twitter:description" content="变化莫测的this指向">
@@ -339,10 +339,16 @@
 4 如果构造函数中有return，如果return的值是对象，this指向返回的对象，如果不是对象，
   则this指向保持原来的规则，在这里，null比较特殊，null也是对象，但还是保持原来的规则。
 </code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.num = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> fn();</span><br><span class="line"><span class="built_in">console</span>.log(obj.num);</span><br></pre></td></tr></table></figure>
-<h2 id="箭头函数中的this指向的特殊性"><a href="#箭头函数中的this指向的特殊性" class="headerlink" title="箭头函数中的this指向的特殊性"></a>箭头函数中的this指向的特殊性</h2><p>   箭头函数本身是没有this和arguments的，箭头函数的this指向在定义的时候就决定了，，在箭头函数中引用this实际上调用的是定义的上一层作用域的this。这里需要注意的是上一层作用域，因对对象是不能形成独立的作用域的。总之来说箭头函数修复了this指向，指向上下文。</p>
-<h2 id="如何改变this指向"><a href="#如何改变this指向" class="headerlink" title="如何改变this指向"></a>如何改变this指向</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> box = &#123;</span><br><span class="line">	color: <span class="string">'blue'</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a,b,c;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	fn: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.fn.bind(box)(); <span class="comment">//&#123;color: "blue"&#125;</span></span><br></pre></td></tr></table></figure>
-<p>call(this,a,b,c);<br>apply(this, [a,b,c]);<br>bind(this,a,b,c)(); //bind会创建一个函数的实例，其this值会被绑定到传给bind()函数的值。<br>console.log(this);<br>这样来扩充函数赖以运行的作用域</p>
-
+<h2 id="箭头函数中的this指向的特殊性"><a href="#箭头函数中的this指向的特殊性" class="headerlink" title="箭头函数中的this指向的特殊性"></a>箭头函数中的this指向的特殊性</h2><pre><code>箭头函数本身是没有this和arguments的，箭头函数的this指向在定义的时候就决定了，
+在箭头函数中引用this实际上调用的是定义的上一层作用域的this。这里需要注意的是上一层作用域，
+因对对象是不能形成独立的作用域的。总之来说箭头函数修复了this指向，指向上下文。
+</code></pre><h2 id="如何改变this指向"><a href="#如何改变this指向" class="headerlink" title="如何改变this指向"></a>如何改变this指向</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> box = &#123;</span><br><span class="line">	color: <span class="string">'blue'</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a,b,c;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	fn: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.fn.bind(box)(); <span class="comment">//&#123;color: "blue"&#125;</span></span><br></pre></td></tr></table></figure>
+<pre><code>call(this,a,b,c);
+apply(this, [a,b,c]);
+bind(this,a,b,c)(); //bind会创建一个函数的实例，其this值会被绑定到传给bind()函数的值。
+console.log(this);
+这样来扩充函数赖以运行的作用域
+</code></pre>
       
     </div>
     
@@ -353,10 +359,10 @@
         <p><span>本文标题:</span><a  href="/2020/07/21/this指向详解/">this指向详解</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 杨文旭 的个人博客">杨文旭</a></p>
         <p><span>发布时间:</span>2020年07月21日 - 22时01分</p>
-        <p><span>最后更新:</span>2020年07月23日 - 22时59分</p>
+        <p><span>最后更新:</span>2020年07月23日 - 23时01分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2020/07/21/this指向详解/" title="this指向详解">http://yangwenxu.cn/2020/07/21/this指向详解/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yangwenxu.cn/2020/07/21/this指向详解/　　作者: 杨文旭" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/07/21/this指向详解/" title="this指向详解">yangwexu.github.io/2020/07/21/this指向详解/</a>
+            <span class="copy-path" data-clipboard-text="原文: yangwexu.github.io/2020/07/21/this指向详解/　　作者: 杨文旭" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
