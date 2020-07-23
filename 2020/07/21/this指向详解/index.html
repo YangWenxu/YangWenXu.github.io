@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="变化莫测的this指向">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-21T14:26:48.999Z">
+<meta property="og:updated_time" content="2020-07-23T14:54:00.534Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="this指向详解">
 <meta name="twitter:description" content="变化莫测的this指向">
@@ -319,18 +319,29 @@
           
         <p>变化莫测的this指向</p>
 <a id="more"></a>
-<h2 id="function中的this在不同环境下的指向"><a href="#function中的this在不同环境下的指向" class="headerlink" title="function中的this在不同环境下的指向"></a>function中的this在不同环境下的指向</h2><h3 id="事件调用环境中，谁触发事件，函数里面的this指向的就是谁"><a href="#事件调用环境中，谁触发事件，函数里面的this指向的就是谁" class="headerlink" title="事件调用环境中，谁触发事件，函数里面的this指向的就是谁"></a>事件调用环境中，谁触发事件，函数里面的this指向的就是谁</h3><h3 id="全局环境下，浏览器环境指的的window，node环境中是module-exports"><a href="#全局环境下，浏览器环境指的的window，node环境中是module-exports" class="headerlink" title="全局环境下，浏览器环境指的的window，node环境中是module.exports"></a>全局环境下，浏览器环境指的的window，node环境中是module.exports</h3><h3 id="函数内部"><a href="#函数内部" class="headerlink" title="函数内部"></a>函数内部</h3><pre><code>1 this最终指向的是调用它的对象。
+<h2 id="function中的this在不同环境下的指向"><a href="#function中的this在不同环境下的指向" class="headerlink" title="function中的this在不同环境下的指向"></a>function中的this在不同环境下的指向</h2><h3 id="事件调用环境中，"><a href="#事件调用环境中，" class="headerlink" title="事件调用环境中，"></a>事件调用环境中，</h3><pre><code>谁触发事件，函数里面的this指向的就是谁
+</code></pre><h3 id="全局环境下，"><a href="#全局环境下，" class="headerlink" title="全局环境下，"></a>全局环境下，</h3><pre><code>浏览器环境指的的window，node环境中是module.exports
+</code></pre><h3 id="函数内部"><a href="#函数内部" class="headerlink" title="函数内部"></a>函数内部</h3><pre><code>1 this最终指向的是调用它的对象，和它的声明没有关系。
     普通函数直接调用与window调用
     对象中的函数直接调用与window调用
 2 函数被多层对象所包含，如果函数被最外层对象调用，this指向的也只是它上一级的对象。
     多层对象中的函数的this指向。
     对象中的函数被赋值给另一个变量
-3 构造函数中的this指向的是实例对象。
+</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	a: <span class="number">10</span>;</span><br><span class="line">	b: &#123;</span><br><span class="line">		fn: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> abc = obj.b.fn;</span><br><span class="line"><span class="built_in">window</span>.obj.b.fn(); <span class="comment">//b</span></span><br><span class="line">abc(); <span class="comment">//window，调用它的是window，与它的声明没有关系</span></span><br></pre></td></tr></table></figure>
+<pre><code>3 构造函数中的this指向的是实例对象。
     构造函数中的this指向。
-    new运算符的作用
-4 如果构造函数中有return，如果return的值是对象，this指向返回的对象，如果不是对象，则this指向保持原来的规则，在这里，null比较特殊。
-</code></pre><h2 id="箭头函数中的this指向的特殊性"><a href="#箭头函数中的this指向的特殊性" class="headerlink" title="箭头函数中的this指向的特殊性"></a>箭头函数中的this指向的特殊性</h2><p>   箭头函数本身是没有this和arguments的，在箭头函数中引用this实际上调用的是定义的上一层作用域的this。这里需要注意的是上一层作用域，因对对象是不能形成独立的作用域的。总之来说箭头函数修复了this指向，指向上下文。</p>
-<h2 id="如何改变this指向"><a href="#如何改变this指向" class="headerlink" title="如何改变this指向"></a>如何改变this指向</h2>
+</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.num = <span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line">fn.num = <span class="number">20</span>;</span><br><span class="line">fn.prototype.num = <span class="number">30</span>;</span><br><span class="line">fn.prototype.method = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.num);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> prototype = fn.prototype;</span><br><span class="line"><span class="keyword">var</span> method = prototype.method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> fn().method(); <span class="comment">//</span></span><br><span class="line"></span><br><span class="line">prototype.method(); <span class="comment">//</span></span><br><span class="line"></span><br><span class="line">method(); <span class="comment">//</span></span><br></pre></td></tr></table></figure>
+<pre><code>    new运算符的作用
+        a. 调用函数
+        b. 自动创建一个对象
+        c. 把创建出来的对象和this进行绑定
+        d. 如果构造函数没有返回值，隐式返回this对象
+4 如果构造函数中有return，如果return的值是对象，this指向返回的对象，如果不是对象，则this指向保持原来的规则，在这里，null比较特殊，null也是对象，但还是保持原来的规则。
+</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.num = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> fn();</span><br><span class="line"><span class="built_in">console</span>.log(obj.num);</span><br></pre></td></tr></table></figure>
+<h2 id="箭头函数中的this指向的特殊性"><a href="#箭头函数中的this指向的特殊性" class="headerlink" title="箭头函数中的this指向的特殊性"></a>箭头函数中的this指向的特殊性</h2><p>   箭头函数本身是没有this和arguments的，箭头函数的this指向在定义的时候就决定了，，在箭头函数中引用this实际上调用的是定义的上一层作用域的this。这里需要注意的是上一层作用域，因对对象是不能形成独立的作用域的。总之来说箭头函数修复了this指向，指向上下文。</p>
+<h2 id="如何改变this指向"><a href="#如何改变this指向" class="headerlink" title="如何改变this指向"></a>如何改变this指向</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> box = &#123;</span><br><span class="line">	color: <span class="string">'blue'</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a,b,c;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	fn: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.fn.bind(box)(); <span class="comment">//&#123;color: "blue"&#125;</span></span><br></pre></td></tr></table></figure>
+<p>call(this,a,b,c);<br>apply(this, [a,b,c]);<br>bind(this,a,b,c)(); //bind会创建一个函数的实例，其this值会被绑定到传给bind()函数的值。<br>console.log(this);<br>这样来扩充函数赖以运行的作用域</p>
+
       
     </div>
     
@@ -341,7 +352,7 @@
         <p><span>本文标题:</span><a  href="/2020/07/21/this指向详解/">this指向详解</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 杨文旭 的个人博客">杨文旭</a></p>
         <p><span>发布时间:</span>2020年07月21日 - 22时01分</p>
-        <p><span>最后更新:</span>2020年07月21日 - 22时26分</p>
+        <p><span>最后更新:</span>2020年07月23日 - 22时54分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2020/07/21/this指向详解/" title="this指向详解">http://yangwenxu.cn/2020/07/21/this指向详解/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yangwenxu.cn/2020/07/21/this指向详解/　　作者: 杨文旭" title=""></span>
@@ -369,7 +380,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#function中的this在不同环境下的指向"><span class="toc-number">1.</span> <span class="toc-text">function中的this在不同环境下的指向</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#事件调用环境中，谁触发事件，函数里面的this指向的就是谁"><span class="toc-number">1.1.</span> <span class="toc-text">事件调用环境中，谁触发事件，函数里面的this指向的就是谁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局环境下，浏览器环境指的的window，node环境中是module-exports"><span class="toc-number">1.2.</span> <span class="toc-text">全局环境下，浏览器环境指的的window，node环境中是module.exports</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数内部"><span class="toc-number">1.3.</span> <span class="toc-text">函数内部</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#箭头函数中的this指向的特殊性"><span class="toc-number">2.</span> <span class="toc-text">箭头函数中的this指向的特殊性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何改变this指向"><span class="toc-number">3.</span> <span class="toc-text">如何改变this指向</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#function中的this在不同环境下的指向"><span class="toc-number">1.</span> <span class="toc-text">function中的this在不同环境下的指向</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#事件调用环境中，"><span class="toc-number">1.1.</span> <span class="toc-text">事件调用环境中，</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局环境下，"><span class="toc-number">1.2.</span> <span class="toc-text">全局环境下，</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数内部"><span class="toc-number">1.3.</span> <span class="toc-text">函数内部</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#箭头函数中的this指向的特殊性"><span class="toc-number">2.</span> <span class="toc-text">箭头函数中的this指向的特殊性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何改变this指向"><span class="toc-number">3.</span> <span class="toc-text">如何改变this指向</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
