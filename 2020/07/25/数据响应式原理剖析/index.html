@@ -7,20 +7,20 @@
   
   
   
-  <title>ES6使用getter和setter来控制对象的访问 | Hexo</title>
+  <title>数据响应式原理剖析 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我们可以从对象中获得一个值，也可以给对象的属性赋值。这些通常行为被称为getters以及setters。">
-<meta name="keywords" content="js">
+  <meta name="description" content="数据响应式原理proxy，数据的渲染以及双向绑定的原理">
+<meta name="keywords" content="js, vue">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ES6使用getter和setter来控制对象的访问">
-<meta property="og:url" content="yangwexu.github.io/2019/09/17/ES6使用getter和setter来控制对象的访问/index.html">
+<meta property="og:title" content="数据响应式原理剖析">
+<meta property="og:url" content="yangwexu.github.io/2020/07/25/数据响应式原理剖析/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="我们可以从对象中获得一个值，也可以给对象的属性赋值。这些通常行为被称为getters以及setters。">
+<meta property="og:description" content="数据响应式原理proxy，数据的渲染以及双向绑定的原理">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-17T10:31:38.700Z">
+<meta property="og:updated_time" content="2020-07-25T05:30:37.755Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ES6使用getter和setter来控制对象的访问">
-<meta name="twitter:description" content="我们可以从对象中获得一个值，也可以给对象的属性赋值。这些通常行为被称为getters以及setters。">
+<meta name="twitter:title" content="数据响应式原理剖析">
+<meta name="twitter:description" content="数据响应式原理proxy，数据的渲染以及双向绑定的原理">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -277,11 +277,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-ES6使用getter和setter来控制对象的访问" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-数据响应式原理剖析" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2019/09/17/ES6使用getter和setter来控制对象的访问/" class="article-date">
-      <time datetime="2019-09-17T10:19:07.000Z" itemprop="datePublished">2019-09-17</time>
+      <a  href="/2020/07/25/数据响应式原理剖析/" class="article-date">
+      <time datetime="2020-07-25T04:58:48.000Z" itemprop="datePublished">2020-07-25</time>
 </a>
 
     </div>
@@ -295,7 +295,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      ES6使用getter和setter来控制对象的访问
+      数据响应式原理剖析
     </h1>
   
 
@@ -307,7 +307,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js-vue/">js, vue</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -317,18 +317,23 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>我们可以从对象中获得一个值，也可以给对象的属性赋值。<br>这些通常行为被称为getters以及setters。</p>
+        <p>数据响应式原理proxy，数据的渲染以及双向绑定的原理</p>
 <a id="more"></a>
-<h2 id="getter和setter函数解析"><a href="#getter和setter函数解析" class="headerlink" title="getter和setter函数解析"></a>getter和setter函数解析</h2><p>Getter函数的作用是可以让返回一个对象私有变量的值给用户，而不需要去访问私有变量。</p>
-<p>Setter函数的作用是可以基于传进的参数来修改对象中私有变量的值。这些修改可以是计算，或者是直接替换之前的值。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(author) &#123;</span><br><span class="line">    <span class="keyword">this</span>._author = author;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// getter</span></span><br><span class="line">  get writer()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>._author;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// setter</span></span><br><span class="line">  set writer(updatedAuthor)&#123;</span><br><span class="line">    <span class="keyword">this</span>._author = updatedAuthor;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> lol = <span class="keyword">new</span> Book(<span class="string">'anonymous'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(lol.writer);  <span class="comment">// anonymous</span></span><br><span class="line">lol.writer = <span class="string">'wut'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(lol.writer);  <span class="comment">// wut</span></span><br></pre></td></tr></table></figure>
-<p>注意我们调用getter和setter的语法，它们看起来并不像一个函数调用。</p>
-<p>Getter和Setter非常重要，因为它们隐藏了内部的实现细节。</p>
-<h2 id="牛刀小试"><a href="#牛刀小试" class="headerlink" title="牛刀小试"></a>牛刀小试</h2><p>使用class关键字来创建Thermostat类，它的构造函数应该可以接收华氏温度作为参数。 在类中创建getter和setter，将温度转换成摄氏温度。<br>温度转换的公式是C = 5/9 <em> (F - 32)以及F = C </em> 9.0 / 5 + 32，F 代表华氏温度，C 代表摄氏温度。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeClass</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="meta">  "use strict"</span>;</span><br><span class="line">  <span class="comment">/* Alter code below this line */</span></span><br><span class="line">  </span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Thermostat</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(farenheit)&#123;</span><br><span class="line">      <span class="keyword">this</span>.farenheit = farenheit;</span><br><span class="line">    &#125;</span><br><span class="line">    get temperature()&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">5</span> / <span class="number">9</span> * (<span class="keyword">this</span>.farenheit - <span class="number">32</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    set temperature(celsius)&#123;</span><br><span class="line">      <span class="keyword">this</span>.farenheit = celsius * <span class="number">9.0</span> / <span class="number">5</span> + <span class="number">32</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/* Alter code above this line */</span></span><br><span class="line">  <span class="keyword">return</span> Thermostat;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> Thermostat = makeClass();</span><br><span class="line"><span class="keyword">const</span> thermos = <span class="keyword">new</span> Thermostat(<span class="number">76</span>); <span class="comment">// 使用华氏温度来初始化</span></span><br><span class="line"><span class="keyword">let</span> temp = thermos.temperature; <span class="comment">// 摄氏温度24.44度</span></span><br><span class="line">thermos.temperature = <span class="number">26</span>;</span><br><span class="line">temp = thermos.temperature; <span class="comment">// 摄氏温度26度</span></span><br></pre></td></tr></table></figure>
-<p>应当在类中使用一个温度标准，无论是华氏温度还是摄氏温度。</p>
-<p>总之，getter 和 setter 的威力了就是无论你的 API 内部使用的是哪种温度标准，用户都能得到正确的结果。</p>
-<p>或者说，我们从用户需求中抽象出了实现细节</p>
+<h2 id="Proxy代理与数据劫持"><a href="#Proxy代理与数据劫持" class="headerlink" title="Proxy代理与数据劫持"></a>Proxy代理与数据劫持</h2><pre><code>1. Handler.set()
+2. Handler.get()
+3. Handler...
+</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> box = <span class="built_in">document</span>.querySelector(<span class="string">'.box'</span>);</span><br><span class="line"><span class="keyword">var</span> data = &#123;</span><br><span class="line">	name: <span class="string">'james'</span>,</span><br><span class="line">	age: <span class="string">'30'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//box.innerHTML = data.age;</span></span><br><span class="line"><span class="comment">//data.age = 21;</span></span><br><span class="line"><span class="comment">//console.log(data);</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Proxy</span>(data, &#123;</span><br><span class="line">	set(target,prop,newValue) &#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'set...'</span>, target,prop,newValue);</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">Reflect</span>.set(...arguments);</span><br><span class="line">	&#125;,</span><br><span class="line">	get(target, prop) &#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'get...'</span>, target,prop);</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">Reflect</span>.get(...arguments);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">p.age = <span class="number">21</span>;</span><br><span class="line"><span class="built_in">console</span>.log(p.name);</span><br></pre></td></tr></table></figure>
+<h2 id="vue中的数据响应式实现"><a href="#vue中的数据响应式实现" class="headerlink" title="vue中的数据响应式实现"></a>vue中的数据响应式实现</h2><pre><code>1. 获取子元素
+2. 匹配内容规则
+3. 修改规则
+</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">	&#123;&#123; name &#125;&#125;</span><br><span class="line">	&lt;div&gt;&#123;&#123; message &#125;&#125;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">	&lt;input v-model="test"&gt;</span></span><br><span class="line"><span class="regexp">	&#123;&#123; test &#125;&#125;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">	<span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">		el: <span class="string">'#app'</span>,</span><br><span class="line">		data: &#123;</span><br><span class="line">			name: <span class="string">'james'</span>,</span><br><span class="line">			message: <span class="string">'测试数据'</span>,</span><br><span class="line">			test: <span class="string">'双绑数据'</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="comment">//vm._data.name='lebron';</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>新建一个js文件，在html中引入，js文件如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">vue</span> </span>&#123;</span><br><span class="line">	<span class="keyword">constructor</span>(option) &#123;</span><br><span class="line">		<span class="keyword">this</span>.option = option;</span><br><span class="line">		<span class="keyword">this</span>._data = <span class="keyword">this</span>.option.data;</span><br><span class="line">		<span class="keyword">this</span>.el = <span class="built_in">document</span>.querySelector(<span class="keyword">this</span>.option.el);</span><br><span class="line">		<span class="keyword">this</span>.compileNode(<span class="keyword">this</span>.el);</span><br><span class="line">	&#125;</span><br><span class="line">	compileNode(el) &#123;</span><br><span class="line">		<span class="keyword">let</span> child = el.childNodes;</span><br><span class="line">		[...child].forEach(<span class="function"><span class="params">node</span> =&gt;</span> &#123;</span><br><span class="line">			<span class="keyword">if</span>(node.nodeType === <span class="number">3</span>) &#123;</span><br><span class="line">				<span class="comment">//console.log('这是一个文本节点');</span></span><br><span class="line">				<span class="keyword">let</span> text = node.textContent;</span><br><span class="line">				<span class="keyword">let</span> reg = <span class="comment">//g;</span></span><br><span class="line">				<span class="keyword">if</span>(reg.test(text)) &#123;</span><br><span class="line">					<span class="keyword">let</span> $<span class="number">1</span> = <span class="built_in">RegExp</span>.$<span class="number">1</span>;</span><br><span class="line">					<span class="keyword">this</span>._data[$<span class="number">1</span>] &amp;&amp; (node.textContent = text.replace(reg, <span class="keyword">this</span>._data[$<span class="number">1</span>]));</span><br><span class="line"></span><br><span class="line">				&#125;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span>(node.nodeType === <span class="number">1</span>) &#123;</span><br><span class="line">				<span class="keyword">this</span>.compileNode(node);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="vue中双向绑定实现"><a href="#vue中双向绑定实现" class="headerlink" title="vue中双向绑定实现"></a>vue中双向绑定实现</h2><ol>
+<li>监控数据变化</li>
+<li>通过自定义事件通知</li>
+<li>修改规则</li>
+</ol>
 
       
     </div>
@@ -337,13 +342,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/2019/09/17/ES6使用getter和setter来控制对象的访问/">ES6使用getter和setter来控制对象的访问</a></p>
+        <p><span>本文标题:</span><a  href="/2020/07/25/数据响应式原理剖析/">数据响应式原理剖析</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 杨文旭 的个人博客">杨文旭</a></p>
-        <p><span>发布时间:</span>2019年09月17日 - 18时19分</p>
-        <p><span>最后更新:</span>2019年09月17日 - 18时31分</p>
+        <p><span>发布时间:</span>2020年07月25日 - 12时58分</p>
+        <p><span>最后更新:</span>2020年07月25日 - 13时30分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/09/17/ES6使用getter和setter来控制对象的访问/" title="ES6使用getter和setter来控制对象的访问">yangwexu.github.io/2019/09/17/ES6使用getter和setter来控制对象的访问/</a>
-            <span class="copy-path" data-clipboard-text="原文: yangwexu.github.io/2019/09/17/ES6使用getter和setter来控制对象的访问/　　作者: 杨文旭" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/07/25/数据响应式原理剖析/" title="数据响应式原理剖析">yangwexu.github.io/2020/07/25/数据响应式原理剖析/</a>
+            <span class="copy-path" data-clipboard-text="原文: yangwexu.github.io/2020/07/25/数据响应式原理剖析/　　作者: 杨文旭" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -354,18 +359,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/2019/09/18/ES6系列之异步处理/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          ES6系列之异步处理
-        
-      </div>
-    </a>
   
-  
-    <a  href="/2019/06/10/网络编程-聊天室/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">网络编程-聊天室</div>
+    <a  href="/2020/07/21/this指向详解/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">this指向详解</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -377,7 +373,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#getter和setter函数解析"><span class="toc-number">1.</span> <span class="toc-text">getter和setter函数解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#牛刀小试"><span class="toc-number">2.</span> <span class="toc-text">牛刀小试</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Proxy代理与数据劫持"><span class="toc-number">1.</span> <span class="toc-text">Proxy代理与数据劫持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vue中的数据响应式实现"><span class="toc-number">2.</span> <span class="toc-text">vue中的数据响应式实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vue中双向绑定实现"><span class="toc-number">3.</span> <span class="toc-text">vue中双向绑定实现</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -450,13 +446,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/2019/09/18/ES6系列之异步处理/" title="上一篇: ES6系列之异步处理">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/2019/06/10/网络编程-聊天室/" title="下一篇: 网络编程-聊天室">
+            <a  href="/2020/07/21/this指向详解/" title="下一篇: this指向详解">
                 <i class="fa fa-angle-right"></i>
             </a>
         
