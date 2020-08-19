@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Linux 操作系统的一个重要特点是它支持许多不同类型的文件系统。Linux 中最普遍使用的文件系统是 Ext2，它也是 Linux 土生土长的文件系统。但 Linux 也能够支持 FAT、VFAT、FAT32、MINIX 等不同类型的文件系统，从而可以方便地和其它操作系统交换数据。由于 Linux 支持许多不同的文件系统，并且将它们组织成了一个统一的虚拟文件系统.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-26T17:27:48.944Z">
+<meta property="og:updated_time" content="2020-08-19T12:30:37.207Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux文件系统的实现">
 <meta name="twitter:description" content="Linux 操作系统的一个重要特点是它支持许多不同类型的文件系统。Linux 中最普遍使用的文件系统是 Ext2，它也是 Linux 土生土长的文件系统。但 Linux 也能够支持 FAT、VFAT、FAT32、MINIX 等不同类型的文件系统，从而可以方便地和其它操作系统交换数据。由于 Linux 支持许多不同的文件系统，并且将它们组织成了一个统一的虚拟文件系统.">
@@ -317,8 +317,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>Linux 操作系统的一个重要特点是它支持许多不同类型的文件系统。Linux 中最普遍使用的文件系统是 Ext2，它也是 Linux 土生土长的文件系统。但 Linux 也能够支持 FAT、VFAT、FAT32、MINIX 等不同类型的文件系统，从而可以方便地和其它操作系统交换数据。由于 Linux 支持许多不同的文件系统，并且将它们组织成了一个统一的虚拟文件系统.</p>
-<a id="more"></a>
+        <pre><code>Linux 操作系统的一个重要特点是它支持许多不同类型的文件系统。Linux 中最普遍使用的文件系统是 Ext2，它也是 Linux 土生土长的文件系统。但 Linux 也能够支持 FAT、VFAT、FAT32、MINIX 等不同类型的文件系统，从而可以方便地和其它操作系统交换数据。由于 Linux 支持许多不同的文件系统，并且将它们组织成了一个统一的虚拟文件系统.
+</code></pre><a id="more"></a>
 <h2 id="内容要求"><a href="#内容要求" class="headerlink" title="* 内容要求"></a>* 内容要求</h2><h3 id="0x00"><a href="#0x00" class="headerlink" title="* 0x00"></a>* 0x00</h3><ul>
 <li>在内存中开辟一个虚拟磁盘空间作为文件存储分区，在其上实现一个简单的基于多级目录的单用户单任务系统中的文件系统。在退出该文件系统的使用时，应将该虚拟文件系统以一个文件的方式保存到磁盘上，以便下次可以再将它恢复到内存的虚拟磁盘空间中。  </li>
 </ul>
@@ -375,7 +375,7 @@
         <p><span>本文标题:</span><a  href="/2018/12/27/简易文件系统的实现/">linux文件系统的实现</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 杨文旭 的个人博客">杨文旭</a></p>
         <p><span>发布时间:</span>2018年12月27日 - 01时20分</p>
-        <p><span>最后更新:</span>2018年12月27日 - 01时27分</p>
+        <p><span>最后更新:</span>2020年08月19日 - 20时30分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/12/27/简易文件系统的实现/" title="linux文件系统的实现">yangwexu.github.io/2018/12/27/简易文件系统的实现/</a>
             <span class="copy-path" data-clipboard-text="原文: yangwexu.github.io/2018/12/27/简易文件系统的实现/　　作者: 杨文旭" title=""></span>
