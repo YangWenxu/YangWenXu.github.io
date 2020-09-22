@@ -7,20 +7,20 @@
   
   
   
-  <title>数据响应式原理剖析 | Hexo</title>
+  <title>koa源码原理解析 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="数据响应式原理proxy，数据的渲染以及双向绑定的原理">
-<meta name="keywords" content="js, vue">
+  <meta name="description" content="koakoa原理context中间件常见koa中间件的实现">
+<meta name="keywords" content="node">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据响应式原理剖析">
-<meta property="og:url" content="yangwexu.github.io/2020/07/25/数据响应式原理剖析/index.html">
+<meta property="og:title" content="koa源码原理解析">
+<meta property="og:url" content="yangwexu.github.io/2020/09/22/koa源码原理解析/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="数据响应式原理proxy，数据的渲染以及双向绑定的原理">
+<meta property="og:description" content="koakoa原理context中间件常见koa中间件的实现">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-08-19T12:28:28.375Z">
+<meta property="og:updated_time" content="2020-09-22T12:17:31.254Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据响应式原理剖析">
-<meta name="twitter:description" content="数据响应式原理proxy，数据的渲染以及双向绑定的原理">
+<meta name="twitter:title" content="koa源码原理解析">
+<meta name="twitter:description" content="koakoa原理context中间件常见koa中间件的实现">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -277,11 +277,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-数据响应式原理剖析" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-koa源码原理解析" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2020/07/25/数据响应式原理剖析/" class="article-date">
-      <time datetime="2020-07-25T04:58:48.000Z" itemprop="datePublished">2020-07-25</time>
+      <a  href="/2020/09/22/koa源码原理解析/" class="article-date">
+      <time datetime="2020-09-22T12:07:17.000Z" itemprop="datePublished">2020-09-22</time>
 </a>
 
     </div>
@@ -295,7 +295,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      数据响应式原理剖析
+      koa源码原理解析
     </h1>
   
 
@@ -307,7 +307,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js-vue/">js, vue</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -317,23 +317,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <pre><code>数据响应式原理proxy，数据的渲染以及双向绑定的原理
-</code></pre><a id="more"></a>
-<h2 id="Proxy代理与数据劫持"><a href="#Proxy代理与数据劫持" class="headerlink" title="Proxy代理与数据劫持"></a>Proxy代理与数据劫持</h2><pre><code>1. Handler.set()
-2. Handler.get()
-3. Handler...
-</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> box = <span class="built_in">document</span>.querySelector(<span class="string">'.box'</span>);</span><br><span class="line"><span class="keyword">var</span> data = &#123;</span><br><span class="line">	name: <span class="string">'james'</span>,</span><br><span class="line">	age: <span class="string">'30'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//box.innerHTML = data.age;</span></span><br><span class="line"><span class="comment">//data.age = 21;</span></span><br><span class="line"><span class="comment">//console.log(data);</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Proxy</span>(data, &#123;</span><br><span class="line">	set(target,prop,newValue) &#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'set...'</span>, target,prop,newValue);</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">Reflect</span>.set(...arguments);</span><br><span class="line">	&#125;,</span><br><span class="line">	get(target, prop) &#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'get...'</span>, target,prop);</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">Reflect</span>.get(...arguments);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">p.age = <span class="number">21</span>;</span><br><span class="line"><span class="built_in">console</span>.log(p.name);</span><br></pre></td></tr></table></figure>
-<h2 id="vue中的数据响应式实现"><a href="#vue中的数据响应式实现" class="headerlink" title="vue中的数据响应式实现"></a>vue中的数据响应式实现</h2><pre><code>1. 获取子元素
-2. 匹配内容规则
-3. 修改规则
-</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">	&#123;&#123; name &#125;&#125;</span><br><span class="line">	&lt;div&gt;&#123;&#123; message &#125;&#125;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">	&lt;input v-model="test"&gt;</span></span><br><span class="line"><span class="regexp">	&#123;&#123; test &#125;&#125;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">	<span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">		el: <span class="string">'#app'</span>,</span><br><span class="line">		data: &#123;</span><br><span class="line">			name: <span class="string">'james'</span>,</span><br><span class="line">			message: <span class="string">'测试数据'</span>,</span><br><span class="line">			test: <span class="string">'双绑数据'</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="comment">//vm._data.name='lebron';</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
-<p>新建一个js文件，在html中引入，js文件如下:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">vue</span> </span>&#123;</span><br><span class="line">	<span class="keyword">constructor</span>(option) &#123;</span><br><span class="line">		<span class="keyword">this</span>.option = option;</span><br><span class="line">		<span class="keyword">this</span>._data = <span class="keyword">this</span>.option.data;</span><br><span class="line">		<span class="keyword">this</span>.el = <span class="built_in">document</span>.querySelector(<span class="keyword">this</span>.option.el);</span><br><span class="line">		<span class="keyword">this</span>.compileNode(<span class="keyword">this</span>.el);</span><br><span class="line">	&#125;</span><br><span class="line">	compileNode(el) &#123;</span><br><span class="line">		<span class="keyword">let</span> child = el.childNodes;</span><br><span class="line">		[...child].forEach(<span class="function"><span class="params">node</span> =&gt;</span> &#123;</span><br><span class="line">			<span class="keyword">if</span>(node.nodeType === <span class="number">3</span>) &#123;</span><br><span class="line">				<span class="comment">//console.log('这是一个文本节点');</span></span><br><span class="line">				<span class="keyword">let</span> text = node.textContent;</span><br><span class="line">				<span class="keyword">let</span> reg = <span class="regexp">/\&#123;\&#123;\s*([^\s\&#123;\&#125;]+)\s*\&#125;\&#125;/g</span>;</span><br><span class="line">				<span class="keyword">if</span>(reg.test(text)) &#123;</span><br><span class="line">					<span class="keyword">let</span> $<span class="number">1</span> = <span class="built_in">RegExp</span>.$<span class="number">1</span>;</span><br><span class="line">					<span class="keyword">this</span>._data[$<span class="number">1</span>] &amp;&amp; (node.textContent = text.replace(reg, <span class="keyword">this</span>._data[$<span class="number">1</span>]));</span><br><span class="line"></span><br><span class="line">				&#125;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span>(node.nodeType === <span class="number">1</span>) &#123;</span><br><span class="line">				<span class="keyword">this</span>.compileNode(node);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="vue中双向绑定实现"><a href="#vue中双向绑定实现" class="headerlink" title="vue中双向绑定实现"></a>vue中双向绑定实现</h2><pre><code>1. 监控数据变化
-2. 通过自定义事件通知
-3. 修改规则
-</code></pre><p>接下来继续写js文件</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vue</span> <span class="keyword">extends</span> <span class="title">EventTarget</span></span>&#123;</span><br><span class="line">	<span class="keyword">constructor</span>(option) &#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.option = option;</span><br><span class="line">		<span class="keyword">this</span>._data = <span class="keyword">this</span>.option.data;</span><br><span class="line">		<span class="keyword">this</span>.el = <span class="built_in">document</span>.querySelector(<span class="keyword">this</span>.option.el);</span><br><span class="line">		<span class="keyword">this</span>.observe(<span class="keyword">this</span>._data);</span><br><span class="line">		<span class="keyword">this</span>.compileNode(<span class="keyword">this</span>.el);</span><br><span class="line">	&#125;</span><br><span class="line">	observe(data) &#123;</span><br><span class="line">		<span class="keyword">let</span> _this = <span class="keyword">this</span>;</span><br><span class="line">		<span class="keyword">this</span>._data = <span class="keyword">new</span> <span class="built_in">Proxy</span>(data, &#123;</span><br><span class="line">			set(target,prop,newValue) &#123;</span><br><span class="line">				<span class="built_in">console</span>.log(newValue);</span><br><span class="line">				</span><br><span class="line">				<span class="keyword">let</span> event = <span class="keyword">new</span> CustomEvent(prop, &#123;</span><br><span class="line">					detail: newValue</span><br><span class="line">				&#125;);</span><br><span class="line">				_this.dispatchEvent(event);			</span><br><span class="line">				<span class="keyword">return</span> <span class="built_in">Reflect</span>.set(...arguments);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">	compileNode(el) &#123;</span><br><span class="line">		<span class="keyword">let</span> child = el.childNodes;</span><br><span class="line">		[...child].forEach(<span class="function"><span class="params">node</span> =&gt;</span> &#123;</span><br><span class="line">			<span class="keyword">if</span>(node.nodeType === <span class="number">3</span>) &#123;</span><br><span class="line">				<span class="comment">//console.log('这是一个文本节点');</span></span><br><span class="line">				<span class="keyword">let</span> text = node.textContent;</span><br><span class="line">				<span class="keyword">let</span> reg = <span class="regexp">/\&#123;\&#123;\s*([^\s\&#123;\&#125;]+)\s*\&#125;\&#125;/g</span>;</span><br><span class="line">				<span class="keyword">if</span>(reg.test(text)) &#123;</span><br><span class="line">					<span class="keyword">let</span> $<span class="number">1</span> = <span class="built_in">RegExp</span>.$<span class="number">1</span>;</span><br><span class="line">					<span class="keyword">this</span>._data[$<span class="number">1</span>] &amp;&amp; (node.textContent = text.replace(reg, <span class="keyword">this</span>._data[$<span class="number">1</span>]));</span><br><span class="line"></span><br><span class="line">					<span class="keyword">this</span>.addEventListener($<span class="number">1</span>, e=&gt; &#123;</span><br><span class="line">						node.textContent = text.replace(reg, e.detail);</span><br><span class="line">					&#125;)</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span>(node.nodeType === <span class="number">1</span>) &#123;</span><br><span class="line">				<span class="keyword">let</span> attr = node.attributes;</span><br><span class="line">				<span class="built_in">console</span>.log(attr);</span><br><span class="line">				<span class="keyword">if</span>(attr.hasOwnProperty(<span class="string">'v-model'</span>)) &#123;</span><br><span class="line">					<span class="keyword">let</span> keyName = attr[<span class="string">'v-model'</span>].nodeValue;</span><br><span class="line">					<span class="built_in">console</span>.log(keyName);</span><br><span class="line">					node.value = <span class="keyword">this</span>._data[keyName];</span><br><span class="line">					node.addEventListener(<span class="string">'input'</span>, e=&gt; &#123;</span><br><span class="line">						<span class="keyword">this</span>._data[keyName] = node.value;</span><br><span class="line">					&#125;)</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">this</span>.compileNode(node);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="koa"><a href="#koa" class="headerlink" title="koa"></a>koa</h2><h2 id="koa原理"><a href="#koa原理" class="headerlink" title="koa原理"></a>koa原理</h2><h2 id="context"><a href="#context" class="headerlink" title="context"></a>context</h2><h2 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h2><h2 id="常见koa中间件的实现"><a href="#常见koa中间件的实现" class="headerlink" title="常见koa中间件的实现"></a>常见koa中间件的实现</h2>
       
     </div>
     
@@ -341,13 +325,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/2020/07/25/数据响应式原理剖析/">数据响应式原理剖析</a></p>
+        <p><span>本文标题:</span><a  href="/2020/09/22/koa源码原理解析/">koa源码原理解析</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 杨文旭 的个人博客">杨文旭</a></p>
-        <p><span>发布时间:</span>2020年07月25日 - 12时58分</p>
-        <p><span>最后更新:</span>2020年08月19日 - 20时28分</p>
+        <p><span>发布时间:</span>2020年09月22日 - 20时07分</p>
+        <p><span>最后更新:</span>2020年09月22日 - 20时17分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2020/07/25/数据响应式原理剖析/" title="数据响应式原理剖析">yangwexu.github.io/2020/07/25/数据响应式原理剖析/</a>
-            <span class="copy-path" data-clipboard-text="原文: yangwexu.github.io/2020/07/25/数据响应式原理剖析/　　作者: 杨文旭" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/09/22/koa源码原理解析/" title="koa源码原理解析">yangwexu.github.io/2020/09/22/koa源码原理解析/</a>
+            <span class="copy-path" data-clipboard-text="原文: yangwexu.github.io/2020/09/22/koa源码原理解析/　　作者: 杨文旭" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -358,18 +342,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/2020/08/19/el-tree复选框父子节点/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          el-tree复选框父子节点
-        
-      </div>
-    </a>
   
-  
-    <a  href="/2020/07/21/this指向详解/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">this指向详解</div>
+    <a  href="/2020/08/19/vue组件化通信/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">vue组件化通信</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -381,7 +356,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Proxy代理与数据劫持"><span class="toc-number">1.</span> <span class="toc-text">Proxy代理与数据劫持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vue中的数据响应式实现"><span class="toc-number">2.</span> <span class="toc-text">vue中的数据响应式实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vue中双向绑定实现"><span class="toc-number">3.</span> <span class="toc-text">vue中双向绑定实现</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#koa"><span class="toc-number">1.</span> <span class="toc-text">koa</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#koa原理"><span class="toc-number">2.</span> <span class="toc-text">koa原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#context"><span class="toc-number">3.</span> <span class="toc-text">context</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#中间件"><span class="toc-number">4.</span> <span class="toc-text">中间件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见koa中间件的实现"><span class="toc-number">5.</span> <span class="toc-text">常见koa中间件的实现</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -454,13 +429,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/2020/08/19/el-tree复选框父子节点/" title="上一篇: el-tree复选框父子节点">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/2020/07/21/this指向详解/" title="下一篇: this指向详解">
+            <a  href="/2020/08/19/vue组件化通信/" title="下一篇: vue组件化通信">
                 <i class="fa fa-angle-right"></i>
             </a>
         
