@@ -1,32 +1,204 @@
-extends includes/layout.pug
+<!DOCTYPE html><html data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>vue组件化通信 | Hexo</title><meta name="keywords" content="vue"><meta name="author" content="杨文旭"><meta name="copyright" content="杨文旭"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="平时在使用Vue框架的业务开发中，组件不仅仅要把模板的内容进行复用，更重要的是组件之间要进行通信。 组件之间通信分为三种：父-子；子-父；跨级组件通信。下面，就组件间如何通信做一些总结。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue组件化通信">
+<meta property="og:url" content="http://example.com/2020/08/19/vue%E7%BB%84%E4%BB%B6%E5%8C%96%E9%80%9A%E4%BF%A1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="平时在使用Vue框架的业务开发中，组件不仅仅要把模板的内容进行复用，更重要的是组件之间要进行通信。 组件之间通信分为三种：父-子；子-父；跨级组件通信。下面，就组件间如何通信做一些总结。">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2020-08-19T12:20:19.000Z">
+<meta property="article:modified_time" content="2020-08-19T12:39:14.695Z">
+<meta property="article:author" content="杨文旭">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2020/08/19/vue%E7%BB%84%E4%BB%B6%E5%8C%96%E9%80%9A%E4%BF%A1/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-08-19 20:39:14'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
 
-block content
-  #post
-    if top_img === false
-      include includes/header/post-info.pug
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
 
-    article#article-container.post-content!=page.content
-    include includes/post/post-copyright.pug
-    .tag_share
-      if (theme.post_meta.post.tags)
-        .post-meta__tag-list
-          each item, index in page.tags.data
-            a(href=url_for(item.path)).post-meta__tags #[=item.name]
-      include includes/third-party/share/index.pug
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
         
-    if theme.reward.enable
-      !=partial('includes/post/reward', {}, {cache: true})
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">30</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a></div></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hexo</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">vue组件化通信</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2020-08-19T12:20:19.000Z" title="Created 2020-08-19 20:20:19">2020-08-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2020-08-19T12:39:14.695Z" title="Updated 2020-08-19 20:39:14">2020-08-19</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><pre><code>平时在使用Vue框架的业务开发中，组件不仅仅要把模板的内容进行复用，更重要的是组件之间要进行通信。
+组件之间通信分为三种：父-子；子-父；跨级组件通信。下面，就组件间如何通信做一些总结。
+</code></pre><span id="more"></span>
+<h2 id="1-父传子组件"><a href="#1-父传子组件" class="headerlink" title="1. 父传子组件"></a>1. 父传子组件</h2><pre><code>在组件中，使用选项props来声明需要从父级组件接受的数据，props的值可以是两种：一种是字符串数组，一种是对象。
+props中声明的数据与组件data函数return的主要区别在于props来自父级，
+而data中的组件是自己的数据，作用域是组件本身，
+这两种数据都可以在模板template及计算属性computed和方法methods中使用。如以下例子：
+</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 父组件 ParentComponent</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;parent-component&quot;</span>&gt;</span><br><span class="line">    &lt;h2&gt;这是一个父组件&lt;/h2&gt;</span><br><span class="line">    &lt;ChildComponent :parentMessage=<span class="string">&quot;parentMessage&quot;</span>/&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">import</span> ChildComponent <span class="keyword">from</span> <span class="string">&#x27;./ChildComponent&#x27;</span></span><br><span class="line">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    name: <span class="string">&quot;ParentComponent&quot;</span>,</span><br><span class="line">    <span class="function"><span class="title">data</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span>&#123;</span><br><span class="line">        parentMessage:<span class="string">&#x27;这是来自父组件的数据&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    components:&#123;</span><br><span class="line">      ChildComponent</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"><span class="string">``</span><span class="string">``</span></span><br><span class="line"></span><br><span class="line"><span class="string">``</span><span class="string">`javascript</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// 子组件 ChildComponent</span></span><br><span class="line"><span class="string">&lt;template&gt;</span></span><br><span class="line"><span class="string">&lt;div class=&quot;child-component&quot;&gt;</span></span><br><span class="line"><span class="string">  &lt;h2&gt;这是一个子组件&lt;/h2&gt;</span></span><br><span class="line"><span class="string">  &lt;h3&gt;&#123;&#123;parentMessage&#125;&#125;&lt;/h3&gt;</span></span><br><span class="line"><span class="string">&lt;/div&gt;</span></span><br><span class="line"><span class="string">&lt;/template&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;script&gt;</span></span><br><span class="line"><span class="string">  export default &#123;</span></span><br><span class="line"><span class="string">    name: &quot;ChildComponent&quot;,</span></span><br><span class="line"><span class="string">    props:[&quot;parentMessage&quot;]</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span><span class="string">``</span><span class="string">`</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	小结：父组件传递个子组件的数据可以写死，也可以用父级的动态数据用v-bind来绑定props的值。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">## 2. 子传父</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	当子组件需要向父组件传递数据时，就要用到自定义事件，v-on指令除了监听DOM事件外，还可以用于组件间的自定义事件，</span></span><br><span class="line"><span class="string">	Vue组件有一套类似与观察者模式的一套模式，子组件用$emit()来触发事件，父组件用$on()来监听子组件的事件。举个例子如下：</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line"></span><br><span class="line"><span class="comment">// ParentComponent 父组件</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;parent-component&quot;</span>&gt;</span><br><span class="line">    &lt;h2&gt;这是一个父组件total:&#123;&#123;total&#125;&#125;&lt;/h2&gt;</span><br><span class="line">    &lt;ChildComponent :parentMessage=<span class="string">&quot;parentMessage&quot;</span> :total=<span class="string">&quot;total&quot;</span> @handleAdd10=<span class="string">&quot;getTotal&quot;</span>/&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">import</span> ChildComponent <span class="keyword">from</span> <span class="string">&#x27;./ChildComponent&#x27;</span></span><br><span class="line">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    name: <span class="string">&quot;ParentComponent&quot;</span>,</span><br><span class="line">    <span class="function"><span class="title">data</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span>&#123;</span><br><span class="line">        parentMessage:<span class="string">&#x27;这是来自父组件的数据&#x27;</span>,</span><br><span class="line">        total:<span class="number">10</span>,</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    components:&#123;</span><br><span class="line">      ChildComponent</span><br><span class="line">    &#125;,</span><br><span class="line">    methods:&#123;</span><br><span class="line">      <span class="function"><span class="title">getTotal</span>(<span class="params">total</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.total=total;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;ParentComponent total:&#x27;</span>,total);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"><span class="string">``</span><span class="string">``</span></span><br><span class="line"></span><br><span class="line"><span class="string">``</span><span class="string">`javascript</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// ChildComponent 子组件</span></span><br><span class="line"><span class="string">&lt;template&gt;</span></span><br><span class="line"><span class="string">&lt;div class=&quot;child-component&quot;&gt;</span></span><br><span class="line"><span class="string">  &lt;h2&gt;这是一个子组件&lt;/h2&gt;</span></span><br><span class="line"><span class="string">  &lt;h3&gt;&#123;&#123;parentMessage&#125;&#125;&lt;/h3&gt;</span></span><br><span class="line"><span class="string">  &lt;button @click=&quot;handleAdd10&quot;&gt;+10按钮&lt;/button&gt;</span></span><br><span class="line"><span class="string">&lt;/div&gt;</span></span><br><span class="line"><span class="string">&lt;/template&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;script&gt;</span></span><br><span class="line"><span class="string">  export default &#123;</span></span><br><span class="line"><span class="string">    name: &quot;ChildComponent&quot;,</span></span><br><span class="line"><span class="string">    props:[&quot;parentMessage&quot;,&quot;total&quot;],</span></span><br><span class="line"><span class="string">    methods:&#123;</span></span><br><span class="line"><span class="string">      handleAdd10()&#123;</span></span><br><span class="line"><span class="string">        let total=this.total+10;</span></span><br><span class="line"><span class="string">        console.log(&#x27;ChildComponent $emit:&#x27;);</span></span><br><span class="line"><span class="string">        this.$emit(&#x27;handleAdd10&#x27;,total);</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span><span class="string">``</span><span class="string">`</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	上面例子中，子组件有一个按钮，实现加10的效果，子组件通过props项来接收父组件传入的total值，在改变total后，</span></span><br><span class="line"><span class="string">	通过$emit把它传给父组件，父组件定义事件@handleAdd10方法，子组件$emit()方法第一个参数是自定义事件的名称，</span></span><br><span class="line"><span class="string">	后面的参数是要传的数据，对应的父组件通过getTotal(total)来接收子组件传递的数据，由此子组件到父组件通信完成。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">## 3.表单子组件到父组件通过v-model来通信(语法糖)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>javascript</span><br><span class="line"></span><br><span class="line"><span class="comment">// ParentComponent 改动如下</span></span><br><span class="line">**</span><br><span class="line">&lt;h2&gt;这是一个父组件total:&#123;&#123;total&#125;&#125;&lt;/h2&gt;</span><br><span class="line">&lt;ChildComponent :parentMessage=<span class="string">&quot;parentMessage&quot;</span> :total=<span class="string">&quot;total&quot;</span> @handleAdd10=<span class="string">&quot;getTotal&quot;</span>/&gt;</span><br><span class="line">&lt;InputComponent v-model=<span class="string">&quot;total&quot;</span>/&gt;</span><br><span class="line">**</span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">import</span> InputComponent <span class="keyword">from</span> <span class="string">&#x27;./InputComponent&#x27;</span></span><br><span class="line">&lt;/script&gt;</span><br><span class="line">**</span><br><span class="line"></span><br><span class="line"><span class="comment">// InputComponent 子组件</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;input type=<span class="string">&quot;text&quot;</span> @input=<span class="string">&quot;updateValue($event)&quot;</span>&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    name: <span class="string">&quot;InputComponent&quot;</span>,</span><br><span class="line">    methods:&#123;</span><br><span class="line">      <span class="function"><span class="title">updateValue</span>(<span class="params">evt</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.$emit(<span class="string">&#x27;input&#x27;</span>,evt.target.value)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>以上示例中：因为子组件的石建明是特殊的input，在使用组件的父级，可以通过v-model来绑定数据total，
+这种实现方式也可以称作语法糖，大大减少了父组件代码量。
+</code></pre><h2 id="3-兄弟组件"><a href="#3-兄弟组件" class="headerlink" title="3. 兄弟组件"></a>3. 兄弟组件</h2><h2 id="4-祖先后代provide-inject"><a href="#4-祖先后代provide-inject" class="headerlink" title="4. 祖先后代provide $ inject"></a>4. 祖先后代provide $ inject</h2><h2 id="5-dispatch"><a href="#5-dispatch" class="headerlink" title="5. dispatch"></a>5. dispatch</h2><h2 id="6-boardcast"><a href="#6-boardcast" class="headerlink" title="6. boardcast"></a>6. boardcast</h2><h2 id="7-全局挂载dispatch和boardcast"><a href="#7-全局挂载dispatch和boardcast" class="headerlink" title="7. 全局挂载dispatch和boardcast"></a>7. 全局挂载dispatch和boardcast</h2><h2 id="8-event-bus中央事件总线"><a href="#8-event-bus中央事件总线" class="headerlink" title="8. event-bus中央事件总线"></a>8. event-bus中央事件总线</h2><pre><code class="lang-javascript">
+// ParentComponent 父组件
+&lt;template&gt;
+  &lt;div class=&quot;parent-component&quot;&gt;
+    &#123;&#123;message&#125;&#125;
+    &lt;br&gt;
+    &lt;br&gt;
+    &lt;component-a/&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
 
-    //- ad
-    if theme.ad && theme.ad.post
-      .ads-wrap!=theme.ad.post
+&lt;script&gt;
+  import Vue from &#39;vue&#39;
+  let bus=new Vue();
+  export default &#123;
+    name: &quot;ParentComponent&quot;,
+    data()&#123;
+      return&#123;
+        message:&#39;&#39;,
+      &#125;
+    &#125;,
+    components:&#123;
+      componentA:&#123;
+        template:&#39;&lt;button @click=&quot;handleClick&quot;&gt;传递事件&lt;/button&gt;&#39;,
+        methods:&#123;
+          handleClick()&#123;
+            bus.$emit(&#39;on-message&#39;,&#39;来自子组件component-a的内容&#39;)
+          &#125;
+        &#125;
+      &#125;
+    &#125;,
+    mounted()&#123;
+      bus.$on(&#39;on-message&#39;,(msg)=&gt;&#123;
+        this.message=msg;
+      &#125;);
+    &#125;
+  &#125;
+&lt;/script&gt;
 
-    if theme.post_pagination
-      include includes/pagination.pug
-    if theme.related_post && theme.related_post.enable
-      != related_posts(page,site.posts)
+`
+</code></pre>
+<pre><code>以上例子中：首先创建了一个bus的空Vue实例，里面没有任何内容，然后全局定义了组件component-a,，
+在父组件ParentChild的生命周期mounted钩子函数中监听来自bus的事件on-message。
+而在组件component-a中，点击按钮会通过bus把事件on-message发出去，
+父组件会接受来自bus的事件，改变message的值。
 
-    if page.comments !== false && theme.comments && theme.comments.use
-      - var commentsJsLoad = true
-      !=partial('includes/third-party/comments/index', {}, {cache: true})
-      
+这种方法巧妙轻量的实现了任何组件之间的通信，包括父子，兄弟，跨级组件。
+</code></pre><h2 id="9-vuex"><a href="#9-vuex" class="headerlink" title="9. vuex"></a>9. vuex</h2><pre><code>在实际业务中，经常会有跨组件共享数据的需求，如果项目不复杂，使用bus就能简单的解决问题，
+但是使用bus在数据的管理、维护、架构设计上还只是一个简单的组件，
+在大型单页应用，多然开发的项目中，Vuex能更加优雅和高效的完成状态管理。
+
+![招不出](../pictures/vuex.png)
+</code></pre></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">杨文旭</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2020/08/19/vue%E7%BB%84%E4%BB%B6%E5%8C%96%E9%80%9A%E4%BF%A1/">http://example.com/2020/08/19/vue%E7%BB%84%E4%BB%B6%E5%8C%96%E9%80%9A%E4%BF%A1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/vue/">vue</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/09/22/koa%E6%BA%90%E7%A0%81%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">koa源码原理解析</div></div></a></div><div class="next-post pull-right"><a href="/2020/08/19/el-tree%E5%A4%8D%E9%80%89%E6%A1%86%E7%88%B6%E5%AD%90%E8%8A%82%E7%82%B9/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">el-tree复选框父子节点</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/null" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">杨文旭</div><div class="author-info__description">在孤独寂寞中修炼，用更好的自己去见更好的人</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">30</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%88%B6%E4%BC%A0%E5%AD%90%E7%BB%84%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">1. 父传子组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%85%84%E5%BC%9F%E7%BB%84%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">3. 兄弟组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E7%A5%96%E5%85%88%E5%90%8E%E4%BB%A3provide-inject"><span class="toc-number">3.</span> <span class="toc-text">4. 祖先后代provide $ inject</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-dispatch"><span class="toc-number">4.</span> <span class="toc-text">5. dispatch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-boardcast"><span class="toc-number">5.</span> <span class="toc-text">6. boardcast</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%85%A8%E5%B1%80%E6%8C%82%E8%BD%BDdispatch%E5%92%8Cboardcast"><span class="toc-number">6.</span> <span class="toc-text">7. 全局挂载dispatch和boardcast</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-event-bus%E4%B8%AD%E5%A4%AE%E4%BA%8B%E4%BB%B6%E6%80%BB%E7%BA%BF"><span class="toc-number">7.</span> <span class="toc-text">8. event-bus中央事件总线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-vuex"><span class="toc-number">8.</span> <span class="toc-text">9. vuex</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/02/27/life-is-a-fucking-movie-md/" title="life is a fucking movie"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="life is a fucking movie"/></a><div class="content"><a class="title" href="/2021/02/27/life-is-a-fucking-movie-md/" title="life is a fucking movie">life is a fucking movie</a><time datetime="2021-02-27T11:50:50.000Z" title="Created 2021-02-27 19:50:50">2021-02-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/09/22/koa%E6%BA%90%E7%A0%81%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" title="koa源码原理解析"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="koa源码原理解析"/></a><div class="content"><a class="title" href="/2020/09/22/koa%E6%BA%90%E7%A0%81%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" title="koa源码原理解析">koa源码原理解析</a><time datetime="2020-09-22T12:07:17.000Z" title="Created 2020-09-22 20:07:17">2020-09-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/08/19/vue%E7%BB%84%E4%BB%B6%E5%8C%96%E9%80%9A%E4%BF%A1/" title="vue组件化通信"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vue组件化通信"/></a><div class="content"><a class="title" href="/2020/08/19/vue%E7%BB%84%E4%BB%B6%E5%8C%96%E9%80%9A%E4%BF%A1/" title="vue组件化通信">vue组件化通信</a><time datetime="2020-08-19T12:20:19.000Z" title="Created 2020-08-19 20:20:19">2020-08-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/08/19/el-tree%E5%A4%8D%E9%80%89%E6%A1%86%E7%88%B6%E5%AD%90%E8%8A%82%E7%82%B9/" title="el-tree复选框父子节点"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="el-tree复选框父子节点"/></a><div class="content"><a class="title" href="/2020/08/19/el-tree%E5%A4%8D%E9%80%89%E6%A1%86%E7%88%B6%E5%AD%90%E8%8A%82%E7%82%B9/" title="el-tree复选框父子节点">el-tree复选框父子节点</a><time datetime="2020-08-19T12:13:44.000Z" title="Created 2020-08-19 20:13:44">2020-08-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/07/25/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" title="数据响应式原理剖析"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据响应式原理剖析"/></a><div class="content"><a class="title" href="/2020/07/25/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" title="数据响应式原理剖析">数据响应式原理剖析</a><time datetime="2020-07-25T04:58:48.000Z" title="Created 2020-07-25 12:58:48">2020-07-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 杨文旭</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

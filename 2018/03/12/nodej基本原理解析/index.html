@@ -1,32 +1,167 @@
-extends includes/layout.pug
+<!DOCTYPE html><html data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>node基本原理解析 | Hexo</title><meta name="keywords" content="node js"><meta name="author" content="杨文旭"><meta name="copyright" content="杨文旭"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="体验node.js,搭建本地服务器，还可以运用ajax，进行前后端交互，还有很多骚操作，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node基本原理解析">
+<meta property="og:url" content="http://example.com/2018/03/12/nodej%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="体验node.js,搭建本地服务器，还可以运用ajax，进行前后端交互，还有很多骚操作，">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2018-03-12T09:05:10.000Z">
+<meta property="article:modified_time" content="2020-08-19T12:29:47.668Z">
+<meta property="article:author" content="杨文旭">
+<meta property="article:tag" content="node js">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2018/03/12/nodej%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2020-08-19 20:29:47'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
 
-block content
-  #post
-    if top_img === false
-      include includes/header/post-info.pug
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
 
-    article#article-container.post-content!=page.content
-    include includes/post/post-copyright.pug
-    .tag_share
-      if (theme.post_meta.post.tags)
-        .post-meta__tag-list
-          each item, index in page.tags.data
-            a(href=url_for(item.path)).post-meta__tags #[=item.name]
-      include includes/third-party/share/index.pug
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
         
-    if theme.reward.enable
-      !=partial('includes/post/reward', {}, {cache: true})
-
-    //- ad
-    if theme.ad && theme.ad.post
-      .ads-wrap!=theme.ad.post
-
-    if theme.post_pagination
-      include includes/pagination.pug
-    if theme.related_post && theme.related_post.enable
-      != related_posts(page,site.posts)
-
-    if page.comments !== false && theme.comments && theme.comments.use
-      - var commentsJsLoad = true
-      !=partial('includes/third-party/comments/index', {}, {cache: true})
-      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">30</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a></div></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hexo</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">node基本原理解析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2018-03-12T09:05:10.000Z" title="Created 2018-03-12 17:05:10">2018-03-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2020-08-19T12:29:47.668Z" title="Updated 2020-08-19 20:29:47">2020-08-19</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><pre><code>体验node.js,搭建本地服务器，还可以运用ajax，进行前后端交互，还有很多骚操作，
+</code></pre><span id="more"></span>
+<ol>
+<li><p>引入了require模块，，可以使用require指令来载入node.js模块。并且创建http服务器。http模块提供函数createServer，返回一个对象，这个对象有一个叫做listen的方法，有一个数值参数指定这个http服务器监听的端口号。</p>
+</li>
+<li><p>文件操作：fs——File System</p>
+<p> 注意异步和同步<br> 异步：多个操作可以同时进行，前一次的操作没完事，后一次也能开始，异步的方法函数最后一个参数为回调函数，性能更高，速度更快，而且没有阻塞。<br> 同步：一次一个</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">readFile(文件名, <span class="function"><span class="keyword">function</span> (<span class="params">err, data</span>)</span>&#123;&#125;)</span><br><span class="line">writeFile(文件名, 内容, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>)</span>&#123;&#125;)</span><br><span class="line"></span><br><span class="line">oBtn.onclick=<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">	alert(<span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">alert(<span class="string">&#x27;b&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>数据请求，和前台进行数据交互，前台向后台发送数据请求可以使用form表单，ajax，json。更多是使用ajax，使用XMLHttpRequest对象向服务器端发送字符串。</p>
+</li>
+<li><p>请求方式：GET，数据在url中</p>
+<p> GET数据解析<br> querystring  如xxx=xx&amp;xxx=xxx，可以解析部分url<br> urlLib        如aaa?xxx=xx&amp;xx=12，可以解析整个url。</p>
+<p> req.url=&gt;”/aaa?user=blue&amp;pass=123456”<br> /aaa<br> user=blue&amp;pass=123456</p>
+<p> 如上数据就可以用url.parse方法来解析URL中的参数，如：urlLib.parse(url, true); 可以解析出来pathname，query等东西。</p>
+</li>
+<li><p>请求方式： POST，数据不在url中</p>
+<p> POST数据接收：POST数据比GET大得多，<br> data：通过req的data事件监听函数，每当接收到请求体的数据，就累加到post变量中，如：</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> post=<span class="string">&#x27;&#x27;</span>;</span><br><span class="line">req.on(<span class="string">&#x27;data&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">chunk</span>)</span>&#123;</span><br><span class="line">	post += chunk;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>end:(全部到达),在end事件触发后，通过queryString.parse将post解析为真正的POST请求格式，然后向客户端返回。如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">req.on(<span class="string">&#x27;end&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	post= queryString.parse(post);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">杨文旭</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2018/03/12/nodej%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/">http://example.com/2018/03/12/nodej%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/node-js/">node js</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2018/03/12/%E6%8E%A2%E7%B4%A2express%E6%A1%86%E6%9E%B6%E5%8F%8A%E5%85%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">探索express框架及其中间件</div></div></a></div><div class="next-post pull-right"><a href="/2018/01/11/cookie%E8%A7%A3%E8%AF%BB/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">cookie解读</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2018/03/12/探索express框架及其中间件/" title="探索express框架及其中间件"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-03-12</div><div class="title">探索express框架及其中间件</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/null" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">杨文旭</div><div class="author-info__description">在孤独寂寞中修炼，用更好的自己去见更好的人</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">30</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/02/27/life-is-a-fucking-movie-md/" title="life is a fucking movie"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="life is a fucking movie"/></a><div class="content"><a class="title" href="/2021/02/27/life-is-a-fucking-movie-md/" title="life is a fucking movie">life is a fucking movie</a><time datetime="2021-02-27T11:50:50.000Z" title="Created 2021-02-27 19:50:50">2021-02-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/09/22/koa%E6%BA%90%E7%A0%81%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" title="koa源码原理解析"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="koa源码原理解析"/></a><div class="content"><a class="title" href="/2020/09/22/koa%E6%BA%90%E7%A0%81%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" title="koa源码原理解析">koa源码原理解析</a><time datetime="2020-09-22T12:07:17.000Z" title="Created 2020-09-22 20:07:17">2020-09-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/08/19/vue%E7%BB%84%E4%BB%B6%E5%8C%96%E9%80%9A%E4%BF%A1/" title="vue组件化通信"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vue组件化通信"/></a><div class="content"><a class="title" href="/2020/08/19/vue%E7%BB%84%E4%BB%B6%E5%8C%96%E9%80%9A%E4%BF%A1/" title="vue组件化通信">vue组件化通信</a><time datetime="2020-08-19T12:20:19.000Z" title="Created 2020-08-19 20:20:19">2020-08-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/08/19/el-tree%E5%A4%8D%E9%80%89%E6%A1%86%E7%88%B6%E5%AD%90%E8%8A%82%E7%82%B9/" title="el-tree复选框父子节点"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="el-tree复选框父子节点"/></a><div class="content"><a class="title" href="/2020/08/19/el-tree%E5%A4%8D%E9%80%89%E6%A1%86%E7%88%B6%E5%AD%90%E8%8A%82%E7%82%B9/" title="el-tree复选框父子节点">el-tree复选框父子节点</a><time datetime="2020-08-19T12:13:44.000Z" title="Created 2020-08-19 20:13:44">2020-08-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/07/25/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" title="数据响应式原理剖析"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据响应式原理剖析"/></a><div class="content"><a class="title" href="/2020/07/25/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" title="数据响应式原理剖析">数据响应式原理剖析</a><time datetime="2020-07-25T04:58:48.000Z" title="Created 2020-07-25 12:58:48">2020-07-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 杨文旭</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

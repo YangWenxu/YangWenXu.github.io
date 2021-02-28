@@ -1,32 +1,189 @@
-extends includes/layout.pug
+<!DOCTYPE html><html data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>linux文件系统的实现 | Hexo</title><meta name="keywords" content="linux c"><meta name="author" content="杨文旭"><meta name="copyright" content="杨文旭"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Linux 操作系统的一个重要特点是它支持许多不同类型的文件系统。Linux 中最普遍使用的文件系统是 Ext2，它也是 Linux 土生土长的文件系统。但 Linux 也能够支持 FAT、VFAT、FAT32、MINIX 等不同类型的文件系统，从而可以方便地和其它操作系统交换数据。由于 Linux 支持许多不同的文件系统，并且将它们组织成了一个统一的虚拟文件系统.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux文件系统的实现">
+<meta property="og:url" content="http://example.com/2018/12/27/%E7%AE%80%E6%98%93%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Linux 操作系统的一个重要特点是它支持许多不同类型的文件系统。Linux 中最普遍使用的文件系统是 Ext2，它也是 Linux 土生土长的文件系统。但 Linux 也能够支持 FAT、VFAT、FAT32、MINIX 等不同类型的文件系统，从而可以方便地和其它操作系统交换数据。由于 Linux 支持许多不同的文件系统，并且将它们组织成了一个统一的虚拟文件系统.">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2018-12-26T17:20:44.000Z">
+<meta property="article:modified_time" content="2020-08-19T12:30:37.207Z">
+<meta property="article:author" content="杨文旭">
+<meta property="article:tag" content="linux c">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2018/12/27/%E7%AE%80%E6%98%93%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9E%E7%8E%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-08-19 20:30:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
 
-block content
-  #post
-    if top_img === false
-      include includes/header/post-info.pug
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
 
-    article#article-container.post-content!=page.content
-    include includes/post/post-copyright.pug
-    .tag_share
-      if (theme.post_meta.post.tags)
-        .post-meta__tag-list
-          each item, index in page.tags.data
-            a(href=url_for(item.path)).post-meta__tags #[=item.name]
-      include includes/third-party/share/index.pug
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
         
-    if theme.reward.enable
-      !=partial('includes/post/reward', {}, {cache: true})
-
-    //- ad
-    if theme.ad && theme.ad.post
-      .ads-wrap!=theme.ad.post
-
-    if theme.post_pagination
-      include includes/pagination.pug
-    if theme.related_post && theme.related_post.enable
-      != related_posts(page,site.posts)
-
-    if page.comments !== false && theme.comments && theme.comments.use
-      - var commentsJsLoad = true
-      !=partial('includes/third-party/comments/index', {}, {cache: true})
-      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">30</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a></div></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hexo</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">linux文件系统的实现</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2018-12-26T17:20:44.000Z" title="Created 2018-12-27 01:20:44">2018-12-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2020-08-19T12:30:37.207Z" title="Updated 2020-08-19 20:30:37">2020-08-19</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><pre><code>Linux 操作系统的一个重要特点是它支持许多不同类型的文件系统。Linux 中最普遍使用的文件系统是 Ext2，它也是 Linux 土生土长的文件系统。但 Linux 也能够支持 FAT、VFAT、FAT32、MINIX 等不同类型的文件系统，从而可以方便地和其它操作系统交换数据。由于 Linux 支持许多不同的文件系统，并且将它们组织成了一个统一的虚拟文件系统.
+</code></pre><span id="more"></span>
+<h2 id="内容要求"><a href="#内容要求" class="headerlink" title="* 内容要求"></a>* 内容要求</h2><h3 id="0x00"><a href="#0x00" class="headerlink" title="* 0x00"></a>* 0x00</h3><ul>
+<li>在内存中开辟一个虚拟磁盘空间作为文件存储分区，在其上实现一个简单的基于多级目录的单用户单任务系统中的文件系统。在退出该文件系统的使用时，应将该虚拟文件系统以一个文件的方式保存到磁盘上，以便下次可以再将它恢复到内存的虚拟磁盘空间中。  </li>
+</ul>
+<h3 id="0x01"><a href="#0x01" class="headerlink" title="* 0x01"></a>* 0x01</h3><ul>
+<li>文件存储空间的分配可采用显式链接分配或其他的办法。  </li>
+</ul>
+<h3 id="0x02"><a href="#0x02" class="headerlink" title="* 0x02"></a>* 0x02</h3><ul>
+<li>空闲磁盘空间的管理可选择位示图或其他的办法。如果采用位示图来管理文件存储空间，并采用显式链接分配方式，那么可以将位示图合并到 FAT 中。  </li>
+</ul>
+<h3 id="0x03"><a href="#0x03" class="headerlink" title="* 0x03"></a>* 0x03</h3><ul>
+<li>文件目录结构采用多级目录结构。为了简单起见，可以不使用索引结点，其中的每个目录项应包含文件名、物理地址、长度等信息，还可以通过目录项实现对文件的读和写的保护。  </li>
+</ul>
+<h3 id="0x04"><a href="#0x04" class="headerlink" title="* 0x04"></a>* 0x04</h3><ul>
+<li>要求提供以下操作命令：  </li>
+</ul>
+<ul>
+<li>my_format：对文件存储器进行格式化，即按照文件系统的结构对虚拟磁盘空间进行布局，并在其上创建根目录以及用于管理文件存储空间等的数据结构。</li>
+<li>my_mkdir：用于创建子目录。</li>
+<li>my_rmdir：用于删除子目录。</li>
+<li>my_ls：用于显示目录中的内容。</li>
+<li>my_cd：用于更改当前目录。</li>
+<li>my_create：用于创建文件。</li>
+<li>my_open：用于打开文件。</li>
+<li>my_close：用于关闭文件。</li>
+<li>my_write：用于写文件。</li>
+<li>my_read：用于读文件。</li>
+<li>my_rm：用于删除文件。</li>
+<li>my_exitsys：用于退出文件系统  </li>
+</ul>
+<h2 id="实例主要命令及函数设计"><a href="#实例主要命令及函数设计" class="headerlink" title="实例主要命令及函数设计"></a>实例主要命令及函数设计</h2><h3 id="1．系统主函数main"><a href="#1．系统主函数main" class="headerlink" title="1．系统主函数main()"></a>1．系统主函数main()</h3><p>（1）对应命令：无<br>（2）命令调用格式：无<br>（3）函数设计格式：int main()<br>（4）功能：系统主函数<br>（5）输入：无<br>（6）输出：无<br>（7）函数需完成的工作：<br>① 对前面定义的全局变量进行初始化；<br>② 调用startsys()进入文件系统；<br>③ 列出文件系统提供的各项功能及命令调用格式；<br>④ 显示命令行提示符，等待用户输入命令；<br>⑤ 将用户输入的命令保存到一个buf 中；<br>⑥ 对buf 中的内容进行命令解析，并调用相应的函数执行用户键入的命令；<br>⑦ 如果命令不是“my_exitsys”，则命令执行完毕后转④。    </p>
+<h3 id="2-进入文件系统函数startsys"><a href="#2-进入文件系统函数startsys" class="headerlink" title="2. 进入文件系统函数startsys()"></a>2. 进入文件系统函数startsys()</h3><p>（1）对应命令：无<br>（2）命令调用格式：无<br>（3）函数设计格式：void startsys()<br>（4）功能：由main()函数调用，进入并初始化我们所建立的文件系统，以供用户使用。<br>（5）输入：无<br>（6）输出：无。<br>（7）函数需完成的工作：<br>① 申请虚拟磁盘空间；<br>② 使用c语言的库函数fopen()打开myfsys文件：若文件存在，则转③；若文件不存在，则创建之，转⑤<br>③ 使用c语言的库函数fread()读入myfsys文件内容到用户空间中的一个缓冲区中，并判断其开始的8个字节内容是否为“10101010”（文件系统魔数），如果是，则转④；否则转⑤；<br>④ 将上述缓冲区中的内容复制到内存中的虚拟磁盘空间中；转⑦<br>⑤ 在屏幕上显示“myfsys文件系统不存在，现在开始创建文件系统”信息，并调用my_format()对①中申请到的虚拟磁盘空间进行格式化操作。转⑥；<br>⑥ 将虚拟磁盘中的内容保存到myfsys文件中；转⑦<br>⑦ 使用c语言的库函数fclose()关闭myfsys文件；<br>⑧ 初始化用户打开文件表，将表项0分配给根目录文件使用，并填写根目录文件的相关信息，由于根目录没有上级目录，所以表项中的dirno和diroff分别置为5（根目录所在起始块号）和0；并将ptrcurdir指针指向该用户打开文件表项。<br>⑨ 将当前目录设置为根目录。  </p>
+<h3 id="3．磁盘格式化函数my-format"><a href="#3．磁盘格式化函数my-format" class="headerlink" title="3．磁盘格式化函数my_format()"></a>3．磁盘格式化函数my_format()</h3><p>（1）对应命令：format<br>（2）命令调用格式：format<br>（3）函数设计格式：void my_format()<br>（4）功能：对虚拟磁盘进行格式化，布局虚拟磁盘，建立根目录文件（或根目录区）。<br>（5）输入：无<br>（6）输出：无。<br>（7）函数需完成的工作：<br>① 将虚拟磁盘第一个块作为引导块，开始的8个字节是文件系统的魔数，记为“10101010”；在之后写入文件系统的描述信息，如FAT表大小及位置、根目录大小及位置、盘块大小、盘块数量、数据区开始位置等信息；<br>② 在引导块后建立两张完全一样的FAT表，用于记录文件所占据的磁盘块及管理虚拟磁盘块的分配，每个FAT占据两个磁盘块；对于每个FAT中，前面5个块设置为已分配，后面995个块设置为空闲；<br>③ 在第二张FAT后创建根目录文件root，将数据区的第1块（即虚拟磁盘的第6块）分配给根目录文件，在该磁盘上创建两个特殊的目录项：“.”和“..”，其内容除了文件名不同之外，其他字段完全相同。  </p>
+<h3 id="4．更改当前目录函数my-cd"><a href="#4．更改当前目录函数my-cd" class="headerlink" title="4．更改当前目录函数my_cd()"></a>4．更改当前目录函数my_cd()</h3><p>（1）对应命令：cd<br>（2）命令调用格式：cd dirname<br>（3）函数设计格式：void my_cd(char *dirname)<br>（4）功能：改变当前目录到指定的名为dirname的目录。<br>（5）输入：dirname：新的当前目录的目录名；<br>（6）输出：无<br>（7）函数需完成的工作：<br>① 调用my_open()打开指定目录名的父目录文件，并调用do_read()读入该父目录文件内容到内存中；<br>② 在父目录文件中检查新的当前目录名是否存在，如果存在则转③，否则返回，并显示出错信息；<br>③ 调用my_close()关闭①中打开的父目录文件；<br>④ 调用my_close()关闭原当前目录文件；<br>⑤ 如果新的当前目录文件没有打开，则打开该目录文件；并将ptrcurdir指向该打开文件表项；<br>⑥ 设置当前目录为该目录。  </p>
+<h3 id="5．创建子目录函数my-mkdir"><a href="#5．创建子目录函数my-mkdir" class="headerlink" title="5．创建子目录函数my_mkdir()"></a>5．创建子目录函数my_mkdir()</h3><p>（1）对应命令：mkdir<br>（2）命令调用格式：mkdir dirname<br>（3）函数设计格式：void my_mkdir(char *dirname)<br>（4）功能：在当前目录下创建名为dirname的子目录。<br>（5）输入：dirname：新建目录的目录名。<br>（6）输出：无。<br>（7）函数需完成的工作：<br>① 调用do_read()读入当前目录文件内容到内存，检查当前目录下新建目录文件是否重名，若重名则返回，并显示错误信息；<br>② 为新建子目录文件分配一个空闲打开文件表项，如果没有空闲表项则返回-1，并显示错误信息；<br>③ 检查FAT是否有空闲的盘块，如有则为新建目录文件分配一个盘块，否则释放①中分配的打开文件表项，返回，并显示错误信息；<br>④ 在当前目录中为新建目录文件寻找一个空闲的目录项或为其追加一个新的目录项;需修改当前目录文件的长度信息，并将当前目录文件的用户打开文件表项中的fcbstate置为1；<br>⑤ 准备好新建目录文件的FCB的内容，文件的属性为目录文件，以覆盖写方式调用do_write()将其填写到对应的空目录项中；<br>⑥ 在新建目录文件所分配到的磁盘块中建立两个特殊的目录项“.”和“..”目录项，方法是：首先在用户空间中准备好内容，然后以截断写或者覆盖写方式调用do_write()将其写到③中分配到的磁盘块中；<br>⑦ 返回。   </p>
+<h3 id="6．删除子目录函数rmdir"><a href="#6．删除子目录函数rmdir" class="headerlink" title="6．删除子目录函数rmdir()"></a>6．删除子目录函数rmdir()</h3><p>（1）对应命令：rmdir<br>（2）命令调用格式：rmdir dirname<br>（1）函数设计格式：void my_rmdir(char *dirname)<br>（2）功能：在当前目录下删除名为dirname的子目录。<br>（3）输入：dirname：欲删除目录的目录名。<br>（4）输出：无。<br>（5）函数需完成的工作：<br>① 调用do_read()读入当前目录文件内容到内存，检查当前目录下欲删除目录文件是否存在，若不存在则返回，并显示错误信息；<br>② 检查欲删除目录文件是否为空（除了“.”和“..”外没有其他子目录和文件），可根据其目录项中记录的文件长度来判断，若不为空则返回，并显示错误信息；<br>③ 检查该目录文件是否已经打开，若已打开则调用my_close()关闭掉；<br>④ 回收该目录文件所占据的磁盘块，修改FAT；<br>⑤ 从当前目录文件中清空该目录文件的目录项，且free字段置为0：以覆盖写方式调用do_write()来实现；<br>⑥ 修改当前目录文件的用户打开表项中的长度信息，并将表项中的fcbstate置为1；<br>⑦ 返回。  </p>
+<h3 id="7．显示目录函数my-ls"><a href="#7．显示目录函数my-ls" class="headerlink" title="7．显示目录函数my_ls()"></a>7．显示目录函数my_ls()</h3><p>（1）对应命令：ls<br>（2）命令调用格式：ls<br>（3）函数设计格式：void my_ls(void)<br>（4）功能：显示当前目录的内容（子目录和文件信息）。<br>（5）输入：无<br>（6）输出：无<br>（7）函数需完成的工作：<br>① 调用do_read()读出当前目录文件内容到内存；<br>② 将读出的目录文件的信息按照一定的格式显示到屏幕上；<br>③ 返回。  </p>
+<h3 id="8．创建文件函数my-create"><a href="#8．创建文件函数my-create" class="headerlink" title="8．创建文件函数my_create()"></a>8．创建文件函数my_create()</h3><p>（1）对应命令：create<br>（2）命令调用格式：create filename<br>（3）函数设计格式：int my_create (char *filename)<br>（4）功能：创建名为filename的新文件。<br>（5）输入：filename：新建文件的文件名，可能包含路径。<br>（6）输出：若创建成功，返回该文件的文件描述符（文件打开表中的数组下标）；否则返回-1。<br>（7）函数需完成的工作：<br>① 为新文件分配一个空闲打开文件表项，如果没有空闲表项则返回-1，并显示错误信息；<br>② 若新文件的父目录文件还没有打开，则调用my_open()打开；若打开失败，则释放①中为新建文件分配的空闲文件打开表项，返回-1，并显示错误信息；<br>③ 调用do_read()读出该父目录文件内容到内存，检查该目录下新文件是否重名，若重名则释放①中分配的打开文件表项，并调用my_close()关闭②中打开的目录文件；然后返回-1，并显示错误信息；<br>④ 检查FAT是否有空闲的盘块，如有则为新文件分配一个盘块，否则释放①中分配的打开文件表项，并调用my_close()关闭②中打开的目录文件；返回-1，并显示错误信息；<br>⑤ 在父目录中为新文件寻找一个空闲的目录项或为其追加一个新的目录项;需修改该目录文件的长度信息，并将该目录文件的用户打开文件表项中的fcbstate置为1；<br>⑥ 准备好新文件的FCB的内容，文件的属性为数据文件，长度为0，以覆盖写方式调用do_write()将其填写到⑤中分配到的空目录项中；<br>⑦ 为新文件填写①中分配到的空闲打开文件表项，fcbstate字段值为0，读写指针值为0；<br>⑧ 调用my_close()关闭②中打开的父目录文件；<br>⑨ 将新文件的打开文件表项序号作为其文件描述符返回。  </p>
+<h3 id="9．删除文件函数my-rm"><a href="#9．删除文件函数my-rm" class="headerlink" title="9．删除文件函数my_rm()"></a>9．删除文件函数my_rm()</h3><p>（1）对应命令：rm<br>（2）命令调用格式：rm filename<br>（3）函数设计格式：void my_rm(char *filename)<br>（4）功能：删除名为filename的文件。<br>（5）输入：filename：欲删除文件的文件名，可能还包含路径。<br>（6）输出：无。<br>（7）函数需完成的工作：<br>① 若欲删除文件的父目录文件还没有打开，则调用my_open()打开；若打开失败，则返回，并显示错误信息；<br>② 调用do_read()读出该父目录文件内容到内存，检查该目录下欲删除文件是否存在，若不存在则返回，并显示错误信息；<br>③ 检查该文件是否已经打开，若已打开则关闭掉；<br>④ 回收该文件所占据的磁盘块，修改FAT；<br>⑤ 从文件的父目录文件中清空该文件的目录项，且free字段置为0：以覆盖写方式调用do_write()来实现；<br>⑥ 修改该父目录文件的用户打开文件表项中的长度信息，并将该表项中的fcbstate置为1；<br>⑦ 返回。  </p>
+<h3 id="10．打开文件函数my-open"><a href="#10．打开文件函数my-open" class="headerlink" title="10．打开文件函数my_open()"></a>10．打开文件函数my_open()</h3><p>（1）对应命令：open<br>（2）命令调用格式：open filename<br>（3）函数设计格式：int my_open(char *filename)<br>（4）功能：打开当前目录下名为filename的文件。<br>（5）输入：filename：欲打开文件的文件名<br>（6）输出：若打开成功，返回该文件的描述符（在用户打开文件表中表项序号）；否则返回-1。<br>（7）函数需完成的工作：<br>① 检查该文件是否已经打开，若已打开则返回-1，并显示错误信息；<br>② 调用do_read()读出父目录文件的内容到内存，检查该目录下欲打开文件是否存在，若不存在则返回-1，并显示错误信息；<br>③ 检查用户打开文件表中是否有空表项，若有则为欲打开文件分配一个空表项，若没有则返回-1，并显示错误信息；<br>④ 为该文件填写空白用户打开文件表表项内容，读写指针置为0；<br>⑤ 将该文件所分配到的空白用户打开文件表表项序号（数组下标）作为文件描述符fd返回。  </p>
+<h3 id="11．关闭文件函数my-close"><a href="#11．关闭文件函数my-close" class="headerlink" title="11．关闭文件函数my_close()"></a>11．关闭文件函数my_close()</h3><p>（1）对应命令：close<br>（2）命令调用格式：close fd<br>（3）函数设计格式：void my_close(int fd)<br>（4）功能：关闭前面由my_open()打开的文件描述符为fd的文件。<br>（5）输入：fd：文件描述符。<br>（6）输出：无。<br>（7）函数需完成的工作：<br>① 检查fd的有效性（fd不能超出用户打开文件表所在数组的最大下标），如果无效则返回-1；<br>② 检查用户打开文件表表项中的fcbstate字段的值，如果为1则需要将该文件的FCB的内容保存到虚拟磁盘上该文件的目录项中，方法是：打开该文件的父目录文件，以覆盖写方式调用do_write()将欲关闭文件的FCB写入父目录文件的相应盘块中；<br>③ 回收该文件占据的用户打开文件表表项（进行清空操作），并将topenfile字段置为0；<br>④ 返回。  </p>
+<h3 id="12．写文件函数my-write"><a href="#12．写文件函数my-write" class="headerlink" title="12．写文件函数my_write()"></a>12．写文件函数my_write()</h3><p>（1）对应命令：write<br>（2）命令调用格式：write fd<br>（3）函数设计格式：int my_write(int fd)<br>（4）功能：将用户通过键盘输入的内容写到fd所指定的文件中。磁盘文件的读写操作都必须以完整的数据块为单位进行，在写操作时，先将数据写在缓冲区中，缓冲区的大小与磁盘块的大小相同，然后再将缓冲区中的数据一次性写到磁盘块中；读出时先将一个磁盘块中的内容读到缓冲区中，然后再传送到用户区。本实例为了简便起见，没有设置缓冲区管理，只是在读写文件时由用户使用malloc()申请一块空间作为缓冲区，读写操作结束后使用free()释放掉。<br>写操作常有三种方式：截断写、覆盖写和追加写。截断写是放弃原来文件的内容，重新写文件；覆盖写是修改文件在当前读写指针所指的位置开始的部分内容；追加写是在原文件的最后添加新的内容。在本实例中，输入写文件命令后，系统会出现提示让用户选择其中的一种写方式，并将随后键盘输入的内容按照所选的方式写到文件中，键盘输入内容通过CTR+Z键（或其他设定的键）结束。<br>（5）输入：fd:open()函数的返回值，文件的描述符；<br>（6）输出：实际写入的字节数。<br>（7）函数需完成的工作：<br>① 检查fd的有效性（fd不能超出用户打开文件表所在数组的最大下标），如果无效则返回-1，并显示出错信息；<br>② 提示并等待用户输入写方式：（1：截断写；2：覆盖写；3：追加写）<br>③ 如果用户要求的写方式是截断写，则释放文件除第一块外的其他磁盘空间内容（查找并修改FAT表），将内存用户打开文件表项中文件长度修改为0，将读写指针置为0并转④；如果用户要求的写方式是追加写，则修改文件的当前读写指针位置到文件的末尾，并转④；如果写方式是覆盖写，则直接转④；<br>④ 提示用户：整个输入内容通过CTR+Z键（或其他设定的键）结束；用户可分多次输入写入内容，每次用回车结束；<br>⑤ 等待用户从键盘输入文件内容，并将用户的本次输入内容保存到一临时变量text[]中，要求每次输入以回车结束，全部结束用CTR+Z键（或其他设定的键）；<br>⑥ 调用do_write()函数将通过键盘键入的内容写到文件中。<br>⑦ 如果do_write()函数的返回值为非负值，则将实际写入字节数增加do_write()函数返回值，否则显示出错信息，并转⑨；<br>⑧ 如果text[]中最后一个字符不是结束字符CTR+Z，则转⑦继续进行写操作；否则转⑨；<br>⑨ 如果当前读写指针位置大于用户打开文件表项中的文件长度，则修改打开文件表项中的文件长度信息，并将fcbstate置1；<br>⑩ 返回实际写入的字节数。  </p>
+<h3 id="13．实际写文件函数do-write"><a href="#13．实际写文件函数do-write" class="headerlink" title="13．实际写文件函数do_write()"></a>13．实际写文件函数do_write()</h3><p>（1）对应命令：无<br>（2）命令调用格式：无<br>（3）函数设计格式：int my_write(int fd，char *text，int len，char wstyle)<br>（4）功能：被写文件函数my_write()调用，用来将键盘输入的内容写到相应的文件中去。<br>（5）输入：fd：open()函数的返回值，文件的描述符；<br>text：指向要写入的内容的指针；<br>len：本次要求写入字节数<br>wstyle：写方式<br>（6）输出：实际写入的字节数。<br>（7）函数需完成的工作：<br>① 用malloc()申请1024B的内存空间作为读写磁盘的缓冲区buf，申请失败则返回-1，并显示出错信息；<br>② 将读写指针转化为逻辑块块号和块内偏移off，并利用打开文件表表项中的首块号及FAT表的相关内容将逻辑块块号转换成对应的磁盘块块号blkno；如果找不到对应的磁盘块，则需要检索FAT为该逻辑块分配一新的磁盘块，并将对应的磁盘块块号blkno登记到FAT中，若分配失败，则返回-1，并显示出错信息；<br>③ 如果是覆盖写，或者如果当前读写指针所对应的块内偏移off不等于0，则将块号为blkno的虚拟磁盘块全部1024B的内容读到缓冲区buf中；否则便用ASCII码0清空buf；<br>④ 将text中未写入的内容暂存到缓冲区buff的第off字节开始的位置，直到缓冲区满，或者接收到结束字符CTR+Z为止；将本次写入字节数记录到tmplen中；<br>⑤ 将buf中1024B的内容写入到块号为blkno的虚拟磁盘块中；<br>⑥将当前读写指针修改为原来的值加上tmplen；并将本次实际写入的字节数增加tmplen；<br>⑦ 如果tmplen小于len，则转②继续写入；否则转⑧；<br>⑧ 返回本次实际写入的字节数。  </p>
+<h3 id="14．读文件函数my-read"><a href="#14．读文件函数my-read" class="headerlink" title="14．读文件函数my_read()"></a>14．读文件函数my_read()</h3><p>（1）对应命令：read<br>（2）命令调用格式：read fd len<br>（3）函数设计格式：int myread (int fd, int len)<br>（4）功能：读出指定文件中从读写指针开始的长度为len的内容到用户空间中。<br>（5）输入：<br>fd： open()函数的返回值，文件的描述符；<br>len: 要从文件中读出的字节数。<br>（6）输出：实际读出的字节数。<br>（7）函数需完成的工作：<br>① 定义一个字符型数组text[len]，用来接收用户从文件中读出的文件内容；<br>② 检查fd的有效性（fd不能超出用户打开文件表所在数组的最大下标），如果无效则返回-1，并显示出错信息；<br>③ 调用do_read()将指定文件中的len字节内容读出到text[]中；<br>④ 如果do_read()的返回值为负，则显示出错信息；否则将text[]中的内容显示到屏幕上；<br>⑤ 返回。    </p>
+<h3 id="15．实际读文件函数do-read"><a href="#15．实际读文件函数do-read" class="headerlink" title="15．实际读文件函数do_read()"></a>15．实际读文件函数do_read()</h3><p>（1）对应命令：无<br>（2）命令调用格式：无<br>（3）函数设计格式：int do_read (int fd, int len,char *text)<br>（4）功能：被my_read()调用，读出指定文件中从读写指针开始的长度为len的内容到用户空间的text中。<br>（5）输入：<br>fd： open()函数的返回值，文件的描述符；<br>len: 要求从文件中读出的字节数。<br>text：指向存放读出数据的用户区地址<br>（6）输出：实际读出的字节数。<br>（7）函数需完成的工作：<br>① 使用malloc()申请1024B空间作为缓冲区buf，申请失败则返回-1，并显示出错信息；<br>② 将读写指针转化为逻辑块块号及块内偏移量off，利用打开文件表表项中的首块号查找FAT表，找到该逻辑块所在的磁盘块块号；将该磁盘块块号转化为虚拟磁盘上的内存位置；<br>③ 将该内存位置开始的1024B（一个磁盘块）内容读入buf中；<br>④ 比较buf中从偏移量off开始的剩余字节数是否大于等于应读写的字节数len，如果是，则将从off开始的buf中的len长度的内容读入到text[]中；否则，将从off开始的buf中的剩余内容读入到text[]中；<br>⑤ 将读写指针增加④中已读字节数，将应读写的字节数len减去④中已读字节数，若len大于0，则转②；否则转⑥；<br>⑥ 使用free()释放①中申请的buf。<br>⑦ 返回实际读出的字节数。    </p>
+<h3 id="16-退出文件系统函数my-exitsys"><a href="#16-退出文件系统函数my-exitsys" class="headerlink" title="16. 退出文件系统函数my_exitsys()"></a>16. 退出文件系统函数my_exitsys()</h3><p>（1）对应命令：exit<br>（2）命令调用格式：exit<br>（1）函数设计格式：void my_exitsys()<br>（2）功能：退出文件系统。<br>（3）输入：无<br>（4）输出：无。<br>（5）函数需完成的工作：<br>① 使用C库函数fopen()打开磁盘上的myfsys文件；<br>② 将虚拟磁盘空间中的所有内容保存到磁盘上的myfsys文件中；<br>③ 使用c语言的库函数fclose()关闭myfsys文件；<br>④ 撤销用户打开文件表，释放其内存空间<br>④ 释放虚拟磁盘空间。  </p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">杨文旭</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2018/12/27/%E7%AE%80%E6%98%93%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9E%E7%8E%B0/">http://example.com/2018/12/27/%E7%AE%80%E6%98%93%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9E%E7%8E%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/linux-c/">linux c</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/06/10/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-%E8%81%8A%E5%A4%A9%E5%AE%A4/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">网络编程-聊天室</div></div></a></div><div class="next-post pull-right"><a href="/2018/12/26/amatory-poems/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">amatory poems</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2018/12/24/C语言多进程/" title="C语言多进程"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-12-24</div><div class="title">C语言多进程</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/null" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">杨文旭</div><div class="author-info__description">在孤独寂寞中修炼，用更好的自己去见更好的人</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">30</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E8%A6%81%E6%B1%82"><span class="toc-number">1.</span> <span class="toc-text">* 内容要求</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x00"><span class="toc-number">1.1.</span> <span class="toc-text">* 0x00</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01"><span class="toc-number">1.2.</span> <span class="toc-text">* 0x01</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02"><span class="toc-number">1.3.</span> <span class="toc-text">* 0x02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03"><span class="toc-number">1.4.</span> <span class="toc-text">* 0x03</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x04"><span class="toc-number">1.5.</span> <span class="toc-text">* 0x04</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%E4%B8%BB%E8%A6%81%E5%91%BD%E4%BB%A4%E5%8F%8A%E5%87%BD%E6%95%B0%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.</span> <span class="toc-text">实例主要命令及函数设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%EF%BC%8E%E7%B3%BB%E7%BB%9F%E4%B8%BB%E5%87%BD%E6%95%B0main"><span class="toc-number">2.1.</span> <span class="toc-text">1．系统主函数main()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BF%9B%E5%85%A5%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0startsys"><span class="toc-number">2.2.</span> <span class="toc-text">2. 进入文件系统函数startsys()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%EF%BC%8E%E7%A3%81%E7%9B%98%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%87%BD%E6%95%B0my-format"><span class="toc-number">2.3.</span> <span class="toc-text">3．磁盘格式化函数my_format()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%EF%BC%8E%E6%9B%B4%E6%94%B9%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95%E5%87%BD%E6%95%B0my-cd"><span class="toc-number">2.4.</span> <span class="toc-text">4．更改当前目录函数my_cd()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%EF%BC%8E%E5%88%9B%E5%BB%BA%E5%AD%90%E7%9B%AE%E5%BD%95%E5%87%BD%E6%95%B0my-mkdir"><span class="toc-number">2.5.</span> <span class="toc-text">5．创建子目录函数my_mkdir()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%EF%BC%8E%E5%88%A0%E9%99%A4%E5%AD%90%E7%9B%AE%E5%BD%95%E5%87%BD%E6%95%B0rmdir"><span class="toc-number">2.6.</span> <span class="toc-text">6．删除子目录函数rmdir()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7%EF%BC%8E%E6%98%BE%E7%A4%BA%E7%9B%AE%E5%BD%95%E5%87%BD%E6%95%B0my-ls"><span class="toc-number">2.7.</span> <span class="toc-text">7．显示目录函数my_ls()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8%EF%BC%8E%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E5%87%BD%E6%95%B0my-create"><span class="toc-number">2.8.</span> <span class="toc-text">8．创建文件函数my_create()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9%EF%BC%8E%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6%E5%87%BD%E6%95%B0my-rm"><span class="toc-number">2.9.</span> <span class="toc-text">9．删除文件函数my_rm()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10%EF%BC%8E%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6%E5%87%BD%E6%95%B0my-open"><span class="toc-number">2.10.</span> <span class="toc-text">10．打开文件函数my_open()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11%EF%BC%8E%E5%85%B3%E9%97%AD%E6%96%87%E4%BB%B6%E5%87%BD%E6%95%B0my-close"><span class="toc-number">2.11.</span> <span class="toc-text">11．关闭文件函数my_close()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12%EF%BC%8E%E5%86%99%E6%96%87%E4%BB%B6%E5%87%BD%E6%95%B0my-write"><span class="toc-number">2.12.</span> <span class="toc-text">12．写文件函数my_write()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13%EF%BC%8E%E5%AE%9E%E9%99%85%E5%86%99%E6%96%87%E4%BB%B6%E5%87%BD%E6%95%B0do-write"><span class="toc-number">2.13.</span> <span class="toc-text">13．实际写文件函数do_write()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14%EF%BC%8E%E8%AF%BB%E6%96%87%E4%BB%B6%E5%87%BD%E6%95%B0my-read"><span class="toc-number">2.14.</span> <span class="toc-text">14．读文件函数my_read()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15%EF%BC%8E%E5%AE%9E%E9%99%85%E8%AF%BB%E6%96%87%E4%BB%B6%E5%87%BD%E6%95%B0do-read"><span class="toc-number">2.15.</span> <span class="toc-text">15．实际读文件函数do_read()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-%E9%80%80%E5%87%BA%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0my-exitsys"><span class="toc-number">2.16.</span> <span class="toc-text">16. 退出文件系统函数my_exitsys()</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/02/27/life-is-a-fucking-movie-md/" title="life is a fucking movie"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="life is a fucking movie"/></a><div class="content"><a class="title" href="/2021/02/27/life-is-a-fucking-movie-md/" title="life is a fucking movie">life is a fucking movie</a><time datetime="2021-02-27T11:50:50.000Z" title="Created 2021-02-27 19:50:50">2021-02-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/09/22/koa%E6%BA%90%E7%A0%81%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" title="koa源码原理解析"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="koa源码原理解析"/></a><div class="content"><a class="title" href="/2020/09/22/koa%E6%BA%90%E7%A0%81%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" title="koa源码原理解析">koa源码原理解析</a><time datetime="2020-09-22T12:07:17.000Z" title="Created 2020-09-22 20:07:17">2020-09-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/08/19/vue%E7%BB%84%E4%BB%B6%E5%8C%96%E9%80%9A%E4%BF%A1/" title="vue组件化通信"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vue组件化通信"/></a><div class="content"><a class="title" href="/2020/08/19/vue%E7%BB%84%E4%BB%B6%E5%8C%96%E9%80%9A%E4%BF%A1/" title="vue组件化通信">vue组件化通信</a><time datetime="2020-08-19T12:20:19.000Z" title="Created 2020-08-19 20:20:19">2020-08-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/08/19/el-tree%E5%A4%8D%E9%80%89%E6%A1%86%E7%88%B6%E5%AD%90%E8%8A%82%E7%82%B9/" title="el-tree复选框父子节点"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="el-tree复选框父子节点"/></a><div class="content"><a class="title" href="/2020/08/19/el-tree%E5%A4%8D%E9%80%89%E6%A1%86%E7%88%B6%E5%AD%90%E8%8A%82%E7%82%B9/" title="el-tree复选框父子节点">el-tree复选框父子节点</a><time datetime="2020-08-19T12:13:44.000Z" title="Created 2020-08-19 20:13:44">2020-08-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/07/25/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" title="数据响应式原理剖析"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据响应式原理剖析"/></a><div class="content"><a class="title" href="/2020/07/25/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" title="数据响应式原理剖析">数据响应式原理剖析</a><time datetime="2020-07-25T04:58:48.000Z" title="Created 2020-07-25 12:58:48">2020-07-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 杨文旭</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

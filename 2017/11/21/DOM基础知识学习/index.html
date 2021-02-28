@@ -1,32 +1,179 @@
-extends includes/layout.pug
+<!DOCTYPE html><html data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DOM基础知识学习 | Hexo</title><meta name="keywords" content="javascript DOM"><meta name="author" content="杨文旭"><meta name="copyright" content="杨文旭"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="刚刚学习了DOM的相关操作，可能是太笨了吧，感觉还是很有难度很抽象的，所以就想查找一些资料总结记录一下这些知识点。DOM是针对xml经过扩展用于html的应用程序编程接口，我们又叫API。DOM给我们提供了用程序来动态控制html的接口，因此，DOM处在javascript赋予html具备动态交互和效果的能力的核心地位上。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DOM基础知识学习">
+<meta property="og:url" content="http://example.com/2017/11/21/DOM%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="刚刚学习了DOM的相关操作，可能是太笨了吧，感觉还是很有难度很抽象的，所以就想查找一些资料总结记录一下这些知识点。DOM是针对xml经过扩展用于html的应用程序编程接口，我们又叫API。DOM给我们提供了用程序来动态控制html的接口，因此，DOM处在javascript赋予html具备动态交互和效果的能力的核心地位上。">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2017-11-21T15:40:47.000Z">
+<meta property="article:modified_time" content="2018-03-13T15:17:51.154Z">
+<meta property="article:author" content="杨文旭">
+<meta property="article:tag" content="javascript DOM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2017/11/21/DOM%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2018-03-13 23:17:51'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
 
-block content
-  #post
-    if top_img === false
-      include includes/header/post-info.pug
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
 
-    article#article-container.post-content!=page.content
-    include includes/post/post-copyright.pug
-    .tag_share
-      if (theme.post_meta.post.tags)
-        .post-meta__tag-list
-          each item, index in page.tags.data
-            a(href=url_for(item.path)).post-meta__tags #[=item.name]
-      include includes/third-party/share/index.pug
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
         
-    if theme.reward.enable
-      !=partial('includes/post/reward', {}, {cache: true})
-
-    //- ad
-    if theme.ad && theme.ad.post
-      .ads-wrap!=theme.ad.post
-
-    if theme.post_pagination
-      include includes/pagination.pug
-    if theme.related_post && theme.related_post.enable
-      != related_posts(page,site.posts)
-
-    if page.comments !== false && theme.comments && theme.comments.use
-      - var commentsJsLoad = true
-      !=partial('includes/third-party/comments/index', {}, {cache: true})
-      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">30</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a></div></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hexo</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">DOM基础知识学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2017-11-21T15:40:47.000Z" title="Created 2017-11-21 23:40:47">2017-11-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2018-03-13T15:17:51.154Z" title="Updated 2018-03-13 23:17:51">2018-03-13</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>刚刚学习了DOM的相关操作，可能是太笨了吧，感觉还是很有难度很抽象的，所以就想查找一些资料总结记录一下这些知识点。DOM是针对xml经过扩展用于html的应用程序编程接口，我们又叫API。DOM给我们提供了用程序来动态控制html的接口，因此，DOM处在javascript赋予html具备动态交互和效果的能力的核心地位上。</p>
+<span id="more"></span>
+<p>DOM结点：<br>DOM使用对象的表示方式来表示对应文档的结构和属性<br>DOM结点分为元素节点，文本节点，注释节点等</p>
+<p>获取DOM节点的几种方法：</p>
+<pre><code>方式一 ：通过getElementById获取节点，得到的是唯一的一个标签对象，因为文档中的ID是唯一的
+方式二 ：通过getElementsByTagName获取节点。获取指定标签名的元素或元素集合或相同类的集合。
+         通过getElementsName获取元素。获取的是元素名称或者名字相同的一个集合。
+         document.getElementByTagName(&quot;p&quot;)可以得到文档中所有的p标签
+         document.getElementByTagName(&quot;p&quot;)[i]可以逐一访问获取到的P标签
+方式三： 通过getElementByClassName获取节点，获取文档中指定class名的标签
+方式四： 通过querySelector/querySelectorAll获取节点，获取到的是符合传入css选择器的第一个元素或者全部元素
+</code></pre><p>DOM节点遍历：</p>
+<pre><code>如果要获取一个唯一的节点，可以通过节点间的直接关系，来遍历DOM树。
+var tree = document.getElementById(&#39;tree&#39;);
+tree.parentNode; //获取父节点
+tree.firstChild/tree.lastChild;  //获取第一个或者最后一个子节点
+tree.child Nodes/tree.children; //获取所有的子节点、所有的子(元素节点)
+tree.previousSibling/tree.nextSibling; //获取前一个/后一个兄弟节点
+tree.previousElement Sibling/tree.nextElementSibling; //获取前一个/后一个兄弟元素节点
+</code></pre><p>创建DOM节点：</p>
+<pre><code>tree = document.createElement(tagname);  //创建指定标签名称的节点
+</code></pre><p>修改DOM节点：</p>
+<pre><code>textContent获取节点及其后代节点的文本内容
+tree.textContent;  //一锅
+tree.textContent=&quot;大锅&quot;;  //将一锅修改为大锅
+innerText获取节点及其后代节点的文本内容，使用方法与textContent一样，但是兼容的浏览器不一致
+</code></pre><p>插入DOM节点:</p>
+<pre><code>appendChild方法在指定元素后追加一个元素节点
+var h1 = document.createElement(h1);
+h1.innerText=&quot;一锅&quot;;
+tree.appendChild(h1); //在ID为tree的标签中插入一个h1标签
+insertBefore方法在指定的节点前面插入一个节点。
+tree.insertBefore(ul,h1); //在id为tree的标签中，h1前面插入一个ul标签
+</code></pre><p>删除DOM节点:</p>
+<pre><code>removeChild方法删除节点;
+tree.removeChild(h1); //删除h1节点，等价于h1.parentNode.removeChild(h1);
+</code></pre><p>innerHTMl: innerHTMl表示节点的HTML内容，可以批量创建节点，插入节点，删除节点</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">杨文旭</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2017/11/21/DOM%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0/">http://example.com/2017/11/21/DOM%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/javascript-DOM/">javascript DOM</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2018/01/11/cookie%E8%A7%A3%E8%AF%BB/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">cookie解读</div></div></a></div><div class="next-post pull-right"><a href="/2017/11/17/css%E4%B9%8Bborder%E7%90%86%E8%A7%A3-%E5%9C%A3%E8%AF%9E%E6%A0%91/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">css之border理解-圣诞树</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/null" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">杨文旭</div><div class="author-info__description">在孤独寂寞中修炼，用更好的自己去见更好的人</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">30</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/02/27/life-is-a-fucking-movie-md/" title="life is a fucking movie"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="life is a fucking movie"/></a><div class="content"><a class="title" href="/2021/02/27/life-is-a-fucking-movie-md/" title="life is a fucking movie">life is a fucking movie</a><time datetime="2021-02-27T11:50:50.000Z" title="Created 2021-02-27 19:50:50">2021-02-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/09/22/koa%E6%BA%90%E7%A0%81%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" title="koa源码原理解析"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="koa源码原理解析"/></a><div class="content"><a class="title" href="/2020/09/22/koa%E6%BA%90%E7%A0%81%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" title="koa源码原理解析">koa源码原理解析</a><time datetime="2020-09-22T12:07:17.000Z" title="Created 2020-09-22 20:07:17">2020-09-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/08/19/vue%E7%BB%84%E4%BB%B6%E5%8C%96%E9%80%9A%E4%BF%A1/" title="vue组件化通信"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vue组件化通信"/></a><div class="content"><a class="title" href="/2020/08/19/vue%E7%BB%84%E4%BB%B6%E5%8C%96%E9%80%9A%E4%BF%A1/" title="vue组件化通信">vue组件化通信</a><time datetime="2020-08-19T12:20:19.000Z" title="Created 2020-08-19 20:20:19">2020-08-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/08/19/el-tree%E5%A4%8D%E9%80%89%E6%A1%86%E7%88%B6%E5%AD%90%E8%8A%82%E7%82%B9/" title="el-tree复选框父子节点"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="el-tree复选框父子节点"/></a><div class="content"><a class="title" href="/2020/08/19/el-tree%E5%A4%8D%E9%80%89%E6%A1%86%E7%88%B6%E5%AD%90%E8%8A%82%E7%82%B9/" title="el-tree复选框父子节点">el-tree复选框父子节点</a><time datetime="2020-08-19T12:13:44.000Z" title="Created 2020-08-19 20:13:44">2020-08-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/07/25/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" title="数据响应式原理剖析"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据响应式原理剖析"/></a><div class="content"><a class="title" href="/2020/07/25/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" title="数据响应式原理剖析">数据响应式原理剖析</a><time datetime="2020-07-25T04:58:48.000Z" title="Created 2020-07-25 12:58:48">2020-07-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 杨文旭</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,7 +1,234 @@
-extends includes/layout.pug
+<!DOCTYPE html><html data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hexo - 等自己醒来，重走长征路</title><meta name="author" content="杨文旭"><meta name="copyright" content="杨文旭"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="在孤独寂寞中修炼，用更好的自己去见更好的人">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在孤独寂寞中修炼，用更好的自己去见更好的人">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/null">
+<meta property="article:author" content="杨文旭">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/null"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/page/2/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-02-28 19:21:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
 
-block content
-  include ./includes/mixins/post-ui.pug
-  #recent-posts.recent-posts
-    +postUI
-    include includes/pagination.pug
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">30</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a></div></div></div><hr/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hexo</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Hexo</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2019/09/18/ES6%E7%B3%BB%E5%88%97%E4%B9%8B%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86/" title="ES6系列之异步处理">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ES6系列之异步处理"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/09/18/ES6%E7%B3%BB%E5%88%97%E4%B9%8B%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86/" title="ES6系列之异步处理">ES6系列之异步处理</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2019-09-17T16:55:59.000Z" title="Created 2019-09-18 00:55:59">2019-09-18</time></span></div><div class="content">为了实现异步，会简单用到几个Nodejs的API，
+
+API介绍为了实现异步，会简单用到几个Nodejs的API，
+fs.readdirreaddir方法用于读取目录，返回一个包含文件和目录的数组。
+fs.statstat方法的参数是一个文件或目录，它产生一个对象，该对象包含了该文件或目录的具体信息。此外，该对象还有一个IsFile()方法可以判断正在处理的到底是一个文件，还是一个目录
+思路分析我们基本的实现思路就是:
+用fs.readdir获取指定目录的内容信息循环遍历内容信息，使用fs.stat获取该文件或者目录的具体信息将具体信息储存起来当全部储存起来后，筛选其中的是文件的信息遍历比较，找出最大文件获取并返回最大文件
+回调函数1234567891011121314151617181920212223242526272829303132333435363738394041var fs = require(&#x27;fs&#x27;);var path = require(&#x27;path&#x27;);function findLargest(dir, cb) &#123;	 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2019/09/17/ES6%E4%BD%BF%E7%94%A8getter%E5%92%8Csetter%E6%9D%A5%E6%8E%A7%E5%88%B6%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BF%E9%97%AE/" title="ES6使用getter和setter来控制对象的访问">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ES6使用getter和setter来控制对象的访问"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/09/17/ES6%E4%BD%BF%E7%94%A8getter%E5%92%8Csetter%E6%9D%A5%E6%8E%A7%E5%88%B6%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BF%E9%97%AE/" title="ES6使用getter和setter来控制对象的访问">ES6使用getter和setter来控制对象的访问</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2019-09-17T10:19:07.000Z" title="Created 2019-09-17 18:19:07">2019-09-17</time></span></div><div class="content">  我们可以从对象中获得一个值，也可以给对象的属性赋值。  这些通常行为被称为getters以及setters。
+
+getter和setter函数解析Getter函数的作用是可以让返回一个对象私有变量的值给用户，而不需要去访问私有变量。
+Setter函数的作用是可以基于传进的参数来修改对象中私有变量的值。这些修改可以是计算，或者是直接替换之前的值。
+1234567891011121314151617class Book &#123;  constructor(author) &#123;    this._author = author;  &#125;  // getter  get writer()&#123;    return this._author;  &#125;  // setter  set writer(updatedAuthor)&#123;    this._author = updatedAuthor;  &#125;&#125;const lol = new Book(&#x27;anonymous&#x27;);console.log(lol.writer ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2019/06/10/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-%E8%81%8A%E5%A4%A9%E5%AE%A4/" title="网络编程-聊天室">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网络编程-聊天室"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/06/10/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-%E8%81%8A%E5%A4%A9%E5%AE%A4/" title="网络编程-聊天室">网络编程-聊天室</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2019-06-10T04:40:22.000Z" title="Created 2019-06-10 12:40:22">2019-06-10</time></span></div><div class="content">此demo是基于TCP套接字编程，目的是实现一个聊天室效果。类似于QQ群效果，如果上线可以通知其他好友，下线也会通知其他好友。需要用到socket编程和多线程技术等。
+
+socket编程服务端
+创建socket，使用socket()　
+准备通信地址，sockaddr_in：12345678910111213141516     struct sockaddr&#123;    sa_family_t    sa_family;    char               sa_data[];    ....    ....&#125;;struct in_addr&#123;    in_addr_t    s_addr;&#125;;struct sockaddr_in&#123;    sa_family_t    sin_family;     //协议族 要和socket中的family相同    in_port_t        sin_port;       //网络端口    struct in_addr  sin_addr;     //网络地址&#125;;
+绑定 套 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2018/12/27/%E7%AE%80%E6%98%93%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="linux文件系统的实现">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="linux文件系统的实现"></a></div><div class="recent-post-info"><a class="article-title" href="/2018/12/27/%E7%AE%80%E6%98%93%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9E%E7%8E%B0/" title="linux文件系统的实现">linux文件系统的实现</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2018-12-26T17:20:44.000Z" title="Created 2018-12-27 01:20:44">2018-12-27</time></span></div><div class="content">Linux 操作系统的一个重要特点是它支持许多不同类型的文件系统。Linux 中最普遍使用的文件系统是 Ext2，它也是 Linux 土生土长的文件系统。但 Linux 也能够支持 FAT、VFAT、FAT32、MINIX 等不同类型的文件系统，从而可以方便地和其它操作系统交换数据。由于 Linux 支持许多不同的文件系统，并且将它们组织成了一个统一的虚拟文件系统.
+
+* 内容要求* 0x00
+在内存中开辟一个虚拟磁盘空间作为文件存储分区，在其上实现一个简单的基于多级目录的单用户单任务系统中的文件系统。在退出该文件系统的使用时，应将该虚拟文件系统以一个文件的方式保存到磁盘上，以便下次可以再将它恢复到内存的虚拟磁盘空间中。  
+
+* 0x01
+文件存储空间的分配可采用显式链接分配或其他的办法。  
+
+* 0x02
+空闲磁盘空间的管理可选择位示图或其他的办法。如果采用位示图来管理文件存储空间，并采用显式链接分配方式，那么可以将位示图合并到 FAT 中。  
+
+* 0x03
+文件目录结构采用多级目录结构。为了简单起见，可以不使用索引结点，其中的每个目录项应包含文件名、物理地址、长度等信息，还 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2018/12/26/amatory-poems/" title="amatory poems">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="amatory poems"></a></div><div class="recent-post-info"><a class="article-title" href="/2018/12/26/amatory-poems/" title="amatory poems">amatory poems</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2018-12-26T15:57:55.000Z" title="Created 2018-12-26 23:57:55">2018-12-26</time></span></div><div class="content">工程师不仅会写代码，还会写情诗哦，但这情诗不是我写的，不要来笑我
+
+阳光下的热爱若代码丢了
+这世界一切都完了
+他们可以拿走一切
+摘下星星
+卷起天空
+放上货车
+也不能熄灭我的阳光
+因为我爱在底下哼着歌，敲代码
+他是个单纯的小孩只是想沉浸在代码的海洋
+毕竟
+电脑是一个单纯的小孩
+只要顺着他的小脾气就好
+比起带着面具的大人要好很多
+守望世界上最遥远的距离
+不是生与死的距离
+是你在if我在else
+虽然时常一起出现
+但永远不会结伴而行
+感谢try-catch
+让我有机会成为你的finally
+守在这必经的渡口
+树像一颗茂盛的树
+叶片交错，不遮挡彼此的阳光
+枝干延伸，生长出无数的可能
+这是我钟情的代码
+也是向往的另一半
+抽象0和1的世界里
+我拥抱柔软的你
+破晓时分
+才发现爱你不过是虚拟
+我可以抽象出整个世界
+可我抽象不出一个你
+你就是那么具体
+我们的岁月彼此的架构，交互的雪
+驱动万千的对象，多态之队列
+送来新的map，带来新的set
+画着从未有的symbol，唱歌永恒的const
+此时的她就像一个generator
+映射(reflect)着天空，解构着大地
+定义着新的模板，串起没一个iterat ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2018/12/24/C%E8%AF%AD%E8%A8%80%E5%A4%9A%E8%BF%9B%E7%A8%8B/" title="C语言多进程">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C语言多进程"></a></div><div class="recent-post-info"><a class="article-title" href="/2018/12/24/C%E8%AF%AD%E8%A8%80%E5%A4%9A%E8%BF%9B%E7%A8%8B/" title="C语言多进程">C语言多进程</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2018-12-24T07:21:58.000Z" title="Created 2018-12-24 15:21:58">2018-12-24</time></span></div><div class="content">核的个数与可同时运行的进程数相同。相反，若进程数超过核数，进程将分时使用CPU资源。但因为CPU运行速度极快，我们会感到所有进程同时运行。当然多核越多，这种感觉也明显。
+
+fork函数创建多进程include pid_t fork(void);fork函数将创建调用的进程副本。两个进程都将执行fork调用后的语句，子进程将复制父进程相同的内存空间，之后的程序流要根据fork函数的返回值加以区分。
+父进程：fork函数返回子进程ID子进程：fork函数返回0
+eg.12345678910111213141516171819202122#include &lt;unistd.h&gt;#include &lt;stdio.h&gt;int gval = 10;int main () &#123;	pid_t pid;	int lval = 20;	gval++, lval += 5;		pid = fork();	if (pid == 0) &#123;//child pro		gval += 2, lval += 2;	&#125; else &#123;//parent pro		gv ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2018/12/23/%E7%94%A8python%E5%88%9B%E5%BB%BAchptcha%E6%B5%8B%E8%AF%95%E5%9B%BE%E5%83%8F/" title="用python创建chptcha测试图像">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="用python创建chptcha测试图像"></a></div><div class="recent-post-info"><a class="article-title" href="/2018/12/23/%E7%94%A8python%E5%88%9B%E5%BB%BAchptcha%E6%B5%8B%E8%AF%95%E5%9B%BE%E5%83%8F/" title="用python创建chptcha测试图像">用python创建chptcha测试图像</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2018-12-23T08:46:10.000Z" title="Created 2018-12-23 16:46:10">2018-12-23</time></span></div><div class="content">captcha 是用 python 写的生成验证码的库，它支持图片验证码和语音验证码，我们使用的是它生成图片验证码的功能。验证码由字母和数字组成，再加上一些噪点，但为了防止被识别，简单的图形验证码现在也变得复杂，有的加了干扰线，有的加噪点，有的加上背景，字体扭曲、粘连、镂空、混用等等，甚至有时候人眼都难以识别，只能默默点击“看不清，再来一张”
+
+pil介绍PIL (Python Image Library) 是 Python 平台处理图片的事实标准，兼具强大的功能和简洁的 API。另外虽然介绍的是 PIL，但实际上安装的却是Pillow。PIL 的更新速度很慢，而且存在一些难以配置的问题，不推荐使用；而 Pillow 库则是 PIL 的一个分支，维护和开发活跃，Pillow 兼容 PIL的绝大多数语法，推荐使用。 安装:
+1sudo pip install pillow
+安装好之后，打开 Python 解释器，输入 from PIL import Image 来测试是否安装成功
+pil基本概念PIL中所涉及的基本概念有如下几个：通道(bands)、尺寸(size)、坐标系统(coord ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2018/12/20/tomorrow/" title="tomorrow">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="tomorrow"></a></div><div class="recent-post-info"><a class="article-title" href="/2018/12/20/tomorrow/" title="tomorrow">tomorrow</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2018-12-20T14:11:11.000Z" title="Created 2018-12-20 22:11:11">2018-12-20</time></span></div><div class="content">只要路和方向是对的，就不怕遥远
+
+一直以来，都在徘徊浪费自己宝贵的时间不去做点东西，谁不知道知道时间很宝贵，今天还在梦里面看到以前的自己，又一次意识的时间的珍贵。我也知道我比别人笨很多，经常被别人看不起，但我不怕这些，我所害怕的就是这种徘徊不前，没有方向。如果有了自己的方向，谁还会想做一个碌碌无为的观众。我不怕吃苦，我也不相信会有我自己吃不了的苦，但是没有方向的迷茫和空虚是我做梦都怕的。
+
+</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2018/11/03/linux%E5%86%85%E6%A0%B8%E7%BC%96%E8%AF%91%E5%8F%8A%E6%B7%BB%E5%8A%A0%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/" title="linux内核编译及添加系统调用">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="linux内核编译及添加系统调用"></a></div><div class="recent-post-info"><a class="article-title" href="/2018/11/03/linux%E5%86%85%E6%A0%B8%E7%BC%96%E8%AF%91%E5%8F%8A%E6%B7%BB%E5%8A%A0%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/" title="linux内核编译及添加系统调用">linux内核编译及添加系统调用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2018-11-03T08:06:36.000Z" title="Created 2018-11-03 16:06:36">2018-11-03</time></span></div><div class="content">Linux 是开源操作系统，用户可以根据自身系统需要裁剪、修改内核，定制出功能更加合适、运行效率更高的系统，因此，编译 linux 内核是进行内核开发的必要基本功。
+
+课程设计内容内容：添加一个系统调用，实现对指定进程的 nice 值的修改或读取功能， 并返回进程最新的 nice 值及优先级 prio。建议调用原型为：
+1int mysetnice(pid_t pid, int flag, int nicevalue, void __user * prio, void __user * nice);
+参数含义:pid：进程 ID。flag：若值为 0，表示读取 nice 值；若值为 1，表示修改 nice 值。prio、nice：进程当前优先级及 nice 值。返回值： 系统调用成功时返回 0，失败时返回错误码 EFAULT。
+添加系统调用
+分配系统调用号，修改系统调用表 查看系统调用表(./arch/x86/entry/syscalls/syscall_64.tbl) 添加一条记录  335        64        mysetnice         sys_mysetni ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2018/11/01/the-process-is-reward/" title="the process is reward">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="the process is reward"></a></div><div class="recent-post-info"><a class="article-title" href="/2018/11/01/the-process-is-reward/" title="the process is reward">the process is reward</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2018-11-01T15:22:26.000Z" title="Created 2018-11-01 23:22:26">2018-11-01</time></span></div><div class="content">    the process is reward
+大多数人把时间花在了超常加班，花在了朋友圈微博知乎和今日头条，他们的英文能力有限，不能获取第一手的资料，所以只有你看看英文文章，能静下心来读几本好书，写写博客，做一些训练，完全不用太努力，你就可以超越大多数人了。
+
+在孤独寂寞中修炼放弃无效表面的社交用更好的自己去见更好的人
+等自己醒来重走长征路前途是光明的道路是曲折的the process is the reward此刻的失败者终将胜利
+来到南方，当一天五点多就开始天黑了，我才认识到一天是有多短，于是慢慢的喜欢上了黑夜，但是黑夜终是黑夜。有很多会妄自菲薄庸人自扰，反而不知道干什么。不如好好珍惜时间，过好每一天，人生苦短，且行且珍惜。
+</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/null" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">杨文旭</div><div class="author-info__description">在孤独寂寞中修炼，用更好的自己去见更好的人</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">30</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/02/27/life-is-a-fucking-movie-md/" title="life is a fucking movie"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="life is a fucking movie"/></a><div class="content"><a class="title" href="/2021/02/27/life-is-a-fucking-movie-md/" title="life is a fucking movie">life is a fucking movie</a><time datetime="2021-02-27T11:50:50.000Z" title="Created 2021-02-27 19:50:50">2021-02-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/09/22/koa%E6%BA%90%E7%A0%81%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" title="koa源码原理解析"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="koa源码原理解析"/></a><div class="content"><a class="title" href="/2020/09/22/koa%E6%BA%90%E7%A0%81%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" title="koa源码原理解析">koa源码原理解析</a><time datetime="2020-09-22T12:07:17.000Z" title="Created 2020-09-22 20:07:17">2020-09-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/08/19/vue%E7%BB%84%E4%BB%B6%E5%8C%96%E9%80%9A%E4%BF%A1/" title="vue组件化通信"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vue组件化通信"/></a><div class="content"><a class="title" href="/2020/08/19/vue%E7%BB%84%E4%BB%B6%E5%8C%96%E9%80%9A%E4%BF%A1/" title="vue组件化通信">vue组件化通信</a><time datetime="2020-08-19T12:20:19.000Z" title="Created 2020-08-19 20:20:19">2020-08-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/08/19/el-tree%E5%A4%8D%E9%80%89%E6%A1%86%E7%88%B6%E5%AD%90%E8%8A%82%E7%82%B9/" title="el-tree复选框父子节点"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="el-tree复选框父子节点"/></a><div class="content"><a class="title" href="/2020/08/19/el-tree%E5%A4%8D%E9%80%89%E6%A1%86%E7%88%B6%E5%AD%90%E8%8A%82%E7%82%B9/" title="el-tree复选框父子节点">el-tree复选框父子节点</a><time datetime="2020-08-19T12:13:44.000Z" title="Created 2020-08-19 20:13:44">2020-08-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/07/25/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" title="数据响应式原理剖析"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据响应式原理剖析"/></a><div class="content"><a class="title" href="/2020/07/25/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" title="数据响应式原理剖析">数据响应式原理剖析</a><time datetime="2020-07-25T04:58:48.000Z" title="Created 2020-07-25 12:58:48">2020-07-25</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/tags/Ajax/" style="font-size: 1.1em; color: #999">Ajax</a> <a href="/tags/Python-data-visuslization/" style="font-size: 1.1em; color: #999">Python data visuslization</a> <a href="/tags/computer-science/" style="font-size: 1.1em; color: #999">computer science</a> <a href="/tags/css/" style="font-size: 1.1em; color: #999">css</a> <a href="/tags/javascript/" style="font-size: 1.1em; color: #999">javascript</a> <a href="/tags/javascript-DOM/" style="font-size: 1.1em; color: #999">javascript DOM</a> <a href="/tags/js/" style="font-size: 1.5em; color: #99a9bf">js</a> <a href="/tags/js-vue/" style="font-size: 1.1em; color: #999">js, vue</a> <a href="/tags/life/" style="font-size: 1.5em; color: #99a9bf">life</a> <a href="/tags/linux/" style="font-size: 1.1em; color: #999">linux</a> <a href="/tags/linux-c/" style="font-size: 1.3em; color: #99a1ac">linux c</a> <a href="/tags/linux-os/" style="font-size: 1.1em; color: #999">linux os</a> <a href="/tags/node/" style="font-size: 1.1em; color: #999">node</a> <a href="/tags/node-js/" style="font-size: 1.3em; color: #99a1ac">node js</a> <a href="/tags/os/" style="font-size: 1.1em; color: #999">os</a> <a href="/tags/vue/" style="font-size: 1.1em; color: #999">vue</a> <a href="/tags/vuejs/" style="font-size: 1.1em; color: #999">vuejs</a> <a href="/tags/zTree/" style="font-size: 1.1em; color: #999">zTree</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>Archives</span><a class="card-more-btn" href="/archives/" title="More">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/02/"><span class="card-archive-list-date">February 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/09/"><span class="card-archive-list-date">September 2020</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/08/"><span class="card-archive-list-date">August 2020</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/07/"><span class="card-archive-list-date">July 2020</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/10/"><span class="card-archive-list-date">October 2019</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/09/"><span class="card-archive-list-date">September 2019</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/06/"><span class="card-archive-list-date">June 2019</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2018/12/"><span class="card-archive-list-date">December 2018</span><span class="card-archive-list-count">5</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article :</div><div class="item-count">30</div></div><div class="webinfo-item"><div class="item-name">UV :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">PV :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">Last Push :</div><div class="item-count" id="last-push-date" data-lastPushDate="2021-02-28T11:21:35.215Z"></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 杨文旭</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

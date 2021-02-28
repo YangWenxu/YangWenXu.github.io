@@ -1,7 +1,229 @@
-extends includes/layout.pug
+<!DOCTYPE html><html data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hexo - 等自己醒来，重走长征路</title><meta name="author" content="杨文旭"><meta name="copyright" content="杨文旭"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="在孤独寂寞中修炼，用更好的自己去见更好的人">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在孤独寂寞中修炼，用更好的自己去见更好的人">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/null">
+<meta property="article:author" content="杨文旭">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/null"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-02-28 19:21:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
 
-block content
-  include ./includes/mixins/post-ui.pug
-  #recent-posts.recent-posts
-    +postUI
-    include includes/pagination.pug
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">30</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a></div></div></div><hr/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hexo</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Hexo</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2021/02/27/life-is-a-fucking-movie-md/" title="life is a fucking movie">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="life is a fucking movie"></a></div><div class="recent-post-info"><a class="article-title" href="/2021/02/27/life-is-a-fucking-movie-md/" title="life is a fucking movie">life is a fucking movie</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2021-02-27T11:50:50.000Z" title="Created 2021-02-27 19:50:50">2021-02-27</time></span></div><div class="content">
+人啊，还是多读读书的好，心智可能会更加成熟，遇事更能抗
+相比平庸，我更能接受孤独
+把热爱的事情做成极致，那便成了价值
+给自己两年时间，你会怎样去提高你的水平
+两年后你会是什么样的水平，你能承担多大的责任
+
+
+
+人啊，还是多读读书的好，心智可能会更加成熟，遇事更能抗
+​       想想自己这几年时间，读的书甚是少，可能相对来说更多的还是一些技术相关的书籍吧。平时空闲的时间可能更多地还是花费在了手机上面，想想以前用腾讯视频看一些动漫看的多，但是从疫情之后，也就不怎么去追动漫了，追的也就秦时明月和斗罗大陆了，如果画江湖的系列更新的话，可能还会再追吧。画江湖系列每一步都从头追到尾了，还记得灵主里面的“今生提着头，还你前世笑”，以前都挺喜欢看的。从疫情之后花费时间最多的可能是抖音了吧。总而言之，手机还是玩的太多了，导致这几年很少去读读书。
+​        技术相关，
+​        技术之外，也不过生活而已。大学的时候重点是看了大冰的书，可能觉得冰叔的那种既能浪迹天涯又能朝九晚五的人生观和自己的差不多吧，所以也一直很欣赏，也能引起自己对于生活的思考。我一直也想在工作忙碌之后，和兄弟们喝喝 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/09/22/koa%E6%BA%90%E7%A0%81%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" title="koa源码原理解析">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="koa源码原理解析"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/09/22/koa%E6%BA%90%E7%A0%81%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" title="koa源码原理解析">koa源码原理解析</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2020-09-22T12:07:17.000Z" title="Created 2020-09-22 20:07:17">2020-09-22</time></span></div><div class="content">一个语言的成熟需要时间的积累，,koa是一个新的web框架，致⼒于成为 web 应⽤和 API 开发领域中的⼀个更⼩、更富有表现⼒、更健壮的基⽯。
+
+koa
+概述：koa是一个新的web框架，致⼒于成为 web 应⽤和 API 开发领域中的⼀个更⼩、更富有  表现⼒、更健壮的基⽯。
+koa是Express的下一代基于nodejs的web框架
+koa2完全使用promise并配合async来实现异步
+
+特点：
+
+轻量，无捆绑
+中间件架构
+优雅的API设计
+增强的错误处理
+
+
+安装：npm i koa -S
+
+中间件机制，请求，响应处理
+1234567891011121314151617const Koa = require(&#x27;koa&#x27;)const app = new Koa()app.use((ctx, next) =&gt; &#123;      ctx.body = [        &#123;            name: &#x27;tom&#x27;        &#125;    ]    next()&#125;)  const router  ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/08/19/vue%E7%BB%84%E4%BB%B6%E5%8C%96%E9%80%9A%E4%BF%A1/" title="vue组件化通信">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vue组件化通信"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/08/19/vue%E7%BB%84%E4%BB%B6%E5%8C%96%E9%80%9A%E4%BF%A1/" title="vue组件化通信">vue组件化通信</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2020-08-19T12:20:19.000Z" title="Created 2020-08-19 20:20:19">2020-08-19</time></span></div><div class="content">平时在使用Vue框架的业务开发中，组件不仅仅要把模板的内容进行复用，更重要的是组件之间要进行通信。
+组件之间通信分为三种：父-子；子-父；跨级组件通信。下面，就组件间如何通信做一些总结。
+
+1. 父传子组件在组件中，使用选项props来声明需要从父级组件接受的数据，props的值可以是两种：一种是字符串数组，一种是对象。
+props中声明的数据与组件data函数return的主要区别在于props来自父级，
+而data中的组件是自己的数据，作用域是组件本身，
+这两种数据都可以在模板template及计算属性computed和方法methods中使用。如以下例子：
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210310410510610710 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/08/19/el-tree%E5%A4%8D%E9%80%89%E6%A1%86%E7%88%B6%E5%AD%90%E8%8A%82%E7%82%B9/" title="el-tree复选框父子节点">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="el-tree复选框父子节点"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/08/19/el-tree%E5%A4%8D%E9%80%89%E6%A1%86%E7%88%B6%E5%AD%90%E8%8A%82%E7%82%B9/" title="el-tree复选框父子节点">el-tree复选框父子节点</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2020-08-19T12:13:44.000Z" title="Created 2020-08-19 20:13:44">2020-08-19</time></span></div><div class="content">element ui的el-tree多选树(复选框)父子节点关联不关联的问题，选中当前节点，他的子节点和父节点是否被选中.
+如何实际中Tree比较大，用ztree，vue-giant-tree就表现的很强悍了。
+
+属性check-strictly官方文档提供属性check-strictly，在显示复选框的情况下，是否严格的遵循父子不互相关联的做法，默认为 false。
+设置true，严格的遵循父子不互相关联。1、当你通过函数设置勾选节点的时候，严格通过设置勾选的list中有无此节点来断定是否勾选。
+2、当你点击勾选复选框时候，无论点击的哪个节点只会改变当前节点的勾选状态，不存在半选状态。
+系统的角色菜单控制的问题问题来了，在系统的角色菜单控制的时候，需要满足以下条件：
+1、当点击勾选复选框时候，若点击父节点，其下子节点全部统一跟随父节点变化。
+2、当点击勾选复选框时候，若点击子节点，子节点部分勾选时父节点处于半选状态，子节点全部勾选时父节点选中，子节点全部不勾选时父节点未选中。
+需求问题当属性check-strictly设置为true的时候，父子节点之间不关联。但大多数需求可能需要在选 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/07/25/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" title="数据响应式原理剖析">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据响应式原理剖析"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/07/25/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" title="数据响应式原理剖析">数据响应式原理剖析</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2020-07-25T04:58:48.000Z" title="Created 2020-07-25 12:58:48">2020-07-25</time></span></div><div class="content">数据响应式原理proxy，数据的渲染以及双向绑定的原理
+
+Proxy代理与数据劫持1. Handler.set()
+2. Handler.get()
+3. Handler...
+12345678910111213141516171819202122232425var box = document.querySelector(&#x27;.box&#x27;);var data = &#123;	name: &#x27;james&#x27;,	age: &#x27;30&#x27;,&#125;//box.innerHTML = data.age;//data.age = 21;//console.log(data);let p = new Proxy(data, &#123;	set(target,prop,newValue) &#123;		console.log(&#x27;set...&#x27;, target,prop,newValue);		return Reflect.set(...arguments);	&#125;,	get(target, prop) &#123; ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/07/21/this%E6%8C%87%E5%90%91%E8%AF%A6%E8%A7%A3/" title="this指向详解">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="this指向详解"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/07/21/this%E6%8C%87%E5%90%91%E8%AF%A6%E8%A7%A3/" title="this指向详解">this指向详解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2020-07-21T14:01:40.000Z" title="Created 2020-07-21 22:01:40">2020-07-21</time></span></div><div class="content">变化莫测的this指向
+
+function中的this在不同环境下的指向事件调用环境中，       谁触发事件，函数里面的this指向的就是谁
+全局环境下，       浏览器环境指的的window，node环境中是module.exports
+函数内部1 this最终指向的是调用它的对象，和它的声明没有关系。
+    普通函数直接调用与window调用
+    对象中的函数直接调用与window调用
+2 函数被多层对象所包含，如果函数被最外层对象调用，this指向的也只是它上一级的对象。
+    多层对象中的函数的this指向。
+    对象中的函数被赋值给另一个变量
+12345678910111213var obj = &#123;	a: 10;	b: &#123;		fn: function() &#123;			console.log(this);		&#125;	&#125;&#125;var abc = obj.b.fn;window.obj.b.fn(); //babc(); //window，调用它的是window，与它的声明没有关系
+3 构造函数中的this指向的是 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2019/10/15/vue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" title="vue源码解析">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vue源码解析"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/10/15/vue%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" title="vue源码解析">vue源码解析</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2019-10-15T14:37:08.000Z" title="Created 2019-10-15 22:37:08">2019-10-15</time></span></div><div class="content">深入理解vue底层原理,手写vue核心部分实现,vue工作机制,Vue响应式的原理,依赖收集与追踪,编译compile
+
+vue工作机制
+Vue响应式的原理defineProperty123456789101112131415161718192021222324252627282930313233343536class KVue &#123;	constructor(options) &#123;		this._data = options.data;		this.observer(this._data);	&#125;	observer(value) &#123;		if (!value || typeof value !== &quot;object&quot;) &#123;			return;		&#125;		Object.keys(value).forEach(key =&gt; &#123;			this.defineReactive(value, key, value[key]);		&#125;);	&#125;	defineReactive(obj, key, va ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2019/09/30/ES6%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93%E5%AD%A6%E4%B9%A0/" title="ES6特性总结学习">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ES6特性总结学习"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/09/30/ES6%E7%89%B9%E6%80%A7%E6%80%BB%E7%BB%93%E5%AD%A6%E4%B9%A0/" title="ES6特性总结学习">ES6特性总结学习</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2019-09-29T16:01:27.000Z" title="Created 2019-09-30 00:01:27">2019-09-30</time></span></div><div class="content">  在React中，数据在组件中是单向流动的，数据从一个方向父组件流向子组件（通过props）,  所以，两个非父子组件之间通信就相对麻烦，redux的出现就是为了解决state里面的数据问题
+
+1.变量  var     重复声明、函数级  let     不能重复声明、块级作用域、变量  const   不能重复声明、块级作用域、常量
+2.箭头函数  a.方便    i.如果只有一个参数，()可以省    ii.如果只有一个return，{}也可以省  b.修正this    this相对正常点，this指向的是上下文作用域，和普通的函数是不一样的
+3.参数扩展…arg  收集  扩展
+  默认参数    function show(a, b=5){
+&#125;
+4.数组方法  map       映射  reduce    汇总：一堆-&gt;一个  filter    过滤：一堆-&gt;剩下的  forEach   循环
+5.字符串  startsWith/endsWith  字符串模板：$&#123;a&#125;xxx$&#123;b&#125;
+6.Promise   ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2019/09/21/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/" title="最长回文子串">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="最长回文子串"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/09/21/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/" title="最长回文子串">最长回文子串</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2019-09-20T16:30:08.000Z" title="Created 2019-09-21 00:30:08">2019-09-21</time></span></div><div class="content">求一个字符串内的最大回文子串及其长度，这是一道残酷的笔试题
+
+解法一从字符串第一个字符开始，然后看它的左边和右边是否相等，当然第一个字符，回文数就是1。
+然后第二个字符作为中心，它的左边，第一个字符，它的右边，第三个字符，看这两个字符是否相等，若相等，回文长度就是
+ 3=2*1+2了，继续往左的话就没有字符了退出本次循环。
+紧接着中心字符变成第三个字符，再来看看以第三个字符为中心是不是回文的，如果是，则更新回文。
+这里用了两个循环嵌套的，第一个循环用来从头到尾遍历字符串，把每个字符串作为中心元素，然后嵌套循环里看以他为中心是否是回文。12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;#include &lt;string.h&gt;#include &lt;ctype.h&gt;char buf[100], s[100];int p[100 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2019/09/18/js%E5%9F%BA%E7%A1%80/" title="js基础">     <img class="post_bg" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="js基础"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/09/18/js%E5%9F%BA%E7%A1%80/" title="js基础">js基础</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2019-09-18T15:03:15.000Z" title="Created 2019-09-18 23:03:15">2019-09-18</time></span></div><div class="content">面试中需要知道的一点js基础
+怎样添加、移除、移动、复制、创建和查找节点？创建新节点createDocumentFragment() //创建一个DOM片段createElement() //创建一个具体的元素createTextNode() //创建一个文本节点
+添加、移除、替换、插入appendChild() //添加removeChild() //移除replaceChild() //替换insertBefore() //插入
+查找getElementsByTagName() //通过标签名称getElementsByName() //通过元素的Name属性的值getElementById() //通过元素Id，唯一性
+实现一个函数clone，可以对JavaScript中的5种主要的数据类型（包括Number、String、Object、Array、Boolean）进行值复制。  /**
+
+对象克隆
+支持基本数据类型及对象
+递归方法*/
+12345678910111213141516171819202122232425262728293031323334353637functio ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/null" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">杨文旭</div><div class="author-info__description">在孤独寂寞中修炼，用更好的自己去见更好的人</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">30</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/02/27/life-is-a-fucking-movie-md/" title="life is a fucking movie"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="life is a fucking movie"/></a><div class="content"><a class="title" href="/2021/02/27/life-is-a-fucking-movie-md/" title="life is a fucking movie">life is a fucking movie</a><time datetime="2021-02-27T11:50:50.000Z" title="Created 2021-02-27 19:50:50">2021-02-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/09/22/koa%E6%BA%90%E7%A0%81%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" title="koa源码原理解析"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="koa源码原理解析"/></a><div class="content"><a class="title" href="/2020/09/22/koa%E6%BA%90%E7%A0%81%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/" title="koa源码原理解析">koa源码原理解析</a><time datetime="2020-09-22T12:07:17.000Z" title="Created 2020-09-22 20:07:17">2020-09-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/08/19/vue%E7%BB%84%E4%BB%B6%E5%8C%96%E9%80%9A%E4%BF%A1/" title="vue组件化通信"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="vue组件化通信"/></a><div class="content"><a class="title" href="/2020/08/19/vue%E7%BB%84%E4%BB%B6%E5%8C%96%E9%80%9A%E4%BF%A1/" title="vue组件化通信">vue组件化通信</a><time datetime="2020-08-19T12:20:19.000Z" title="Created 2020-08-19 20:20:19">2020-08-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/08/19/el-tree%E5%A4%8D%E9%80%89%E6%A1%86%E7%88%B6%E5%AD%90%E8%8A%82%E7%82%B9/" title="el-tree复选框父子节点"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="el-tree复选框父子节点"/></a><div class="content"><a class="title" href="/2020/08/19/el-tree%E5%A4%8D%E9%80%89%E6%A1%86%E7%88%B6%E5%AD%90%E8%8A%82%E7%82%B9/" title="el-tree复选框父子节点">el-tree复选框父子节点</a><time datetime="2020-08-19T12:13:44.000Z" title="Created 2020-08-19 20:13:44">2020-08-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/07/25/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" title="数据响应式原理剖析"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据响应式原理剖析"/></a><div class="content"><a class="title" href="/2020/07/25/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" title="数据响应式原理剖析">数据响应式原理剖析</a><time datetime="2020-07-25T04:58:48.000Z" title="Created 2020-07-25 12:58:48">2020-07-25</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/tags/Ajax/" style="font-size: 1.1em; color: #999">Ajax</a> <a href="/tags/Python-data-visuslization/" style="font-size: 1.1em; color: #999">Python data visuslization</a> <a href="/tags/computer-science/" style="font-size: 1.1em; color: #999">computer science</a> <a href="/tags/css/" style="font-size: 1.1em; color: #999">css</a> <a href="/tags/javascript/" style="font-size: 1.1em; color: #999">javascript</a> <a href="/tags/javascript-DOM/" style="font-size: 1.1em; color: #999">javascript DOM</a> <a href="/tags/js/" style="font-size: 1.5em; color: #99a9bf">js</a> <a href="/tags/js-vue/" style="font-size: 1.1em; color: #999">js, vue</a> <a href="/tags/life/" style="font-size: 1.5em; color: #99a9bf">life</a> <a href="/tags/linux/" style="font-size: 1.1em; color: #999">linux</a> <a href="/tags/linux-c/" style="font-size: 1.3em; color: #99a1ac">linux c</a> <a href="/tags/linux-os/" style="font-size: 1.1em; color: #999">linux os</a> <a href="/tags/node/" style="font-size: 1.1em; color: #999">node</a> <a href="/tags/node-js/" style="font-size: 1.3em; color: #99a1ac">node js</a> <a href="/tags/os/" style="font-size: 1.1em; color: #999">os</a> <a href="/tags/vue/" style="font-size: 1.1em; color: #999">vue</a> <a href="/tags/vuejs/" style="font-size: 1.1em; color: #999">vuejs</a> <a href="/tags/zTree/" style="font-size: 1.1em; color: #999">zTree</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>Archives</span><a class="card-more-btn" href="/archives/" title="More">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/02/"><span class="card-archive-list-date">February 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/09/"><span class="card-archive-list-date">September 2020</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/08/"><span class="card-archive-list-date">August 2020</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/07/"><span class="card-archive-list-date">July 2020</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/10/"><span class="card-archive-list-date">October 2019</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/09/"><span class="card-archive-list-date">September 2019</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/06/"><span class="card-archive-list-date">June 2019</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2018/12/"><span class="card-archive-list-date">December 2018</span><span class="card-archive-list-count">5</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article :</div><div class="item-count">30</div></div><div class="webinfo-item"><div class="item-name">UV :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">PV :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">Last Push :</div><div class="item-count" id="last-push-date" data-lastPushDate="2021-02-28T11:21:35.215Z"></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 杨文旭</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
