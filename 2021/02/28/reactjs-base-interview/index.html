@@ -1,0 +1,238 @@
+<!DOCTYPE html><html data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>reactjs-base-interview | Hexo</title><meta name="keywords" content="react"><meta name="author" content="杨文旭"><meta name="copyright" content="杨文旭"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="组件：class类组件和hooks函数组件开发 context，redux数据状态管理 虚拟dom，fiber架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="reactjs-base-interview">
+<meta property="og:url" content="http://example.com/2021/02/28/reactjs-base-interview/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="组件：class类组件和hooks函数组件开发 context，redux数据状态管理 虚拟dom，fiber架构">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2021-02-28T11:29:52.927Z">
+<meta property="article:modified_time" content="2020-12-25T00:54:15.206Z">
+<meta property="article:author" content="杨文旭">
+<meta property="article:tag" content="react">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2021/02/28/reactjs-base-interview/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-12-25 08:54:15'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">40</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">21</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hexo</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">reactjs-base-interview</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-02-28T11:29:52.927Z" title="Created 2021-02-28 19:29:52">2021-02-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2020-12-25T00:54:15.206Z" title="Updated 2020-12-25 08:54:15">2020-12-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/interview/">interview</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ol>
+<li>组件：class类组件和hooks函数组件开发</li>
+<li>context，redux数据状态管理</li>
+<li>虚拟dom，fiber架构</li>
+</ol>
+<span id="more"></span>
+<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><p><em>1. 初始渲染阶段：</em>这是组件即将开始其生命之旅并进入 DOM 的阶段。</p>
+<p><em>2. 更新阶段：</em>一旦组件被添加到 DOM，它只有在 prop 或状态发生变化时才可能更新和重新渲染。这些只发生在这个阶段。</p>
+<p><em>3. 卸载阶段：</em>这是组件生命周期的最后阶段，组件被销毁并从 DOM 中删除。</p>
+<p>​    <strong>componentWillMount</strong>：在创建组件之后但在将其渲染到DOM中之前调用<br>​    <strong>componentDidMount</strong>：在第一个渲染之后调用；组件的DOM元素现在可用<br>​    <strong>componentWillReceiveProps</strong>：当属性更新时调用<br>​    <strong>shouldComponentUpdate</strong>：当收到新props时，此方法可以防止重新渲染以优化性能<br>​    <strong>componentWillUpdate</strong>：在收到新的props并且ComponentUpdate返回true时调用<br>​    <strong>componentDidUpdate</strong>：在组件更新后调用<br>​    <strong>componentWillUnmount</strong>：在组件从DOM中移除之前调用，允许您清理事件侦听器之类的</p>
+<p>  React v16.3新引⼊了两个新的⽣命周期函 数：<br>  <strong>getDerivedStateFromProps</strong>，<strong>getSnapshotBeforeUpdate</strong></p>
+<p>  <strong>getDerivedStateFromProps</strong> 会在调⽤ render ⽅法之前调⽤，并且在初始挂载及后续更新时都会被调⽤。它应返回⼀个对象来更新<br>  state，如果返回 null 则不更新任何内容。</p>
+<p>  <strong>getSnapshotBeforeUpdate</strong> 在最近⼀次渲染输出（提交到 DOM 节点）之前调⽤。它使得组件能在发⽣更改之前从 DOM 中 捕获⼀    些信息（例如，滚动位置）。此⽣命周期的任何返回值将作 为参数传递给 componentDidUpdate()。</p>
+<p>   V17可能会废弃的三个⽣命周期函数⽤<strong>getDerivedStateFromProps</strong> 替代，⽬前使⽤的话加上UNSAFE_：<strong>componentWillMount</strong>  <strong>componentWillReceiveProps</strong> <strong>componentWillUpdate</strong></p>
+<h2 id="类组件和函数式组件"><a href="#类组件和函数式组件" class="headerlink" title="类组件和函数式组件"></a>类组件和函数式组件</h2><p>函数组件是无状态的（同样，小于 React 16.8版本），并返回要呈现的输出。它们渲染 UI 的首选只依赖于属性，因为它们比基于类的组件更简单、更具性能。react hooks的出现就是让函数式组件也具有类组件的能力。</p>
+<h2 id="react-hooks"><a href="#react-hooks" class="headerlink" title="react hooks"></a>react hooks</h2><p>​    不需要基于类的组件、生命周期钩子和 this 关键字</p>
+<p>​    通过将公共函数抽象到定制钩子中，使重用逻辑变得更容易</p>
+<p>​    通过能够将逻辑与组件本身分离出来，使代码更具可读性和可测试性</p>
+<ul>
+<li><p>useState</p>
+</li>
+<li><p>usEffect</p>
+<pre><code> React Hooks 提供了 Effect Hook，可以在函数组件中执行副作用操作，并且是在函数渲染    DOM完成后执行副作用操作。
+</code></pre></li>
+<li><p>useContext</p>
+<p>  跨层级组件通讯</p>
+<p>  Provider：外层提供数据的组件 </p>
+<p>  Consumer ：内层获取数据的组件</p>
+</li>
+<li><p>useReducer</p>
+</li>
+<li><p>useCallback</p>
+</li>
+<li><p>useMemo</p>
+</li>
+<li><p>useRef</p>
+</li>
+<li><p>useImperativeHandle</p>
+</li>
+<li><p>useLayoutEffect</p>
+</li>
+</ul>
+<h2 id="react的refs"><a href="#react的refs" class="headerlink" title="react的refs"></a>react的refs</h2><p>Refs 是 React 中引用的简写。它是一个有助于存储对特定的 React 元素或组件的引用的属性，它将由组件渲染配置函数返回。用于对 render() 返回的特定元素或组件的引用。当需要进行 DOM 测量或向组件添加方法时，它们会派上用场。以下是应该使用 refs 的情况：</p>
+<ul>
+<li>需要管理焦点、选择文本或媒体播放时</li>
+<li>触发式动画</li>
+<li>与第三方 DOM 库集成</li>
+</ul>
+<h2 id="redux"><a href="#redux" class="headerlink" title="redux"></a>redux</h2><h3 id="redux-1"><a href="#redux-1" class="headerlink" title="redux"></a>redux</h3><p> <img src="http://yangwenxu.cn/assets/images/redux.png" alt="redux"></p>
+<ol>
+<li>createStore: 创建store ，来存储数据</li>
+<li>reducer: 初始化state并定义state修改规则，修改状态函数</li>
+<li>getState: 获取状态值</li>
+<li>dispatch: 提交更新，通过dispatch⼀个action来提交对数据的修改</li>
+<li>action:  action提交到reducer函数⾥，根据传⼊的action的type，返回新的 state</li>
+<li>subscribe: 变更订阅</li>
+</ol>
+<h3 id="react-redux"><a href="#react-redux" class="headerlink" title="react-redux"></a>react-redux</h3><p>redux与react一起使用时需要手动在组件里通过subscribe监听state的变化并更新组件，这样的话每次都会重新调⽤render和getState，为了解决这样的问题，redux官方提供了react-redux的库，通过connect的方式连接state和react组件，达到自动监听的效果</p>
+<p>提供了两个api </p>
+<ol>
+<li><p>Provider 为后代组件提供store</p>
+</li>
+<li><p>connect 为组件提供数据和变更⽅法</p>
+</li>
+</ol>
+<p>connect是一个高阶组件，接收mapStateToProps和mapDispatchToProps参数，其中mapStateToProps的作用是将特定的state映射到组件的props上，mapDispatchToProps将dispatch(action)映射到props上，并在componentDidMount统一进行store的subscribe监听，当state变化时，被connect的所有组件都会进行一次render。</p>
+<p>总结：Provider的本质是利用context统一传递，connect本质是将监听和获取state的逻辑进行统一抽取复用，这也是高阶组件的常用功能，被connect的组件变成了UI型组件，只需要从props中获取到状态进行渲染即可。</p>
+<h3 id="redux-thunk，redux-logger"><a href="#redux-thunk，redux-logger" class="headerlink" title="redux-thunk，redux-logger"></a>redux-thunk，redux-logger</h3><p> <img src="http://yangwenxu.cn/assets/images/react-thunk.png" alt="redux-thunk"></p>
+<p>Redux只是个纯粹的状态管理器，默认只⽀持同步，实现异步任务，⽐如延迟，⽹络请求，需要redux-thunk和 redux-logger中间件的⽀持</p>
+<h3 id="redux-saga"><a href="#redux-saga" class="headerlink" title="redux-saga"></a>redux-saga</h3><p> <img src="http://yangwenxu.cn/assets/images/redux-saga.png" alt="redux-saga"></p>
+<p>redux-thunk虽然支持了异步场景，但其存在的缺点也很明显：</p>
+<p>1、使用回调的方式来实现异步，容易形成层层回调的面条代码</p>
+<p>2、异步逻辑散落在各个action中，难以进行统一管理</p>
+<p>因此，出现了redux-saga更强大的异步管理方案，可以代替redux-thunk使用。其特点如下：</p>
+<p>1、使用generator的方式实现，更加符合同步代码的风格；</p>
+<p>2、统一监听action，当命中action时，执行对应的saga任务，并且支持各个saga之间的互相调用，使得异步代码更方便统一管理。</p>
+<h2 id="react-router"><a href="#react-router" class="headerlink" title="react-router"></a>react-router</h2><p>react-router中奉⾏⼀切皆组件的思想，路由器-Router、链接-Link、路由-Route、独占-Switch、重定向-Redirect都以组件形式存在 Route渲染优先级：children&gt;component&gt;render</p>
+<p>与HashRouter对⽐： </p>
+<ol>
+<li>HashRouter最简单，不需要服务器端渲染，靠浏览器的#的来区分path就可以，BrowserRouter 需要服务器端对不同的URL返回不同的HTML，后端配置可参考。 </li>
+<li>BrowserRouter使⽤HTML5历史API（ pushState，replaceState和popstate事件），让⻚⾯的UI 同步与URL。 </li>
+<li>HashRouter不⽀持location.key和location.state，动态路由跳转需要通过?传递参数。 </li>
+<li>Hash history 不需要服务器任何配置就可以运⾏，比较简单，在实际线上环境中一般用browserHistory，因为每⼀个 web 应⽤都应该渴望使⽤ browserHistory 。</li>
+</ol>
+<h2 id="react虚拟dom怎么执行的-树的遍历和diff"><a href="#react虚拟dom怎么执行的-树的遍历和diff" class="headerlink" title="react虚拟dom怎么执行的(树的遍历和diff)"></a>react虚拟dom怎么执行的(树的遍历和diff)</h2><p>把树形结构按照层级分解，只比较同级元素。</p>
+<p>列表结构的每个单元添加唯一的 key 属性，方便比较。</p>
+<p>React 只会匹配相同 class 的 component（这里面的 class 指的是组件的名字）</p>
+<p>合并操作，调用 component 的 setState 方法的时候, React 将其标记为 dirty 到每一个事件循环结束, React 检查所有标记 dirty 的 component 重新绘制.</p>
+<p>选择性子树渲染。开发人员可以重写 shouldComponentUpdate 提高 diff 的性能。</p>
+<h2 id="fiber架构的描述"><a href="#fiber架构的描述" class="headerlink" title="fiber架构的描述"></a>fiber架构的描述</h2><ul>
+<li>旧: 浏览器渲染引擎单线程, 计算DOM树时锁住整个线程, 所有行为同步发生, 有效率问题, 期间react会一直占用浏览器主线程，如果组件层级比较深，相应的堆栈也会很深，长时间占用浏览器主线程, 任何其他的操作（包括用户的点击，鼠标移动等操作）都无法执行。</li>
+<li>新: 重写底层算法逻辑, 引入fiber时间片, 异步渲染, react会在渲染一部分树后检查是否有更高优先级的任务需要处理(如用户操作或绘图), 处理完后再继续渲染, 并可以更新优先级, 以此管理渲染任务. 加入fiber的react将组件更新分为两个时期（phase 1 &amp;&amp; phase 2），render前的生命周期为phase1，render后的生命周期为phase2, 1可以打断, 2不能打断一次性更新. 三个will生命周期可能会重复执行, 尽量避免使用。</li>
+</ul>
+<h2 id="react16和15的虚拟dom有什么变化，"><a href="#react16和15的虚拟dom有什么变化，" class="headerlink" title="react16和15的虚拟dom有什么变化，"></a>react16和15的虚拟dom有什么变化，</h2><h2 id="fiber和虚拟dom的区别"><a href="#fiber和虚拟dom的区别" class="headerlink" title="fiber和虚拟dom的区别"></a>fiber和虚拟dom的区别</h2><p>fiber把整个虚拟dom树变成了一个链表指向，diff过程可以随时终端</p>
+<p>元素 -&gt; 第一个子元素 -&gt; 兄弟元素 -&gt; 兄弟元素</p>
+<h2 id="react事件系统和浏览事件系统有啥区别和关系"><a href="#react事件系统和浏览事件系统有啥区别和关系" class="headerlink" title="react事件系统和浏览事件系统有啥区别和关系"></a>react事件系统和浏览事件系统有啥区别和关系</h2><h2 id="dva-umi"><a href="#dva-umi" class="headerlink" title="dva+umi"></a>dva+umi</h2><h2 id="ant-design-antd-pro的源码"><a href="#ant-design-antd-pro的源码" class="headerlink" title="ant-design + antd-pro的源码"></a>ant-design + antd-pro的源码</h2></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">杨文旭</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2021/02/28/reactjs-base-interview/">http://example.com/2021/02/28/reactjs-base-interview/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/react/">react</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/02/28/vuejs-base-interview/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">vuejs-base-interview</div></div></a></div><div class="next-post pull-right"><a href="/2021/02/28/js-base-interview3/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">js基础面试题3</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/null" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">杨文旭</div><div class="author-info__description">在孤独寂寞中修炼，用更好的自己去见更好的人</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">40</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">21</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.</span> <span class="toc-text">生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E7%BB%84%E4%BB%B6%E5%92%8C%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BB%84%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">类组件和函数式组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#react-hooks"><span class="toc-number">3.</span> <span class="toc-text">react hooks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#react%E7%9A%84refs"><span class="toc-number">4.</span> <span class="toc-text">react的refs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#redux"><span class="toc-number">5.</span> <span class="toc-text">redux</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#redux-1"><span class="toc-number">5.1.</span> <span class="toc-text">redux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#react-redux"><span class="toc-number">5.2.</span> <span class="toc-text">react-redux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redux-thunk%EF%BC%8Credux-logger"><span class="toc-number">5.3.</span> <span class="toc-text">redux-thunk，redux-logger</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redux-saga"><span class="toc-number">5.4.</span> <span class="toc-text">redux-saga</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#react-router"><span class="toc-number">6.</span> <span class="toc-text">react-router</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#react%E8%99%9A%E6%8B%9Fdom%E6%80%8E%E4%B9%88%E6%89%A7%E8%A1%8C%E7%9A%84-%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86%E5%92%8Cdiff"><span class="toc-number">7.</span> <span class="toc-text">react虚拟dom怎么执行的(树的遍历和diff)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fiber%E6%9E%B6%E6%9E%84%E7%9A%84%E6%8F%8F%E8%BF%B0"><span class="toc-number">8.</span> <span class="toc-text">fiber架构的描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#react16%E5%92%8C15%E7%9A%84%E8%99%9A%E6%8B%9Fdom%E6%9C%89%E4%BB%80%E4%B9%88%E5%8F%98%E5%8C%96%EF%BC%8C"><span class="toc-number">9.</span> <span class="toc-text">react16和15的虚拟dom有什么变化，</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fiber%E5%92%8C%E8%99%9A%E6%8B%9Fdom%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">10.</span> <span class="toc-text">fiber和虚拟dom的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#react%E4%BA%8B%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%92%8C%E6%B5%8F%E8%A7%88%E4%BA%8B%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%9C%89%E5%95%A5%E5%8C%BA%E5%88%AB%E5%92%8C%E5%85%B3%E7%B3%BB"><span class="toc-number">11.</span> <span class="toc-text">react事件系统和浏览事件系统有啥区别和关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dva-umi"><span class="toc-number">12.</span> <span class="toc-text">dva+umi</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ant-design-antd-pro%E7%9A%84%E6%BA%90%E7%A0%81"><span class="toc-number">13.</span> <span class="toc-text">ant-design + antd-pro的源码</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/02/28/js-base-interview1/" title="js基础面试题1"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="js基础面试题1"/></a><div class="content"><a class="title" href="/2021/02/28/js-base-interview1/" title="js基础面试题1">js基础面试题1</a><time datetime="2021-02-28T11:29:52.944Z" title="Created 2021-02-28 19:29:52">2021-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/28/css-base-interview/" title="css-base-interview"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="css-base-interview"/></a><div class="content"><a class="title" href="/2021/02/28/css-base-interview/" title="css-base-interview">css-base-interview</a><time datetime="2021-02-28T11:29:52.942Z" title="Created 2021-02-28 19:29:52">2021-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/28/%E5%AD%97%E8%8A%82%E5%89%8D%E7%AB%AF%E9%9D%A2%E7%BB%8F/" title="字节前端面经"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="字节前端面经"/></a><div class="content"><a class="title" href="/2021/02/28/%E5%AD%97%E8%8A%82%E5%89%8D%E7%AB%AF%E9%9D%A2%E7%BB%8F/" title="字节前端面经">字节前端面经</a><time datetime="2021-02-28T11:29:52.940Z" title="Created 2021-02-28 19:29:52">2021-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/28/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" title="前端性能优化"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="前端性能优化"/></a><div class="content"><a class="title" href="/2021/02/28/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" title="前端性能优化">前端性能优化</a><time datetime="2021-02-28T11:29:52.938Z" title="Created 2021-02-28 19:29:52">2021-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/28/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3/" title="浏览器网络相关"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="浏览器网络相关"/></a><div class="content"><a class="title" href="/2021/02/28/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3/" title="浏览器网络相关">浏览器网络相关</a><time datetime="2021-02-28T11:29:52.936Z" title="Created 2021-02-28 19:29:52">2021-02-28</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 杨文旭</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

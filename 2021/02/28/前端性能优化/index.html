@@ -1,0 +1,318 @@
+<!DOCTYPE html><html data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>前端性能优化 | Hexo</title><meta name="keywords" content="front-end"><meta name="author" content="杨文旭"><meta name="copyright" content="杨文旭"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="代码执行更快 文件加载更快，首屏加载优化 webpack性能优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端性能优化">
+<meta property="og:url" content="http://example.com/2021/02/28/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="代码执行更快 文件加载更快，首屏加载优化 webpack性能优化">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2021-02-28T11:29:52.938Z">
+<meta property="article:modified_time" content="2020-12-25T00:54:15.223Z">
+<meta property="article:author" content="杨文旭">
+<meta property="article:tag" content="front-end">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2021/02/28/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-12-25 08:54:15'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">40</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">21</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hexo</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">前端性能优化</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-02-28T11:29:52.938Z" title="Created 2021-02-28 19:29:52">2021-02-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2020-12-25T00:54:15.223Z" title="Updated 2020-12-25 08:54:15">2020-12-25</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ol>
+<li>代码执行更快</li>
+<li>文件加载更快，首屏加载优化</li>
+<li>webpack性能优化</li>
+</ol>
+<span id="more"></span>
+<p>代码层面：避免使用css表达式，避免使用高级选择器，通配选择器。<br>缓存利用：缓存Ajax，使用CDN，使用外部js和css文件以便缓存，添加Expires头，服务端配置Etag，减少DNS查找等<br>请求数量：合并样式和脚本，使用css图片精灵，初始首屏之外的图片资源按需加载，静态资源延迟加载。<br>请求带宽：压缩文件，开启GZIP，</p>
+<h2 id="编码优化"><a href="#编码优化" class="headerlink" title="编码优化"></a>编码优化</h2><h3 id="html-优化"><a href="#html-优化" class="headerlink" title="html 优化:"></a>html 优化:</h3><ul>
+<li>减少 dom 数量，避免不必要的节点或嵌套；</li>
+</ul>
+<h3 id="css-优化"><a href="#css-优化" class="headerlink" title="css 优化:"></a>css 优化:</h3><ul>
+<li>使用 <code>&lt;link&gt;</code> 替代原生 @import；</li>
+<li>特定的选择器 好过一层一层查找:  .xxx-child-text{} 优于 .xxx .child .text{}</li>
+<li>减少使用通配符与属性选择器；</li>
+<li>层级扁平，避免过于多层级的选择器嵌套；</li>
+<li>减少不必要的多余属性；</li>
+<li>使用 动画属性 实现动画，动画时脱离文档流，开启硬件加速，优先使用 css 动画；</li>
+</ul>
+<h3 id="dom-优化"><a href="#dom-优化" class="headerlink" title="dom 优化:"></a>dom 优化:</h3><ul>
+<li><p>减少访问 dom 的次数，如需多次，将 dom 缓存于变量中；</p>
+</li>
+<li><p>减少重绘与回流</p>
+</li>
+<li><p>使用事件委托，避免大量的事件绑定；</p>
+</li>
+</ul>
+<h3 id="JavaScript代码优化"><a href="#JavaScript代码优化" class="headerlink" title="JavaScript代码优化"></a>JavaScript代码优化</h3><ol>
+<li><p><strong>数据读取:</strong></p>
+<ul>
+<li>通过作用域链 / 原型链 读取变量或方法时，需要更多的耗时，且越长越慢；</li>
+<li>对象嵌套越深，读取值也越慢；</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>尽量在局部作用域中进行变量缓存；</li>
+<li>避免嵌套过深的数据结构，数据扁平化 有利于数据的读取和维护；</li>
+</ul>
+<ol>
+<li><strong>循环</strong>: 降低算法时间复杂度</li>
+<li><strong>条件流程性能</strong>: Map / Object &gt; switch &gt; if-else</li>
+</ol>
+<h3 id="浏览器网络优化"><a href="#浏览器网络优化" class="headerlink" title="浏览器网络优化"></a>浏览器网络优化</h3><ul>
+<li><strong>减少 cookie 体积</strong>: 能有效减少每次请求的体积和响应时间；<ul>
+<li>去除不必要的 cookie；</li>
+<li>压缩 cookie 大小；</li>
+<li>设置 domain 与 过期时间；</li>
+</ul>
+</li>
+</ul>
+<h2 id="文件加载优化"><a href="#文件加载优化" class="headerlink" title="文件加载优化"></a>文件加载优化</h2><h3 id="引入位置"><a href="#引入位置" class="headerlink" title="引入位置:"></a>引入位置:</h3><p>​    css 文件<code>&lt;head&gt;</code>中引入， js 文件<code>&lt;body&gt;</code>底部引入；</p>
+<p>​    影响首屏的，优先级很高的 js 也可以头部引入，甚至内联；</p>
+<h3 id="减少请求-http-1-0-1-1-："><a href="#减少请求-http-1-0-1-1-：" class="headerlink" title="减少请求 (http 1.0 - 1.1)："></a>减少请求 (http 1.0 - 1.1)：</h3><p>​    合并请求，正确设置 http 缓存；</p>
+<h3 id="减少文件体积"><a href="#减少文件体积" class="headerlink" title="减少文件体积:"></a>减少文件体积:</h3><ul>
+<li>删除多余代码 :<ul>
+<li>tree-shaking</li>
+<li>UglifyJs</li>
+<li>code-spliting</li>
+</ul>
+</li>
+<li>混淆 / 压缩代码，开启 gzip 压缩；</li>
+<li><p>多份编译文件按条件引入 :</p>
+<ul>
+<li>针对现代浏览器直接给 ES6 文件，只针对低端浏览器引用编译后的 ES5 文件；</li>
+<li>可以利用<code>&lt;script type=&quot;module&quot;&gt; / &lt;script type=&quot;module&quot;&gt;</code>进行条件引入用</li>
+</ul>
+</li>
+<li><p>动态 polyfill，只针对不支持的浏览器引入 polyfill；</p>
+</li>
+</ul>
+<h3 id="图片优化"><a href="#图片优化" class="headerlink" title="图片优化:"></a>图片优化:</h3><ul>
+<li>小图片合成 雪碧图，低于 5K 的图片可以转换成 base64 内嵌；</li>
+<li>合适场景下，使用 iconfont 或者 svg；</li>
+</ul>
+<h3 id="使用缓存"><a href="#使用缓存" class="headerlink" title="使用缓存:"></a>使用缓存:</h3><ul>
+<li><p>浏览器缓存: 通过设置请求的过期时间，合理运用浏览器缓存；</p>
+</li>
+<li><p>CDN缓存: 静态文件合理使用 CDN 缓存技术；</p>
+<ul>
+<li>HTML 放于自己的服务器上；</li>
+</ul>
+</li>
+<li><p>打包后的图片 / js / css 等资源上传到 CDN 上，文件带上 hash 值；</p>
+<ul>
+<li>由于浏览器对单个域名请求的限制，可以将资源放在多个不同域的 CDN 上，可以绕开该限制；</li>
+</ul>
+</li>
+<li><p>服务器缓存: 将不变的数据、页面缓存到 内存 或 远程存储(redis等) 上；</p>
+</li>
+<li><p>数据缓存: 通过各种存储将不常变的数据进行缓存，缩短数据的获取时间；</p>
+</li>
+</ul>
+<h2 id="webpack性能优化"><a href="#webpack性能优化" class="headerlink" title="webpack性能优化"></a>webpack性能优化</h2><h3 id="webpack原理："><a href="#webpack原理：" class="headerlink" title="webpack原理："></a><strong>webpack原理</strong>：</h3><p>​    通过分析模块之间的依赖，然后通过生态中的各种 Loader 和 Plugin 对代码进行预编译和打包。最终将所有模块打包成一份或者多份代码包 (bundler)。实质上，Webpack 仅仅提供了 打包功能 和一套 文件处理机制。loader基于node的环境，拥有比较高的权限。loader对 Webpack 传入的字符串进行按需修改，通常是需要将代码进行分析，构建 AST (抽象语法树)， 遍历进行定向的修改后，再重新生成新的代码字符串。Webpack 会按顺序链式调用每个 Loader，每个loader也只做一件事，输入与输出均为字符串，各个 Loader 完全独立，即插即用。</p>
+<h3 id="常用-Loader"><a href="#常用-Loader" class="headerlink" title="常用 Loader:"></a><strong>常用 Loader</strong>:</h3><ul>
+<li>file-loader: 加载文件资源，如 字体 / 图片 等，具有移动/复制/命名等功能；</li>
+<li>url-loader: 通常用于加载图片，可以将小图片直接转换为 Date Url，减少请求；</li>
+<li>babel-loader: 加载 js / jsx 文件， 将 ES6 / ES7 代码转换成 ES5，抹平兼容性问题；</li>
+<li>ts-loader: 加载 ts / tsx 文件，编译 TypeScript；</li>
+<li>style-loader: 将 css 代码以<code>&lt;style&gt;</code>标签的形式插入到 html 中；</li>
+<li>css-loader: 分析<code>@import</code>和<code>url()</code>，引用 css 文件与对应的资源；</li>
+<li>less-loader / sass-loader: css预处理器，在 css 中新增了许多语法，提高了开发效率；</li>
+</ul>
+<h3 id="常用-Plugin"><a href="#常用-Plugin" class="headerlink" title="常用 Plugin:"></a><strong>常用 Plugin</strong>:</h3><ul>
+<li><p>UglifyJsPlugin: 压缩、混淆代码；</p>
+</li>
+<li><p>CommonsChunkPlugin: 代码分割；</p>
+</li>
+<li><p>ProvidePlugin: 自动加载模块；</p>
+</li>
+<li><p>html-webpack-plugin: 加载 html 文件，并引入 css / js 文件；</p>
+</li>
+<li><p>extract-text-webpack-plugin / mini-css-extract-plugin: 抽离样式，生成 css 文件；</p>
+</li>
+<li><p>DefinePlugin: 定义全局变量；</p>
+</li>
+<li><p>optimize-css-assets-webpack-plugin: CSS 代码去重；</p>
+</li>
+<li><p>webpack-bundle-analyzer: 代码分析；</p>
+</li>
+<li><p>compression-webpack-plugin: 使用 gzip 压缩 js 和 css；</p>
+</li>
+<li><p>happypack: 使用多进程，加速代码构建；</p>
+</li>
+<li><p>EnvironmentPlugin: 定义环境变量</p>
+</li>
+</ul>
+<h3 id="Loader和Plugin的不同"><a href="#Loader和Plugin的不同" class="headerlink" title="Loader和Plugin的不同"></a><strong>Loader和Plugin的不同</strong></h3><ol>
+<li><p><strong>不同的作用</strong></p>
+<ul>
+<li><strong>Loader</strong>直译为”加载器”。Webpack将一切文件视为模块，但是webpack原生是只能解析js文件，如果想将其他文件也打包的话，就会用到loader。 所以Loader的作用是让webpack拥有了加载和解析非JavaScript文件的能力。</li>
+<li><strong>Plugin</strong>直译为”插件”。Plugin可以扩展webpack的功能，让webpack具有更多的灵活性。 在 Webpack 运行的生命周期中会广播出许多事件，Plugin 可以监听这些事件，在合适的时机通过 Webpack 提供的 API 改变输出结果。</li>
+</ul>
+</li>
+<li><p><strong>不同的用法</strong></p>
+<ul>
+<li><p><strong>Loader</strong>在module.rules中配置，也就是说他作为模块的解析规则而存在。 类型为数组，每一项都是一个Object，里面描述了对于什么类型的文件（test），使用什么加载(loader)和使用的参数（options）</p>
+</li>
+<li><p><strong>Plugin</strong>在plugins中单独配置。 类型为数组，每一项是一个plugin的实例，参数都通过构造函数传</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="webpack打包的文件名为啥是-hash-js的方式"><a href="#webpack打包的文件名为啥是-hash-js的方式" class="headerlink" title="webpack打包的文件名为啥是_hash.js的方式:"></a>webpack打包的文件名为啥是_hash.js的方式:</h3><ol>
+<li>文件名？_h=hash 的方式和上面的区别是啥，</li>
+<li>静态资源在cdn上，先部署模板html，还是先部署静态资源</li>
+</ol>
+<h3 id="webpack性能优化-1"><a href="#webpack性能优化-1" class="headerlink" title="webpack性能优化"></a>webpack性能优化</h3><h4 id="1-缓存"><a href="#1-缓存" class="headerlink" title="1. 缓存"></a>1. 缓存</h4><p>   在一些性能开销较大的 <code>loader</code> 之前添加 <code>cache-loader</code>，将<code>loader</code> 的编译结果缓存中磁盘中。再次构建如果文件没有发生变化则会  直接拉取缓存。如果只给 <code>babel-loader</code> 配置 <code>cache</code> 的话，也可以不使用cache-loader，给 babel-loader增加选项 <code>cacheDirectory</code>。</p>
+<p> 通过<code>uglifyjs-webpack-plugin</code>这个插件也可以解决缓存问题。</p>
+<p> 缓存的原理就是更快读写的存储介质+减少IO+减少CPU计算=性能优化。而性能优化的第一定律就是：优先考虑使用缓存。</p>
+<p> 缓存的主要手段有：浏览器缓存、CDN、反向代理、本地缓存、分布式缓存、数据库缓存。</p>
+<h4 id="2-摇树优化-Tree-shaking-，"><a href="#2-摇树优化-Tree-shaking-，" class="headerlink" title="2. 摇树优化 (Tree-shaking)，"></a>2. 摇树优化 (Tree-shaking)，</h4><p>  通过 ES6 的 <code>import/export</code> 来检查未引用代码，以及 <code>sideEffects</code> 来标记无副作用代码，最后用 <code>UglifyJSPlugin</code> 来做 <code>Tree Shaking</code>，从而删除冗余代码。但是具有副作用的函数无法被 tree-shaking</p>
+<h4 id="3-code-spliting-代码分割-，按需加载"><a href="#3-code-spliting-代码分割-，按需加载" class="headerlink" title="3. code-spliting:代码分割 ，按需加载"></a>3. code-spliting:代码分割 ，按需加载</h4><p>   代码分割是指：将脚本中无需立即调用的代码在代码构建时转变为异步加载的过程。</p>
+<p>  在 Webpack 构建时，会避免加载已声明要异步加载的代码，异步代码在 Webpack 中使用 SplitChunksPlugin 拆分出一个文件，。当代 码实际调用时被加载至页面。</p>
+<p>  代码分割技术的核心是 <strong>异步加载资源</strong>。</p>
+<p>  在 Vue 中，可以直接使用 <code>import()</code> 关键字做到这一点，而在 React 中，需要使用 <code>react-loadable</code> 去完成同样的事。</p>
+<h4 id="4-静态资源分离"><a href="#4-静态资源分离" class="headerlink" title="4. 静态资源分离"></a>4. 静态资源分离</h4><p>​    通过 <code>DllPlugin</code> 或者 <code>Externals</code> 进行静态依赖包的分离。由于 CommonsChunkPlugin 每次构建会重新构建一次 vendor，所以出于效率考虑，使用 <code>DllPlugin</code> 将第三方库单独打包到一个文件    中，只有依赖自身发生版本变化时才会重新打包。</p>
+<h4 id="5-打包资源的压缩，多进程压缩"><a href="#5-打包资源的压缩，多进程压缩" class="headerlink" title="5. 打包资源的压缩，多进程压缩"></a>5. 打包资源的压缩，多进程压缩</h4><p>​    <em>打包资源的压缩</em>：</p>
+<ul>
+<li><p>JS 压缩：<code>UglifyjsWebpackPlugin</code></p>
+</li>
+<li><p>HTML 压缩：<code>HtmlWebpackPlugin</code></p>
+</li>
+<li><p>CSS 压缩：<code>MiniCssExtractPlugin</code></p>
+</li>
+<li><p>图片压缩：<code>image-webpack-loader</code></p>
+</li>
+<li><p>Gzip 压缩：不包括图片</p>
+</li>
+</ul>
+<p>​    <em>多进程压缩</em>：</p>
+<p>​    因为自带的 <code>UglifyjsWebpackPlugin</code> 压缩插件是单线程运行的，而 <code>TerserWebpackPlugin</code> 可以并发运行压缩功能（多进程）。所以通    过 <code>TerserWebpackPlugin</code> 代替自带的 <code>UglifyjsWebpackPlugin</code> 插件。</p>
+<h4 id="6-Scope-Hoisting作用域提升"><a href="#6-Scope-Hoisting作用域提升" class="headerlink" title="6. Scope Hoisting作用域提升"></a>6. Scope Hoisting作用域提升</h4><p>Webpack 会把引入的 js 文件 “提升到” 它的引入者顶部。作用域提升可以让 Webpack 打包出来的 代码文件更小，运行速度更快。</p>
+<p><code>Scope Hoisting</code> 的实现原理其实很简单：分析出模块之间的依赖关系，尽可能将打散的模块合并到一个函数中，前提是不能造成代码冗余。因此只有那些被引用了一次的模块才能被合并。</p>
+<h2 id="SSR服务端渲染"><a href="#SSR服务端渲染" class="headerlink" title="SSR服务端渲染"></a>SSR服务端渲染</h2><p>  渲染过程在服务器端完成，最终的渲染结果 HTML 页面通过 HTTP 协议发送给客户端，又被认为是‘同构’或‘通用’，如果项目中有大量的detail页面，相互特别频繁，建议选择服务端渲染。</p>
+<p>Vue的Nuxt.js和React的next.js都是服务端渲染的方法。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">杨文旭</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2021/02/28/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">http://example.com/2021/02/28/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/front-end/">front-end</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/02/28/%E5%AD%97%E8%8A%82%E5%89%8D%E7%AB%AF%E9%9D%A2%E7%BB%8F/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">字节前端面经</div></div></a></div><div class="next-post pull-right"><a href="/2021/02/28/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">浏览器网络相关</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2021/02/28/字节前端面经/" title="字节前端面经"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-28</div><div class="title">字节前端面经</div></div></a></div><div><a href="/2021/02/28/浏览器网络相关/" title="浏览器网络相关"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-28</div><div class="title">浏览器网络相关</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/null" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">杨文旭</div><div class="author-info__description">在孤独寂寞中修炼，用更好的自己去见更好的人</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">40</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">21</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E4%BC%98%E5%8C%96"><span class="toc-number">1.</span> <span class="toc-text">编码优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#html-%E4%BC%98%E5%8C%96"><span class="toc-number">1.1.</span> <span class="toc-text">html 优化:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#css-%E4%BC%98%E5%8C%96"><span class="toc-number">1.2.</span> <span class="toc-text">css 优化:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dom-%E4%BC%98%E5%8C%96"><span class="toc-number">1.3.</span> <span class="toc-text">dom 优化:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JavaScript%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96"><span class="toc-number">1.4.</span> <span class="toc-text">JavaScript代码优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96"><span class="toc-number">1.5.</span> <span class="toc-text">浏览器网络优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">文件加载优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E4%BD%8D%E7%BD%AE"><span class="toc-number">2.1.</span> <span class="toc-text">引入位置:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%8F%E5%B0%91%E8%AF%B7%E6%B1%82-http-1-0-1-1-%EF%BC%9A"><span class="toc-number">2.2.</span> <span class="toc-text">减少请求 (http 1.0 - 1.1)：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%8F%E5%B0%91%E6%96%87%E4%BB%B6%E4%BD%93%E7%A7%AF"><span class="toc-number">2.3.</span> <span class="toc-text">减少文件体积:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E7%89%87%E4%BC%98%E5%8C%96"><span class="toc-number">2.4.</span> <span class="toc-text">图片优化:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%BC%93%E5%AD%98"><span class="toc-number">2.5.</span> <span class="toc-text">使用缓存:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#webpack%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-number">3.</span> <span class="toc-text">webpack性能优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#webpack%E5%8E%9F%E7%90%86%EF%BC%9A"><span class="toc-number">3.1.</span> <span class="toc-text">webpack原理：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8-Loader"><span class="toc-number">3.2.</span> <span class="toc-text">常用 Loader:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8-Plugin"><span class="toc-number">3.3.</span> <span class="toc-text">常用 Plugin:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Loader%E5%92%8CPlugin%E7%9A%84%E4%B8%8D%E5%90%8C"><span class="toc-number">3.4.</span> <span class="toc-text">Loader和Plugin的不同</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#webpack%E6%89%93%E5%8C%85%E7%9A%84%E6%96%87%E4%BB%B6%E5%90%8D%E4%B8%BA%E5%95%A5%E6%98%AF-hash-js%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">3.5.</span> <span class="toc-text">webpack打包的文件名为啥是_hash.js的方式:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#webpack%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-1"><span class="toc-number">3.6.</span> <span class="toc-text">webpack性能优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%BC%93%E5%AD%98"><span class="toc-number">3.6.1.</span> <span class="toc-text">1. 缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%91%87%E6%A0%91%E4%BC%98%E5%8C%96-Tree-shaking-%EF%BC%8C"><span class="toc-number">3.6.2.</span> <span class="toc-text">2. 摇树优化 (Tree-shaking)，</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-code-spliting-%E4%BB%A3%E7%A0%81%E5%88%86%E5%89%B2-%EF%BC%8C%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD"><span class="toc-number">3.6.3.</span> <span class="toc-text">3. code-spliting:代码分割 ，按需加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E5%88%86%E7%A6%BB"><span class="toc-number">3.6.4.</span> <span class="toc-text">4. 静态资源分离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E6%89%93%E5%8C%85%E8%B5%84%E6%BA%90%E7%9A%84%E5%8E%8B%E7%BC%A9%EF%BC%8C%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%8E%8B%E7%BC%A9"><span class="toc-number">3.6.5.</span> <span class="toc-text">5. 打包资源的压缩，多进程压缩</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-Scope-Hoisting%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%8F%90%E5%8D%87"><span class="toc-number">3.6.6.</span> <span class="toc-text">6. Scope Hoisting作用域提升</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSR%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93"><span class="toc-number">4.</span> <span class="toc-text">SSR服务端渲染</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/02/28/js-base-interview1/" title="js基础面试题1"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="js基础面试题1"/></a><div class="content"><a class="title" href="/2021/02/28/js-base-interview1/" title="js基础面试题1">js基础面试题1</a><time datetime="2021-02-28T11:29:52.944Z" title="Created 2021-02-28 19:29:52">2021-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/28/css-base-interview/" title="css-base-interview"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="css-base-interview"/></a><div class="content"><a class="title" href="/2021/02/28/css-base-interview/" title="css-base-interview">css-base-interview</a><time datetime="2021-02-28T11:29:52.942Z" title="Created 2021-02-28 19:29:52">2021-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/28/%E5%AD%97%E8%8A%82%E5%89%8D%E7%AB%AF%E9%9D%A2%E7%BB%8F/" title="字节前端面经"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="字节前端面经"/></a><div class="content"><a class="title" href="/2021/02/28/%E5%AD%97%E8%8A%82%E5%89%8D%E7%AB%AF%E9%9D%A2%E7%BB%8F/" title="字节前端面经">字节前端面经</a><time datetime="2021-02-28T11:29:52.940Z" title="Created 2021-02-28 19:29:52">2021-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/28/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" title="前端性能优化"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="前端性能优化"/></a><div class="content"><a class="title" href="/2021/02/28/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" title="前端性能优化">前端性能优化</a><time datetime="2021-02-28T11:29:52.938Z" title="Created 2021-02-28 19:29:52">2021-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/28/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3/" title="浏览器网络相关"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="浏览器网络相关"/></a><div class="content"><a class="title" href="/2021/02/28/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3/" title="浏览器网络相关">浏览器网络相关</a><time datetime="2021-02-28T11:29:52.936Z" title="Created 2021-02-28 19:29:52">2021-02-28</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 杨文旭</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

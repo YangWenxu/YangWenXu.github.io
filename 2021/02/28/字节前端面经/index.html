@@ -1,0 +1,176 @@
+<!DOCTYPE html><html data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>字节前端面经 | Hexo</title><meta name="keywords" content="front-end"><meta name="author" content="杨文旭"><meta name="copyright" content="杨文旭"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="体验极佳，只不过有点可惜， 最后两道简单的编程题写的不好，最后一道算法时间复杂度太高了。 应该是编程题没写好，导致没有三面了。除了可惜就是可惜 以后的路得更加努力，我还年轻，吃苦趁现在。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字节前端面经">
+<meta property="og:url" content="http://example.com/2021/02/28/%E5%AD%97%E8%8A%82%E5%89%8D%E7%AB%AF%E9%9D%A2%E7%BB%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="体验极佳，只不过有点可惜， 最后两道简单的编程题写的不好，最后一道算法时间复杂度太高了。 应该是编程题没写好，导致没有三面了。除了可惜就是可惜 以后的路得更加努力，我还年轻，吃苦趁现在。">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2021-02-28T11:29:52.940Z">
+<meta property="article:modified_time" content="2020-12-25T00:54:15.225Z">
+<meta property="article:author" content="杨文旭">
+<meta property="article:tag" content="front-end">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2021/02/28/%E5%AD%97%E8%8A%82%E5%89%8D%E7%AB%AF%E9%9D%A2%E7%BB%8F/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-12-25 08:54:15'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">40</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">21</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hexo</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">字节前端面经</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-02-28T11:29:52.940Z" title="Created 2021-02-28 19:29:52">2021-02-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2020-12-25T00:54:15.225Z" title="Updated 2020-12-25 08:54:15">2020-12-25</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ol>
+<li>体验极佳，只不过有点可惜，</li>
+<li>最后两道简单的编程题写的不好，最后一道算法时间复杂度太高了。</li>
+<li>应该是编程题没写好，导致没有三面了。除了可惜就是可惜</li>
+<li>以后的路得更加努力，我还年轻，吃苦趁现在。</li>
+</ol>
+<span id="more"></span>
+<h2 id="一面面经："><a href="#一面面经：" class="headerlink" title="一面面经："></a>一面面经：</h2><h3 id="1-浏览器垃圾回收机制"><a href="#1-浏览器垃圾回收机制" class="headerlink" title="1. 浏览器垃圾回收机制"></a>1. 浏览器垃圾回收机制</h3><h3 id="2-for-in和for-of的区别"><a href="#2-for-in和for-of的区别" class="headerlink" title="2. for in和for of的区别"></a>2. for in和for of的区别</h3><h3 id="3-vue检测数组的变化"><a href="#3-vue检测数组的变化" class="headerlink" title="3. vue检测数组的变化"></a>3. vue检测数组的变化</h3><h3 id="4-nextTick的原理"><a href="#4-nextTick的原理" class="headerlink" title="4. nextTick的原理"></a>4. nextTick的原理</h3><h3 id="5-useEffect和userLayoutEffect的区别"><a href="#5-useEffect和userLayoutEffect的区别" class="headerlink" title="5. useEffect和userLayoutEffect的区别"></a>5. useEffect和userLayoutEffect的区别</h3><h3 id="6-node相关"><a href="#6-node相关" class="headerlink" title="6. node相关"></a>6. node相关</h3><h3 id="7-数据库相关"><a href="#7-数据库相关" class="headerlink" title="7. 数据库相关"></a>7. 数据库相关</h3><h3 id="8-http头部"><a href="#8-http头部" class="headerlink" title="8. http头部"></a>8. http头部</h3><h3 id="9-http和https的区别"><a href="#9-http和https的区别" class="headerlink" title="9. http和https的区别"></a>9. http和https的区别</h3><h3 id="10-web网络安全"><a href="#10-web网络安全" class="headerlink" title="10. web网络安全"></a>10. web网络安全</h3><h3 id="11-抛硬币问题"><a href="#11-抛硬币问题" class="headerlink" title="11. 抛硬币问题"></a>11. 抛硬币问题</h3><h3 id="12-函数柯里化-编程题"><a href="#12-函数柯里化-编程题" class="headerlink" title="12. 函数柯里化(编程题)"></a>12. 函数柯里化(编程题)</h3><h3 id="13-类防抖节流编程题"><a href="#13-类防抖节流编程题" class="headerlink" title="13. 类防抖节流编程题"></a>13. 类防抖节流编程题</h3><pre><code>实现一个repeat方法，要求如下：
+
+// 需要实现的函数 
+
+function repeat (func, times, wait) &#123;&#125;， 
+
+// 使下面调用代码能正常工作 
+
+const repeatFunc = repeat(console.log, 4, 3000);
+
+repeatFunc(&quot;hellworld&quot;);
+
+//会输出4次 helloworld, 每次间隔3秒
+</code></pre><h2 id="二面面经："><a href="#二面面经：" class="headerlink" title="二面面经："></a>二面面经：</h2><h3 id="1-项目相关"><a href="#1-项目相关" class="headerlink" title="1. 项目相关"></a>1. 项目相关</h3><h3 id="2-http状态码"><a href="#2-http状态码" class="headerlink" title="2. http状态码"></a>2. http状态码</h3><h3 id="3-tcp和udp的区别"><a href="#3-tcp和udp的区别" class="headerlink" title="3. tcp和udp的区别"></a>3. tcp和udp的区别</h3><h3 id="4-http里面的算法"><a href="#4-http里面的算法" class="headerlink" title="4. http里面的算法"></a>4. http里面的算法</h3><h3 id="5-iframe的缺点"><a href="#5-iframe的缺点" class="headerlink" title="5. iframe的缺点"></a>5. iframe的缺点</h3><p>​        1，会阻塞主页面的onload事件</p>
+<p>​        2，即使iframe的内容为空，加载也需要时间</p>
+<p>​        3，该元素没有语义，不利于seo</p>
+<p>​        4，iframe框架页面会增加服务器的http请求，对于大型网站是不可取的。</p>
+<h3 id="6-跨域及解决办法"><a href="#6-跨域及解决办法" class="headerlink" title="6. 跨域及解决办法"></a>6. 跨域及解决办法</h3><h3 id="7-webpack性能优化"><a href="#7-webpack性能优化" class="headerlink" title="7. webpack性能优化"></a>7. webpack性能优化</h3><h3 id="8-call，apply，bind的区别"><a href="#8-call，apply，bind的区别" class="headerlink" title="8. call，apply，bind的区别"></a>8. call，apply，bind的区别</h3><h3 id="9-promise异步写答案"><a href="#9-promise异步写答案" class="headerlink" title="9. promise异步写答案"></a>9. promise异步写答案</h3><ul>
+<li>```js<br>setTimeout(function() {<br>   console.log(1)<br>}, 0);<br>new Promise(function(resolve) {<br>   console.log(2);<br>   for(var i=0 ; i &lt; 10000 ; i++) {<pre><code> if (i == 9999) &#123;
+    resolve();
+ &#125;
+</code></pre>   }<br>   console.log(3);<br>}).then(function() {<br>   console.log(4);<br>});<br>console.log(5);<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">### 10. this指向写答案</span><br><span class="line"></span><br><span class="line">- &#96;&#96;&#96;js</span><br><span class="line">  var length &#x3D; 10;</span><br><span class="line">  function fn() &#123;</span><br><span class="line">    return this.length+1;</span><br><span class="line">  &#125;</span><br><span class="line">  var obj &#x3D; &#123;</span><br><span class="line">     length: 5,</span><br><span class="line">     test1: function() &#123;</span><br><span class="line">        return fn();</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  obj.test2&#x3D;fn;</span><br><span class="line">  &#x2F;&#x2F;下面代码输出是什么</span><br><span class="line">  console.log(obj.test1())</span><br><span class="line">  console.log(fn()&#x3D;&#x3D;&#x3D;obj.test2())</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="11-Node-js读取文件"><a href="#11-Node-js读取文件" class="headerlink" title="11. Node.js读取文件"></a>11. Node.js读取文件</h3><h3 id="12-算法编程题"><a href="#12-算法编程题" class="headerlink" title="12. 算法编程题"></a>12. 算法编程题</h3><p>​    500张骨牌整齐地排成一行，按顺序编号为1、2、3、……、499、500。第一次拿走所有奇数位置上的骨牌，第二次再从剩余骨牌      中拿走奇数位置上的骨牌，以此类推。请问最后剩下的一张骨牌的编号是？</p>
+<h3 id="13-算法编程题"><a href="#13-算法编程题" class="headerlink" title="13. 算法编程题"></a>13. 算法编程题</h3><p>​    三数之和：给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在三个元素 a，b，c  ，使得 a + b + c的值与target相等？</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">杨文旭</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2021/02/28/%E5%AD%97%E8%8A%82%E5%89%8D%E7%AB%AF%E9%9D%A2%E7%BB%8F/">http://example.com/2021/02/28/%E5%AD%97%E8%8A%82%E5%89%8D%E7%AB%AF%E9%9D%A2%E7%BB%8F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/front-end/">front-end</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/02/28/css-base-interview/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">css-base-interview</div></div></a></div><div class="next-post pull-right"><a href="/2021/02/28/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">前端性能优化</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2021/02/28/前端性能优化/" title="前端性能优化"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-28</div><div class="title">前端性能优化</div></div></a></div><div><a href="/2021/02/28/浏览器网络相关/" title="浏览器网络相关"><img class="cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-28</div><div class="title">浏览器网络相关</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/null" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">杨文旭</div><div class="author-info__description">在孤独寂寞中修炼，用更好的自己去见更好的人</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">40</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">21</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E9%9D%A2%E9%9D%A2%E7%BB%8F%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">一面面经：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6"><span class="toc-number">1.1.</span> <span class="toc-text">1. 浏览器垃圾回收机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-for-in%E5%92%8Cfor-of%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.2.</span> <span class="toc-text">2. for in和for of的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-vue%E6%A3%80%E6%B5%8B%E6%95%B0%E7%BB%84%E7%9A%84%E5%8F%98%E5%8C%96"><span class="toc-number">1.3.</span> <span class="toc-text">3. vue检测数组的变化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-nextTick%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-number">1.4.</span> <span class="toc-text">4. nextTick的原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-useEffect%E5%92%8CuserLayoutEffect%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.5.</span> <span class="toc-text">5. useEffect和userLayoutEffect的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-node%E7%9B%B8%E5%85%B3"><span class="toc-number">1.6.</span> <span class="toc-text">6. node相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%B8%E5%85%B3"><span class="toc-number">1.7.</span> <span class="toc-text">7. 数据库相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-http%E5%A4%B4%E9%83%A8"><span class="toc-number">1.8.</span> <span class="toc-text">8. http头部</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-http%E5%92%8Chttps%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.9.</span> <span class="toc-text">9. http和https的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-web%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8"><span class="toc-number">1.10.</span> <span class="toc-text">10. web网络安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E6%8A%9B%E7%A1%AC%E5%B8%81%E9%97%AE%E9%A2%98"><span class="toc-number">1.11.</span> <span class="toc-text">11. 抛硬币问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96-%E7%BC%96%E7%A8%8B%E9%A2%98"><span class="toc-number">1.12.</span> <span class="toc-text">12. 函数柯里化(编程题)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-%E7%B1%BB%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81%E7%BC%96%E7%A8%8B%E9%A2%98"><span class="toc-number">1.13.</span> <span class="toc-text">13. 类防抖节流编程题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E9%9D%A2%E9%9D%A2%E7%BB%8F%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">二面面经：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%A1%B9%E7%9B%AE%E7%9B%B8%E5%85%B3"><span class="toc-number">2.1.</span> <span class="toc-text">1. 项目相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-http%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-number">2.2.</span> <span class="toc-text">2. http状态码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-tcp%E5%92%8Cudp%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.3.</span> <span class="toc-text">3. tcp和udp的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-http%E9%87%8C%E9%9D%A2%E7%9A%84%E7%AE%97%E6%B3%95"><span class="toc-number">2.4.</span> <span class="toc-text">4. http里面的算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-iframe%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="toc-number">2.5.</span> <span class="toc-text">5. iframe的缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%B7%A8%E5%9F%9F%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="toc-number">2.6.</span> <span class="toc-text">6. 跨域及解决办法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-webpack%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-number">2.7.</span> <span class="toc-text">7. webpack性能优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-call%EF%BC%8Capply%EF%BC%8Cbind%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.8.</span> <span class="toc-text">8. call，apply，bind的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-promise%E5%BC%82%E6%AD%A5%E5%86%99%E7%AD%94%E6%A1%88"><span class="toc-number">2.9.</span> <span class="toc-text">9. promise异步写答案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-Node-js%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6"><span class="toc-number">2.10.</span> <span class="toc-text">11. Node.js读取文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-%E7%AE%97%E6%B3%95%E7%BC%96%E7%A8%8B%E9%A2%98"><span class="toc-number">2.11.</span> <span class="toc-text">12. 算法编程题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-%E7%AE%97%E6%B3%95%E7%BC%96%E7%A8%8B%E9%A2%98"><span class="toc-number">2.12.</span> <span class="toc-text">13. 算法编程题</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/02/28/js-base-interview1/" title="js基础面试题1"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="js基础面试题1"/></a><div class="content"><a class="title" href="/2021/02/28/js-base-interview1/" title="js基础面试题1">js基础面试题1</a><time datetime="2021-02-28T11:29:52.944Z" title="Created 2021-02-28 19:29:52">2021-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/28/css-base-interview/" title="css-base-interview"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="css-base-interview"/></a><div class="content"><a class="title" href="/2021/02/28/css-base-interview/" title="css-base-interview">css-base-interview</a><time datetime="2021-02-28T11:29:52.942Z" title="Created 2021-02-28 19:29:52">2021-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/28/%E5%AD%97%E8%8A%82%E5%89%8D%E7%AB%AF%E9%9D%A2%E7%BB%8F/" title="字节前端面经"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="字节前端面经"/></a><div class="content"><a class="title" href="/2021/02/28/%E5%AD%97%E8%8A%82%E5%89%8D%E7%AB%AF%E9%9D%A2%E7%BB%8F/" title="字节前端面经">字节前端面经</a><time datetime="2021-02-28T11:29:52.940Z" title="Created 2021-02-28 19:29:52">2021-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/28/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" title="前端性能优化"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="前端性能优化"/></a><div class="content"><a class="title" href="/2021/02/28/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" title="前端性能优化">前端性能优化</a><time datetime="2021-02-28T11:29:52.938Z" title="Created 2021-02-28 19:29:52">2021-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/28/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3/" title="浏览器网络相关"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="浏览器网络相关"/></a><div class="content"><a class="title" href="/2021/02/28/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3/" title="浏览器网络相关">浏览器网络相关</a><time datetime="2021-02-28T11:29:52.936Z" title="Created 2021-02-28 19:29:52">2021-02-28</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 杨文旭</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
