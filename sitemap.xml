@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://example.com/2021/05/31/%E6%97%AD%E6%97%A5%E4%B8%9C%E5%8D%87-md/</loc>
+    
+    <lastmod>2021-05-31</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://example.com/2021/02/28/life-is-a-fucking-movie/</loc>
     
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     
   </url>
   
@@ -284,7 +291,7 @@
 
   <url>
     <loc>http://example.com/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -292,147 +299,154 @@
   
   <url>
     <loc>http://example.com/tags/js/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/linux-c/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/css/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/javascript-DOM/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/life/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/javascript/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/zTree/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/node/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/linux-os/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/linux/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/node-js/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/vuejs/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/vue/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/Ajax/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/js-vue/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/computer-science/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/Python-data-visuslization/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/os/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/react/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/interview/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/front-end/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/plan/</loc>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -441,7 +455,7 @@
   
   <url>
     <loc>http://example.com/categories/interview/</loc>
-    <lastmod>2021-02-28</lastmod>
+    <lastmod>2021-05-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
