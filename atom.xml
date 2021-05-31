@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-05-31T16:02:05.311Z</updated>
+  <updated>2021-05-31T16:30:53.275Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,16 +17,23 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>旭日东升.md</title>
-    <link href="http://example.com/2021/05/31/%E6%97%AD%E6%97%A5%E4%B8%9C%E5%8D%87-md/"/>
-    <id>http://example.com/2021/05/31/%E6%97%AD%E6%97%A5%E4%B8%9C%E5%8D%87-md/</id>
+    <title>菜鸟级的21年前端技术学习规划.md</title>
+    <link href="http://example.com/2021/05/31/%E8%8F%9C%E9%B8%9F%E7%BA%A7%E7%9A%8421%E5%B9%B4%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E8%A7%84%E5%88%92-md/"/>
+    <id>http://example.com/2021/05/31/%E8%8F%9C%E9%B8%9F%E7%BA%A7%E7%9A%8421%E5%B9%B4%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E8%A7%84%E5%88%92-md/</id>
     <published>2021-05-31T14:56:56.000Z</published>
-    <updated>2021-05-31T16:02:05.311Z</updated>
+    <updated>2021-05-31T16:30:53.275Z</updated>
     
-    <content type="html"><![CDATA[<p>真正好的工作经验应当是持续学习与进步的，<br>不仅限于技术上的进步，如何写好易于维护的代码、<br>如何用技术能力保障业务的稳定性，<br>都是不可或缺的东西，想要获得这些能力，需要时间，需要日益渐进<br>但更需要你的主动探索与实践，而这些是无法速成的东西，</p><span id="more"></span><h2 id="给自己两年时间，你准备如何成长"><a href="#给自己两年时间，你准备如何成长" class="headerlink" title="给自己两年时间，你准备如何成长"></a>给自己两年时间，你准备如何成长</h2><ol><li>阅读源码</li><li>参加开源项目</li><li>对于业务的思考，业务困难驱动造轮子,很多技术上的想法，都来自业务本身遇到的问题</li><li>尽量保证一两周一次博客</li></ol><h2 id="两年后，你准备成长到什么地步-你能承担多大的责任"><a href="#两年后，你准备成长到什么地步-你能承担多大的责任" class="headerlink" title="两年后，你准备成长到什么地步,你能承担多大的责任"></a>两年后，你准备成长到什么地步,你能承担多大的责任</h2><ol><li>心理心态</li><li>技术上</li><li>业务上</li></ol><h2 id="技术学习规划"><a href="#技术学习规划" class="headerlink" title="技术学习规划"></a>技术学习规划</h2><h3 id="工程化配置"><a href="#工程化配置" class="headerlink" title="工程化配置"></a>工程化配置</h3><ol><li>cli搭建工具</li><li>打包构建</li><li>webpack vite</li><li>部署CI/CD，pipeline，workflow</li></ol><h3 id="代码规范"><a href="#代码规范" class="headerlink" title="代码规范"></a>代码规范</h3><ol><li>eslint</li><li>prettier</li><li>sonarjs </li><li>JavaScript standard 代码规范</li></ol><h3 id="vue，react源码对比深入解读"><a href="#vue，react源码对比深入解读" class="headerlink" title="vue，react源码对比深入解读"></a>vue，react源码对比深入解读</h3><ol><li>vue,react的虚拟dom有什么不同，新旧节点的对比</li><li>fiber架构子任务优先级的思想</li><li>状态管理： 对比vuex,redux(单向数据流),mobx(响应式数据流)，RXjs(stream)</li><li>函数式组件(react hooks)与class类组件</li><li>umi与dva</li></ol><h3 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h3><ol><li>Lighthouse，Performance报告</li><li>浏览器网络</li><li>FMP计算</li><li>Vue-react性能优化</li><li>开源项目tools </li></ol><h3 id="搭建一个自己的组件库"><a href="#搭建一个自己的组件库" class="headerlink" title="搭建一个自己的组件库"></a>搭建一个自己的组件库</h3><ol><li>拖拽<ul><li>穿梭框 + 拖拽</li><li>列表上下拖动</li></ul></li><li>滚动，基于better-scroll</li></ol><h3 id="微前端架构"><a href="#微前端架构" class="headerlink" title="微前端架构"></a>微前端架构</h3><ol><li>qiankun，基于single-spa</li></ol><p>多个 Bundle 如何集成？<br>子应用之间怎样隔离影响？<br>公共资源如何复用？<br>子应用间怎样通信？<br>如何测试？</p><h3 id="大前端，移动端开发"><a href="#大前端，移动端开发" class="headerlink" title="大前端，移动端开发"></a>大前端，移动端开发</h3><ol><li>原生native</li><li>hybrid混合开发</li><li>h5</li><li>react native</li><li>flutter</li><li>北海kraken渲染引擎 </li></ol><h3 id="参加开源项目"><a href="#参加开源项目" class="headerlink" title="参加开源项目"></a>参加开源项目</h3><p>目前还在找，并未落实</p><h3 id="算法与数据结构-LeetCode"><a href="#算法与数据结构-LeetCode" class="headerlink" title="算法与数据结构 LeetCode"></a>算法与数据结构 LeetCode</h3><ol><li>链表</li><li>动态规划dp<ul><li>爬楼梯</li><li>打家劫舍</li><li>买卖股票的最佳时机</li></ul></li><li>背包</li><li>多多益善</li></ol><h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h3><ol><li>策略分发</li><li>发布-订阅</li><li>单例</li><li>适配器模式</li></ol>]]></content>
+    <content type="html"><![CDATA[<p>搬砖人员的业绩贡献</p><ol><li>前端基建，工程化配置，文档整理，开发部署流程上的改进</li><li>需求评审与方案评审</li><li>代码的规范，健壮，易于维护，</li><li>不仅仅是个搬砖人员，利用技术能力保障业务的稳定性，持续推进，对齐业务指标</li></ol><p>而菜鸟想要晋级就需要时间，需要日益渐进，需要持续学习与大量的思考<br>更需要一番热情，去主动探索与实践。</p><span id="more"></span><h2 id="给自己两年时间，你准备如何成长"><a href="#给自己两年时间，你准备如何成长" class="headerlink" title="给自己两年时间，你准备如何成长"></a>给自己两年时间，你准备如何成长</h2><ol><li>阅读源码</li><li>参加开源项目</li><li>对于业务的思考，业务困难驱动造轮子,很多技术上的想法，都来自业务本身遇到的问题</li><li>尽量保证一两周一次博客</li></ol><h2 id="两年后，你准备成长到什么地步-你能承担多大的责任"><a href="#两年后，你准备成长到什么地步-你能承担多大的责任" class="headerlink" title="两年后，你准备成长到什么地步,你能承担多大的责任"></a>两年后，你准备成长到什么地步,你能承担多大的责任</h2><ol><li>心理心态</li><li>技术上</li><li>业务上</li></ol><h2 id="技术学习规划"><a href="#技术学习规划" class="headerlink" title="技术学习规划"></a>技术学习规划</h2><h3 id="工程化配置"><a href="#工程化配置" class="headerlink" title="工程化配置"></a>工程化配置</h3><ol><li>cli搭建工具</li><li>打包构建</li><li>webpack vite</li><li>部署CI/CD，pipeline，workflow</li></ol><h3 id="代码规范"><a href="#代码规范" class="headerlink" title="代码规范"></a>代码规范</h3><ol><li>eslint</li><li>prettier</li><li>sonarjs </li><li>JavaScript standard 代码规范</li></ol><h3 id="vue，react源码对比深入解读"><a href="#vue，react源码对比深入解读" class="headerlink" title="vue，react源码对比深入解读"></a>vue，react源码对比深入解读</h3><ol><li>vue,react的虚拟dom有什么不同，新旧节点的对比</li><li>fiber架构子任务优先级的思想</li><li>状态管理： 对比vuex,redux(单向数据流),mobx(响应式数据流)，RXjs(stream)</li><li>函数式组件(react hooks)与class类组件</li><li>umi与dva</li></ol><h3 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h3><ol><li>Lighthouse，Performance报告</li><li>浏览器网络</li><li>FMP计算</li><li>Vue-react性能优化</li><li>开源项目tools </li></ol><h3 id="搭建一个自己的组件库"><a href="#搭建一个自己的组件库" class="headerlink" title="搭建一个自己的组件库"></a>搭建一个自己的组件库</h3><ol><li>拖拽<ul><li>穿梭框 + 拖拽</li><li>列表上下拖动</li></ul></li><li>滚动，基于better-scroll</li></ol><h3 id="微前端架构"><a href="#微前端架构" class="headerlink" title="微前端架构"></a>微前端架构</h3><ol><li><p>qiankun，基于single-spa</p><p> 多个 Bundle 如何集成？<br> 子应用之间怎样隔离影响？<br> 公共资源如何复用？<br> 子应用间怎样通信？<br> 如何测试？</p></li></ol><h3 id="大前端，移动端开发"><a href="#大前端，移动端开发" class="headerlink" title="大前端，移动端开发"></a>大前端，移动端开发</h3><ol><li>原生native</li><li>hybrid混合开发</li><li>h5</li><li>react native</li><li>flutter</li><li>北海kraken渲染引擎 </li></ol><h3 id="参加开源项目"><a href="#参加开源项目" class="headerlink" title="参加开源项目"></a>参加开源项目</h3><p>目前还在找，并未落实</p><h3 id="算法与数据结构-LeetCode"><a href="#算法与数据结构-LeetCode" class="headerlink" title="算法与数据结构 LeetCode"></a>算法与数据结构 LeetCode</h3><ol><li>链表</li><li>动态规划dp<ul><li>爬楼梯</li><li>打家劫舍</li><li>买卖股票的最佳时机</li></ul></li><li>背包</li><li>多多益善</li></ol><h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h3><ol><li>策略分发</li><li>发布-订阅</li><li>单例</li><li>适配器模式</li></ol>]]></content>
     
     
-    <summary type="html">&lt;p&gt;真正好的工作经验应当是持续学习与进步的，&lt;br&gt;不仅限于技术上的进步，如何写好易于维护的代码、&lt;br&gt;如何用技术能力保障业务的稳定性，&lt;br&gt;都是不可或缺的东西，想要获得这些能力，需要时间，需要日益渐进&lt;br&gt;但更需要你的主动探索与实践，而这些是无法速成的东西，&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;搬砖人员的业绩贡献&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;前端基建，工程化配置，文档整理，开发部署流程上的改进&lt;/li&gt;
+&lt;li&gt;需求评审与方案评审&lt;/li&gt;
+&lt;li&gt;代码的规范，健壮，易于维护，&lt;/li&gt;
+&lt;li&gt;不仅仅是个搬砖人员，利用技术能力保障业务的稳定性，持续推进，对齐业务指标&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;而菜鸟想要晋级就需要时间，需要日益渐进，需要持续学习与大量的思考&lt;br&gt;更需要一番热情，去主动探索与实践。&lt;/p&gt;</summary>
     
     
     
